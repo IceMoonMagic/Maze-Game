@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://chqg0jvps3ygm"]
+
+[ext_resource type="Script" path="res://maze/maze2d/main.gd" id="1_qu77e"]
+[ext_resource type="PackedScene" uid="uid://dae7y47miytd8" path="res://maze/maze2d/menu.tscn" id="2_saigj"]
+[ext_resource type="PackedScene" uid="uid://bne3e0t0rrrbn" path="res://maze/maze2d/maze2d.tscn" id="3_86jqj"]
+
+[node name="Main" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qu77e")
+
+[node name="Menu" parent="." instance=ExtResource("2_saigj")]
+unique_name_in_owner = true
+layout_mode = 1
+
+[node name="Maze2D" parent="." instance=ExtResource("3_86jqj")]
+unique_name_in_owner = true
+visible = false
+
+[connection signal="new_maze" from="Menu" to="." method="_on_new_maze"]
+[connection signal="options_updated" from="Menu" to="." method="_on_options_updated"]
+[connection signal="quit" from="Menu" to="." method="_on_quit"]
+[connection signal="restart_maze" from="Menu" to="." method="_on_restart_maze"]
+[connection signal="resume_maze" from="Menu" to="." method="_on_resume_maze"]

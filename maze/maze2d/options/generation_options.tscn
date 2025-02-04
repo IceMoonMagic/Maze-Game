@@ -1,0 +1,124 @@
+[gd_scene load_steps=2 format=3 uid="uid://7exio4kaokks"]
+
+[ext_resource type="Script" path="res://maze/maze2d/options/generation_options.gd" id="1_jt8cq"]
+
+[node name="GenerationOptions" type="VBoxContainer"]
+size_flags_horizontal = 3
+script = ExtResource("1_jt8cq")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ConfigLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Growing Tree Algorithm Configuration"
+
+[node name="WeightsContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="BreadthContainer" type="VBoxContainer" parent="VBoxContainer/WeightsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="BreadthLabel" type="Label" parent="VBoxContainer/WeightsContainer/BreadthContainer"]
+layout_mode = 2
+text = "Breadth"
+
+[node name="BreadthSpinBox" type="SpinBox" parent="VBoxContainer/WeightsContainer/BreadthContainer"]
+layout_mode = 2
+allow_greater = true
+
+[node name="DepthContainer" type="VBoxContainer" parent="VBoxContainer/WeightsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="DepthLabel" type="Label" parent="VBoxContainer/WeightsContainer/DepthContainer"]
+layout_mode = 2
+text = "Depth"
+
+[node name="DepthSpinBox" type="SpinBox" parent="VBoxContainer/WeightsContainer/DepthContainer"]
+layout_mode = 2
+value = 1.0
+allow_greater = true
+
+[node name="RandomContainer" type="VBoxContainer" parent="VBoxContainer/WeightsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RandomLabel" type="Label" parent="VBoxContainer/WeightsContainer/RandomContainer"]
+layout_mode = 2
+text = "Random"
+
+[node name="RandomSpinBox" type="SpinBox" parent="VBoxContainer/WeightsContainer/RandomContainer"]
+layout_mode = 2
+value = 1.0
+allow_greater = true
+
+[node name="WeightsResetButton" type="Button" parent="VBoxContainer/WeightsContainer"]
+layout_mode = 2
+disabled = true
+text = "↻"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="PresetSizeItemList" type="ItemList" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+auto_height = true
+item_count = 4
+item_0/text = "Small"
+item_1/text = "Medium"
+item_2/text = "Large"
+item_3/text = "Custom"
+
+[node name="DimensionContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="LabelContainer" type="HBoxContainer" parent="HBoxContainer/DimensionContainer"]
+layout_mode = 2
+
+[node name="HeightLabel" type="Label" parent="HBoxContainer/DimensionContainer/LabelContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Height"
+
+[node name="WidthLabel" type="Label" parent="HBoxContainer/DimensionContainer/LabelContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Width
+"
+
+[node name="WidthContainer2" type="HBoxContainer" parent="HBoxContainer/DimensionContainer"]
+layout_mode = 2
+
+[node name="HeightSpinBox" type="SpinBox" parent="HBoxContainer/DimensionContainer/WidthContainer2"]
+layout_mode = 2
+value = 8.0
+editable = false
+
+[node name="WidthSpinBox" type="SpinBox" parent="HBoxContainer/DimensionContainer/WidthContainer2"]
+layout_mode = 2
+editable = false
+
+[node name="AutoModeSlider" type="HSlider" parent="HBoxContainer/DimensionContainer"]
+layout_mode = 2
+max_value = 2.0
+editable = false
+tick_count = 3
+ticks_on_borders = true
+
+[node name="AutoModeLabel" type="Label" parent="HBoxContainer/DimensionContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Fit"
+
+[connection signal="value_changed" from="VBoxContainer/WeightsContainer/BreadthContainer/BreadthSpinBox" to="." method="_on_breadth_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/WeightsContainer/DepthContainer/DepthSpinBox" to="." method="_on_depth_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/WeightsContainer/RandomContainer/RandomSpinBox" to="." method="_on_random_spin_box_value_changed"]
+[connection signal="pressed" from="VBoxContainer/WeightsContainer/WeightsResetButton" to="." method="_on_weights_reset_button_pressed"]
+[connection signal="item_selected" from="HBoxContainer/PresetSizeItemList" to="." method="_on_preset_size_item_list_item_selected"]
+[connection signal="value_changed" from="HBoxContainer/DimensionContainer/WidthContainer2/HeightSpinBox" to="." method="_on_height_spin_box_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/DimensionContainer/WidthContainer2/WidthSpinBox" to="." method="_on_width_spin_box_value_changed"]
+[connection signal="value_changed" from="HBoxContainer/DimensionContainer/AutoModeSlider" to="." method="_on_auto_mode_slider_value_changed"]

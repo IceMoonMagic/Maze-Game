@@ -1,0 +1,226 @@
+[gd_scene load_steps=4 format=3 uid="uid://bie6edph7focf"]
+
+[ext_resource type="Script" path="res://maze/maze2d/options/options_menu.gd" id="1_v8vcu"]
+[ext_resource type="PackedScene" uid="uid://b2sag05lj0fwq" path="res://maze/maze2d/options/line_options.tscn" id="2_28sa0"]
+[ext_resource type="PackedScene" uid="uid://7exio4kaokks" path="res://maze/maze2d/options/generation_options.tscn" id="2_bjf27"]
+
+[node name="OptionsMenu" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_v8vcu")
+
+[node name="OptionsTabs" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Appearance" type="TabBar" parent="OptionsTabs"]
+layout_mode = 2
+focus_neighbor_bottom = NodePath("ScrollContainer/VBoxContainer/CursorOptions/Enabled/ToggleButton")
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsTabs/Appearance"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsTabs/Appearance/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 16
+
+[node name="CursorOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/CursorOptions" index="0"]
+text = "Cursor"
+
+[node name="Slider" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/CursorOptions/Thickness" index="1"]
+value = 1.0
+
+[node name="MainTrailOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/MainTrailOptions" index="0"]
+text = "Main Trail"
+
+[node name="ColorPicker" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/MainTrailOptions/Color" index="1"]
+color = Color(0.368627, 0.505882, 0.67451, 1)
+
+[node name="Slider" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/MainTrailOptions/Thickness" index="1"]
+value = 1.0
+
+[node name="ExploredTrailOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/ExploredTrailOptions" index="0"]
+text = "Explored Trail
+"
+
+[node name="ColorPicker" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/ExploredTrailOptions/Color" index="1"]
+color = Color(0.368627, 0.505882, 0.67451, 0.501961)
+edit_alpha = true
+
+[node name="Slider" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/ExploredTrailOptions/Thickness" index="1"]
+value = 1.0
+
+[node name="WallOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/WallOptions" index="0"]
+text = "Walls"
+
+[node name="ColorPicker" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/WallOptions/Color" index="1"]
+color = Color(0.297993, 0.337072, 0.415717, 1)
+
+[node name="GoalOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/GoalOptions" index="0"]
+text = "Goals"
+
+[node name="Enabled" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/GoalOptions" index="1"]
+visible = false
+
+[node name="ColorPicker" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/GoalOptions/Color" index="1"]
+color = Color(0.63946, 0.744991, 0.549096, 1)
+
+[node name="Slider" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/GoalOptions/Thickness" index="1"]
+value = 0.5
+
+[node name="BackgroundOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/BackgroundOptions" index="0"]
+text = "Background"
+
+[node name="Enabled" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/BackgroundOptions" index="1"]
+visible = false
+
+[node name="ColorPicker" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/BackgroundOptions/Color" index="1"]
+color = Color(0.180255, 0.203708, 0.251087, 1)
+
+[node name="Thickness" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/BackgroundOptions" index="3"]
+visible = false
+
+[node name="Generation" type="TabBar" parent="OptionsTabs"]
+visible = false
+layout_mode = 2
+focus_neighbor_bottom = NodePath("ScrollContainer/GenerationOptions")
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsTabs/Generation"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GenerationOptions" parent="OptionsTabs/Generation/ScrollContainer" instance=ExtResource("2_bjf27")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Camera" type="TabBar" parent="OptionsTabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="OptionsTabs/Camera"]
+clip_contents = false
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -23.0
+offset_right = 32.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[tornado]To Do[/tornado]"
+fit_content = true
+scroll_active = false
+
+[node name="Controls" type="TabBar" parent="OptionsTabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="OptionsTabs/Controls"]
+clip_contents = false
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -23.0
+offset_right = 32.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[tornado]To Do[/tornado]"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="LeaveButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Back
+"
+
+[node name="RevertButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Revert
+"
+
+[node name="ApplyButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+disabled = true
+text = "Apply"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="pressed" from="HBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/RevertButton" to="." method="_on_revert_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+
+[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/CursorOptions"]
+[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/MainTrailOptions"]
+[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/ExploredTrailOptions"]
+[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/WallOptions"]
+[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/GoalOptions"]
+[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/BackgroundOptions"]

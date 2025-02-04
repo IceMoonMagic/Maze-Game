@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://dae7y47miytd8"]
+
+[ext_resource type="PackedScene" uid="uid://bie6edph7focf" path="res://maze/maze2d/options/options_menu.tscn" id="1_hxv8e"]
+[ext_resource type="Script" path="res://maze/maze2d/menu.gd" id="1_yib8i"]
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yib8i")
+
+[node name="MainMenu" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ResumeButton" type="Button" parent="MainMenu"]
+visible = false
+layout_mode = 2
+text = "Resume"
+
+[node name="RestartButton" type="Button" parent="MainMenu"]
+visible = false
+layout_mode = 2
+text = "Restart"
+
+[node name="NewMazeButton" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "New Maze"
+
+[node name="OptionsButton" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Options"
+
+[node name="ExitButton" type="Button" parent="MainMenu"]
+layout_mode = 2
+text = "Exit"
+
+[node name="OptionsMenu" parent="." instance=ExtResource("1_hxv8e")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="MainMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="MainMenu/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MainMenu/NewMazeButton" to="." method="_on_new_maze_button_pressed"]
+[connection signal="pressed" from="MainMenu/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MainMenu/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="leave_options_menu" from="OptionsMenu" to="." method="_on_leave_options_menu"]

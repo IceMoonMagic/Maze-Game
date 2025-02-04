@@ -1,0 +1,82 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2sag05lj0fwq"]
+
+[ext_resource type="Script" path="res://maze/maze2d/options/line_options.gd" id="1_6h6di"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_3v553"]
+color = Color(0.231067, 0.258915, 0.321431, 1)
+
+[node name="LineApperanceOptions" type="VBoxContainer"]
+script = ExtResource("1_6h6di")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+theme_override_styles/normal = SubResource("StyleBoxLine_3v553")
+text = "Header"
+
+[node name="Enabled" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Enabled"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Visible"
+
+[node name="ToggleButton" type="CheckButton" parent="Enabled"]
+layout_mode = 2
+size_flags_horizontal = 3
+button_pressed = true
+
+[node name="ResetButton" type="Button" parent="Enabled"]
+layout_mode = 2
+disabled = true
+text = "↻"
+
+[node name="Color" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Color"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Color"
+
+[node name="ColorPicker" type="ColorPickerButton" parent="Color"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0.533333, 0.752941, 0.815686, 1)
+edit_alpha = false
+
+[node name="ResetButton" type="Button" parent="Color"]
+layout_mode = 2
+disabled = true
+text = "↻"
+
+[node name="Thickness" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Thickness"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Thickness
+"
+
+[node name="Slider" type="HSlider" parent="Thickness"]
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 7.0
+step = 0.5
+value = 3.5
+tick_count = 15
+ticks_on_borders = true
+
+[node name="ResetButton" type="Button" parent="Thickness"]
+layout_mode = 2
+disabled = true
+text = "↻"
+
+[connection signal="pressed" from="Enabled/ToggleButton" to="." method="_on_enabled_button_pressed"]
+[connection signal="pressed" from="Enabled/ResetButton" to="." method="_on_enabled_reset_button_pressed"]
+[connection signal="popup_closed" from="Color/ColorPicker" to="." method="_on_color_picker_popup_closed"]
+[connection signal="pressed" from="Color/ResetButton" to="." method="_on_color_reset_button_pressed"]
+[connection signal="drag_ended" from="Thickness/Slider" to="." method="_on_thickness_slider_drag_ended"]
+[connection signal="pressed" from="Thickness/ResetButton" to="." method="_on_thickness_reset_button_pressed"]
