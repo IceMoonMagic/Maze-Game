@@ -42,70 +42,40 @@ theme_override_constants/separation = 16
 [node name="CursorOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/CursorOptions" index="0"]
-text = "Cursor"
-
-[node name="Slider" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/CursorOptions/Thickness" index="1"]
-value = 1.0
+header = "Cursor"
+default_color = Color(0.533455, 0.753292, 0.815824, 1)
 
 [node name="MainTrailOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/MainTrailOptions" index="0"]
-text = "Main Trail"
-
-[node name="ColorPicker" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/MainTrailOptions/Color" index="1"]
-color = Color(0.368627, 0.505882, 0.67451, 1)
-
-[node name="Slider" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/MainTrailOptions/Thickness" index="1"]
-value = 1.0
+header = "Main Trail"
+default_color = Color(0.368338, 0.506096, 0.674632, 1)
 
 [node name="ExploredTrailOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/ExploredTrailOptions" index="0"]
-text = "Explored Trail
-"
-
-[node name="ColorPicker" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/ExploredTrailOptions/Color" index="1"]
-color = Color(0.368627, 0.505882, 0.67451, 0.501961)
-edit_alpha = true
-
-[node name="Slider" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/ExploredTrailOptions/Thickness" index="1"]
-value = 1.0
+header = "Explored Trail"
+default_color = Color(0.368627, 0.505882, 0.67451, 0.501961)
 
 [node name="WallOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/WallOptions" index="0"]
-text = "Walls"
-
-[node name="ColorPicker" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/WallOptions/Color" index="1"]
-color = Color(0.297993, 0.337072, 0.415717, 1)
+header = "Walls"
+default_color = Color(0.297993, 0.337072, 0.415717, 1)
+default_thickness = 3.5
 
 [node name="GoalOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/GoalOptions" index="0"]
-text = "Goals"
-
-[node name="Enabled" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/GoalOptions" index="1"]
-visible = false
-
-[node name="ColorPicker" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/GoalOptions/Color" index="1"]
-color = Color(0.63946, 0.744991, 0.549096, 1)
-
-[node name="Slider" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/GoalOptions/Thickness" index="1"]
-value = 0.5
+header = "Goals"
+default_color = Color(0.63946, 0.744991, 0.549096, 1)
+default_thickness = 0.5
 
 [node name="BackgroundOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
+header = "Background"
+default_color = Color(0.180255, 0.203708, 0.251087, 1)
 
 [node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/BackgroundOptions" index="0"]
 text = "Background"
@@ -218,9 +188,4 @@ autostart = true
 [connection signal="pressed" from="HBoxContainer/ApplyButton" to="." method="_on_apply_button_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 
-[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/CursorOptions"]
-[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/MainTrailOptions"]
-[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/ExploredTrailOptions"]
-[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/WallOptions"]
-[editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/GoalOptions"]
 [editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/BackgroundOptions"]

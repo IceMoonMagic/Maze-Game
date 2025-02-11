@@ -19,7 +19,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 MazeData="*res://maze/globals.gd"
-GGS="*res://addons/ggs/plugin/singleton/ggs.tscn"
 
 [debug]
 
@@ -29,10 +28,6 @@ gdscript/warnings/untyped_declaration=2
 
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/ggs/plugin.cfg")
 
 [input]
 
