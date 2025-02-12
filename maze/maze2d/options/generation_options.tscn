@@ -67,14 +67,14 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 auto_height = true
-item_count = 4
+item_count = 3
 item_0/text = "Small"
 item_1/text = "Medium"
 item_2/text = "Large"
-item_3/text = "Custom"
 
 [node name="DimensionContainer" type="VBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="LabelContainer" type="HBoxContainer" parent="HBoxContainer/DimensionContainer"]
 layout_mode = 2
@@ -95,17 +95,17 @@ layout_mode = 2
 
 [node name="HeightSpinBox" type="SpinBox" parent="HBoxContainer/DimensionContainer/WidthContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
 value = 8.0
-editable = false
 
 [node name="WidthSpinBox" type="SpinBox" parent="HBoxContainer/DimensionContainer/WidthContainer2"]
 layout_mode = 2
-editable = false
+size_flags_horizontal = 3
 
 [node name="AutoModeSlider" type="HSlider" parent="HBoxContainer/DimensionContainer"]
 layout_mode = 2
 max_value = 2.0
-editable = false
+scrollable = false
 tick_count = 3
 ticks_on_borders = true
 
@@ -118,7 +118,8 @@ text = "Fit"
 [connection signal="value_changed" from="VBoxContainer/WeightsContainer/DepthContainer/DepthSpinBox" to="." method="_on_depth_spin_box_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/WeightsContainer/RandomContainer/RandomSpinBox" to="." method="_on_random_spin_box_value_changed"]
 [connection signal="pressed" from="VBoxContainer/WeightsContainer/WeightsResetButton" to="." method="_on_weights_reset_button_pressed"]
-[connection signal="item_selected" from="HBoxContainer/PresetSizeItemList" to="." method="_on_preset_size_item_list_item_selected"]
+[connection signal="item_activated" from="HBoxContainer/PresetSizeItemList" to="." method="_on_preset_size_selected"]
+[connection signal="item_clicked" from="HBoxContainer/PresetSizeItemList" to="." method="_on_preset_size_selected"]
 [connection signal="value_changed" from="HBoxContainer/DimensionContainer/WidthContainer2/HeightSpinBox" to="." method="_on_height_spin_box_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/DimensionContainer/WidthContainer2/WidthSpinBox" to="." method="_on_width_spin_box_value_changed"]
 [connection signal="value_changed" from="HBoxContainer/DimensionContainer/AutoModeSlider" to="." method="_on_auto_mode_slider_value_changed"]

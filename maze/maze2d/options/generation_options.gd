@@ -1,6 +1,8 @@
 class_name GenerationOptionControl
 extends Control
 
+const PRESETS = [8, 16, 32]
+
 @onready
 var breadth_spin_box: SpinBox = $VBoxContainer/WeightsContainer/BreadthContainer/BreadthSpinBox
 @onready
@@ -54,10 +56,18 @@ func set_to(option_set: MazeData.GenerationOptionData) -> void:
 	_on_depth_spin_box_value_changed(option_set.depth_weight)
 	random_spin_box.value = option_set.random_weight
 	_on_random_spin_box_value_changed(option_set.random_weight)
-	width_spin_box.value = option_set.dimensions.x
-	_on_width_spin_box_value_changed(option_set.dimensions.x)
 	height_spin_box.value = option_set.dimensions.y
 	_on_height_spin_box_value_changed(option_set.dimensions.y)
+	width_spin_box.value = option_set.dimensions.x
+	_on_width_spin_box_value_changed(option_set.dimensions.x)
+	match width_spin_box.value:
+		0.0:
+			auto_mode_slider.value = 0
+		height_spin_box.value:
+			auto_mode_slider.value = 1
+		_:
+			auto_mode_slider.value = 2
+	_on_auto_mode_slider_value_changed(auto_mode_slider.value)
 
 
 func update_weights_reset_button() -> void:
@@ -162,24 +172,8 @@ func _on_auto_mode_slider_value_changed(value: float) -> void:
 			width_spin_box.editable = true
 
 
-func _on_preset_size_item_list_item_selected(index: int) -> void:
-	match index:
-		0:  # Small
-			height_spin_box.value = 8
-		1:  # Medium
-			height_spin_box.value = 16
-		2:  # Large
-			height_spin_box.value = 32
-		3:  # Custom
-			height_spin_box.editable = true
-			auto_mode_slider.editable = true
-			_on_auto_mode_slider_value_changed(auto_mode)
-			pass
-	if index != 3:
-		height_spin_box.editable = false
-		width_spin_box.editable = false
-		auto_mode_slider.editable = false
-		auto_mode_slider.value = 0
-		_on_auto_mode_slider_value_changed(0)
-	else:
-		pass
+func _on_preset_size_selected(index: int, _pos: Vector2=Vector2.ZERO, _mbi: int = 0) -> void:
+	height_spin_box.value = PRESETS[index]
+	auto_mode_slider.value = 0
+	_on_auto_mode_slider_value_changed(0)
+	preset_size_item_list.deselect_all()
