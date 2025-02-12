@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://maze/maze2d/menu.gd" id="1_yib8i"]
 
 [node name="Menu" type="Control"]
+process_mode = 2
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,43 +13,60 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yib8i")
 
-[node name="MainMenu" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -50.5
+offset_right = 44.0
+offset_bottom = 50.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ResumeButton" type="Button" parent="MainMenu"]
+[node name="MainMenu" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="MarginContainer/MainMenu"]
 visible = false
 layout_mode = 2
 text = "Resume"
 
-[node name="RestartButton" type="Button" parent="MainMenu"]
+[node name="RestartButton" type="Button" parent="MarginContainer/MainMenu"]
 visible = false
 layout_mode = 2
 text = "Restart"
 
-[node name="NewMazeButton" type="Button" parent="MainMenu"]
+[node name="NewMazeButton" type="Button" parent="MarginContainer/MainMenu"]
 layout_mode = 2
 text = "New Maze"
 
-[node name="OptionsButton" type="Button" parent="MainMenu"]
+[node name="OptionsButton" type="Button" parent="MarginContainer/MainMenu"]
 layout_mode = 2
 text = "Options"
 
-[node name="ExitButton" type="Button" parent="MainMenu"]
+[node name="ExitButton" type="Button" parent="MarginContainer/MainMenu"]
 layout_mode = 2
 text = "Exit"
 
 [node name="OptionsMenu" parent="." instance=ExtResource("1_hxv8e")]
 visible = false
 layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.01
+anchor_top = 0.01
+anchor_right = 0.99
+anchor_bottom = 0.99
+offset_right = -0.47998
+offset_bottom = 0.47998
 
-[connection signal="pressed" from="MainMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="MainMenu/RestartButton" to="." method="_on_restart_button_pressed"]
-[connection signal="pressed" from="MainMenu/NewMazeButton" to="." method="_on_new_maze_button_pressed"]
-[connection signal="pressed" from="MainMenu/OptionsButton" to="." method="_on_options_button_pressed"]
-[connection signal="pressed" from="MainMenu/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainMenu/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainMenu/NewMazeButton" to="." method="_on_new_maze_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainMenu/OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainMenu/ExitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="apply_options" from="OptionsMenu" to="." method="_on_options_applied"]
 [connection signal="leave_options_menu" from="OptionsMenu" to="." method="_on_leave_options_menu"]

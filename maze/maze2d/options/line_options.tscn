@@ -6,6 +6,8 @@
 color = Color(0.231067, 0.258915, 0.321431, 1)
 
 [node name="LineApperanceOptions" type="VBoxContainer"]
+offset_right = 125.0
+offset_bottom = 134.0
 script = ExtResource("1_6h6di")
 
 [node name="Label" type="Label" parent="."]

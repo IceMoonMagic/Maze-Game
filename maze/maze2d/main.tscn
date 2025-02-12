@@ -14,16 +14,18 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qu77e")
 
-[node name="Menu" parent="." instance=ExtResource("2_saigj")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Menu" parent="CanvasLayer" instance=ExtResource("2_saigj")]
 unique_name_in_owner = true
-layout_mode = 1
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [node name="Maze2D" parent="." instance=ExtResource("3_86jqj")]
 unique_name_in_owner = true
-visible = false
 
-[connection signal="new_maze" from="Menu" to="." method="_on_new_maze"]
-[connection signal="options_updated" from="Menu" to="." method="_on_options_updated"]
-[connection signal="quit" from="Menu" to="." method="_on_quit"]
-[connection signal="restart_maze" from="Menu" to="." method="_on_restart_maze"]
-[connection signal="resume_maze" from="Menu" to="." method="_on_resume_maze"]
+[connection signal="new_maze" from="CanvasLayer/Menu" to="." method="_on_new_maze"]
+[connection signal="options_updated" from="CanvasLayer/Menu" to="." method="_on_options_updated"]
+[connection signal="quit" from="CanvasLayer/Menu" to="." method="_on_quit"]
+[connection signal="restart_maze" from="CanvasLayer/Menu" to="." method="_on_restart_maze"]
+[connection signal="resume_maze" from="CanvasLayer/Menu" to="." method="_on_resume_maze"]

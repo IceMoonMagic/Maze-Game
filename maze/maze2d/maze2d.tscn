@@ -6,10 +6,10 @@
 [ext_resource type="Script" path="res://maze/maze2d/move.gd" id="4_1alv8"]
 
 [node name="Maze2D" type="Node2D"]
+process_mode = 1
 script = ExtResource("1_k416j")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-enabled = false
 zoom = Vector2(0.15, 0.15)
 limit_left = 0
 limit_top = 0

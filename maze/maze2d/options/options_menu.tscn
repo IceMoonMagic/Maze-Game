@@ -10,8 +10,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 script = ExtResource("1_v8vcu")
 
 [node name="OptionsTabs" type="TabContainer" parent="."]
@@ -179,13 +177,13 @@ size_flags_vertical = 8
 disabled = true
 text = "Apply"
 
-[node name="Timer" type="Timer" parent="."]
+[node name="CheckIfModified" type="Timer" parent="."]
 wait_time = 0.1
 autostart = true
 
 [connection signal="pressed" from="HBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/RevertButton" to="." method="_on_revert_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/ApplyButton" to="." method="_on_apply_button_pressed"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="CheckIfModified" to="." method="_on_timer_timeout"]
 
 [editable path="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/BackgroundOptions"]

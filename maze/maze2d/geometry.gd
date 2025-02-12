@@ -11,7 +11,7 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	if not MazeData.wall_options.enabled:
+	if not MazeData.wall_options.enabled or len(raw_points) == 0:
 		return
 	var points: Array[Vector2] = []
 	for i in range(0, len(raw_points), 2):

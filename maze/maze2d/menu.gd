@@ -10,12 +10,12 @@ signal quit
 
 func _ready() -> void:
 	pass
-	$MainMenu/NewMazeButton.grab_focus()
+	$MarginContainer/MainMenu/NewMazeButton.grab_focus()
 
 
 func on_has_maze(maze_exists: bool = true) -> void:
-	$MainMenu/ResumeButton.visible = maze_exists
-	$MainMenu/RestartButton.visible = maze_exists
+	$MarginContainer/MainMenu/ResumeButton.visible = maze_exists
+	$MarginContainer/MainMenu/RestartButton.visible = maze_exists
 
 
 func _on_resume_button_pressed() -> void:
@@ -31,16 +31,20 @@ func _on_new_maze_button_pressed() -> void:
 
 
 func _on_options_button_pressed() -> void:
-	$MainMenu.visible = false
+	$MarginContainer.visible = false
 	$OptionsMenu.visible = true
+	#$OptionsMenu/OptionsMenu/OptionsTabs/Appearance.grab_focus()
 	$OptionsMenu/OptionsTabs/Appearance.grab_focus()
+
+
+func _on_options_applied() -> void:
+	options_updated.emit()
 
 
 func _on_leave_options_menu() -> void:
 	$OptionsMenu.visible = false
-	$MainMenu.visible = true
-	options_updated.emit()
-	$MainMenu/OptionsButton.grab_focus()
+	$MarginContainer.visible = true
+	$MarginContainer/MainMenu/OptionsButton.grab_focus()
 
 
 func _on_exit_button_pressed() -> void:

@@ -6,7 +6,7 @@ var has_maze: bool = false
 
 
 func _ready() -> void:
-	pass
+	get_tree().paused = true
 
 
 func _input(event: InputEvent) -> void:
@@ -23,23 +23,19 @@ func _input(event: InputEvent) -> void:
 
 
 func show_maze() -> void:
-	#get_tree().paused = false
+	get_tree().paused = false
 	menu.visible = false
-	maze.visible = true
-	$Maze2D/Camera2D.enabled = true
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
 
 
 func show_menu() -> void:
-	#get_tree().paused = true
+	get_tree().paused = true
 	menu.visible = true
-	maze.visible = false
-	$Maze2D/Camera2D.enabled = false
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	if has_maze:
-		%Menu/MainMenu/ResumeButton.grab_focus()
+		%Menu/MarginContainer/MainMenu/ResumeButton.grab_focus()
 	else:
-		%Menu/MainMenu/NewMazeButton.grab_focus()
+		%Menu/MarginContainer/MainMenu/NewMazeButton.grab_focus()
 
 
 func _on_new_maze() -> void:
@@ -55,12 +51,9 @@ func _on_restart_maze() -> void:
 
 
 func _on_options_updated() -> void:
-	#if has_maze:
-	#maze.apply()
-	%Maze2D.update_line_options()
-	#$WorldEnvironment.environment.background_mode = Environment.BG_COLOR
+	if has_maze:
+		%Maze2D.update_line_options()
 	RenderingServer.set_default_clear_color(MazeData.background_options.color)
-	#$WorldEnvironment.environment.background_color = MazeData.background_options.color
 
 
 func _on_quit() -> void:
