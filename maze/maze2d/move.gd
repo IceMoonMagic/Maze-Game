@@ -87,6 +87,10 @@ func move(delta: float) -> void:
 		# if point not on line (ignoring -1) (avoids adding point when back tracking)
 		if position != end_goal:
 			explored_line.add_point(position)
+		else:
+			# Add to both as explored can be configured to be bigger than final
+			explored_line.end_cap_mode = Line2D.LINE_CAP_BOX
+			final_line.end_cap_mode = Line2D.LINE_CAP_BOX
 		if (
 			not (
 				len(final_line.points) >= 2
@@ -161,7 +165,7 @@ func update_line_options() -> void:
 	final_line.default_color = MazeData.main_trail_options.color
 	final_line.width = MazeData.main_trail_options.thickness
 	explored_line.visible = MazeData.explored_trail_options.enabled
-	#var bg_color: Color = MazeData.background_options.color
+	# Blend the transparency to avoid issues with stacked transparent layers
 	explored_line.default_color = MazeData.background_options.color.blend(
 		MazeData.explored_trail_options.color
 	)
@@ -175,7 +179,9 @@ func reset_to(start: Vector2i, end: Vector2i) -> void:
 	explored_line.clear_points()
 	explored_line.add_point(position)
 	explored_line.add_point(position)
+	explored_line.end_cap_mode = Line2D.LINE_CAP_NONE
 	final_line.clear_points()
 	final_line.add_point(position)
 	final_line.add_point(position)
+	final_line.end_cap_mode = Line2D.LINE_CAP_NONE
 	accept_input = true

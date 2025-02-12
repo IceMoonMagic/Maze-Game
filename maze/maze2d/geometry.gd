@@ -16,11 +16,8 @@ func _draw() -> void:
 	var points: Array[Vector2] = []
 	for i in range(0, len(raw_points), 2):
 		points.append_array(adjust_points(raw_points[i], raw_points[i + 1]))
-	var thickness: float = MazeData.wall_options.thickness
 	draw_multiline(
-		points,
-		MazeData.wall_options.color,
-		thickness if thickness != 0 else -1.0
+		points, MazeData.wall_options.color, MazeData.wall_options.thickness
 	)
 
 

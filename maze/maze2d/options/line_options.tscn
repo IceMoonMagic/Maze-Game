@@ -64,10 +64,12 @@ text = "Thickness
 [node name="Slider" type="HSlider" parent="Thickness"]
 layout_mode = 2
 size_flags_horizontal = 3
+min_value = 0.5
 max_value = 7.0
 step = 0.5
 value = 1.0
-tick_count = 15
+scrollable = false
+tick_count = 14
 ticks_on_borders = true
 
 [node name="ResetButton" type="Button" parent="Thickness"]
@@ -77,7 +79,7 @@ text = "↻"
 
 [connection signal="pressed" from="Enabled/ToggleButton" to="." method="_on_enabled_button_pressed"]
 [connection signal="pressed" from="Enabled/ResetButton" to="." method="_on_enabled_reset_button_pressed"]
-[connection signal="popup_closed" from="Color/ColorPicker" to="." method="_on_color_picker_popup_closed"]
+[connection signal="color_changed" from="Color/ColorPicker" to="." method="_on_color_picker_color_changed"]
 [connection signal="pressed" from="Color/ResetButton" to="." method="_on_color_reset_button_pressed"]
-[connection signal="drag_ended" from="Thickness/Slider" to="." method="_on_thickness_slider_drag_ended"]
+[connection signal="value_changed" from="Thickness/Slider" to="." method="_on_thickness_slider_value_changed"]
 [connection signal="pressed" from="Thickness/ResetButton" to="." method="_on_thickness_reset_button_pressed"]

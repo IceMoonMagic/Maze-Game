@@ -58,9 +58,8 @@ func set_to(option_data: MazeData.LineOptionData) -> void:
 	enabled_button.button_pressed = option_data.enabled
 	_on_enabled_button_pressed()
 	color_picker.color = option_data.color
-	_on_color_picker_popup_closed()
+	_on_color_picker_color_changed(color_picker.color)
 	thickness_slider.value = option_data.thickness
-	_on_thickness_slider_drag_ended(true)
 
 
 func _on_enabled_button_pressed() -> void:
@@ -75,8 +74,8 @@ func _on_enabled_reset_button_pressed() -> void:
 	_on_enabled_button_pressed()
 
 
-func _on_color_picker_popup_closed() -> void:
-	unapplied_options.color = color_picker.color
+func _on_color_picker_color_changed(color: Color) -> void:
+	unapplied_options.color = color
 	color_reset_button.disabled = (
 		unapplied_options.color == default_options.color
 	)
@@ -84,12 +83,10 @@ func _on_color_picker_popup_closed() -> void:
 
 func _on_color_reset_button_pressed() -> void:
 	color_picker.color = default_options.color
-	_on_color_picker_popup_closed()
+	_on_color_picker_color_changed(color_picker.color)
 
 
-func _on_thickness_slider_drag_ended(value_changed: bool) -> void:
-	if not value_changed:
-		return
+func _on_thickness_slider_value_changed(value: float) -> void:
 	unapplied_options.thickness = thickness_slider.value
 	thickness_reset_button.disabled = (
 		unapplied_options.thickness == default_options.thickness
@@ -98,4 +95,3 @@ func _on_thickness_slider_drag_ended(value_changed: bool) -> void:
 
 func _on_thickness_reset_button_pressed() -> void:
 	thickness_slider.value = default_options.thickness
-	_on_thickness_slider_drag_ended(true)
