@@ -11,18 +11,24 @@ extends Control
 	set(enabled):
 		default_enabled = enabled
 		if Engine.is_editor_hint():
+			if not is_node_ready():
+				await ready
 			default_options.enabled = enabled
 			enabled_button.button_pressed = enabled
 @export var default_color := Color.BLACK:
 	set(color):
 		default_color = color
 		if Engine.is_editor_hint():
+			if not is_node_ready():
+				await ready
 			default_options.color = color
 			color_picker.color = color
 @export var default_thickness := 1.0:
 	set(thickness):
 		default_thickness = thickness
 		if Engine.is_editor_hint():
+			if not is_node_ready():
+				await ready
 			default_thickness = thickness
 			thickness_slider.value = thickness
 @onready var enabled_button: CheckButton = $Enabled/ToggleButton
