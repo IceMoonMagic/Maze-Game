@@ -7,12 +7,16 @@ var path: Array[Vector2]
 var end_goal: Vector2
 var accept_input: bool = false
 var _allow_drag_event: bool = true
+var _is_clone: bool = false
+var _clone: Line2D = null
 @onready var explored_line := $ExploredLine
 @onready var final_line := $FinalLine
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if _is_clone:
+		return
 	# Resize & Reposition cursor
 	for i in range(len(self.points)):
 		self.set_point_position(
@@ -45,6 +49,8 @@ func _input(event: InputEvent) -> void:
 		add_path(Vector2i.LEFT)
 	elif event.get_action_strength("Move - Right") == 1:
 		add_path(Vector2i.RIGHT)
+	elif event.as_text() == "3" and event.is_pressed():
+		replay_path(final_line.points)
 	elif event is InputEventScreenDrag:
 		if (
 			not _allow_drag_event
@@ -66,7 +72,7 @@ func _input(event: InputEvent) -> void:
 
 
 func move(delta: float) -> void:
-	if position == end_goal and accept_input == true:
+	if position == end_goal and (accept_input or _is_clone):
 		maze_end.emit()
 		accept_input = false
 	if path.is_empty():
@@ -173,6 +179,7 @@ func update_line_options() -> void:
 
 
 func reset_to(start: Vector2i, end: Vector2i) -> void:
+	_clear_clone()
 	path.clear()
 	position = start * MazeData.TILE_SIZE
 	end_goal = end * MazeData.TILE_SIZE
@@ -185,3 +192,32 @@ func reset_to(start: Vector2i, end: Vector2i) -> void:
 	final_line.add_point(position)
 	final_line.end_cap_mode = Line2D.LINE_CAP_NONE
 	accept_input = true
+
+func replay_path(play_path: Array[Vector2]) -> void:
+	if len(play_path) < 1:
+		return
+
+	_clone = self.duplicate()
+	_clone._is_clone = true
+	add_sibling(_clone)
+	_clone.reset_to(play_path[0] / MazeData.TILE_SIZE, play_path[-1] / MazeData.TILE_SIZE)
+	play_path[-1] = floor(play_path[-1] / MazeData.TILE_SIZE) * MazeData.TILE_SIZE
+	_clone.path = play_path
+	_clone.calc_speed()
+	_clone.speed = min(_clone.speed, base_speed ** 2)
+	_clone.accept_input = false
+
+	process_mode = Node.PROCESS_MODE_DISABLED
+	visible = false
+
+	await _clone.maze_end
+	_clear_clone()
+
+func _clear_clone() -> void:
+	if not _clone:
+		return
+
+	_clone.queue_free()
+	_clone = null
+	process_mode = ProcessMode.PROCESS_MODE_PAUSABLE
+	visible = true
