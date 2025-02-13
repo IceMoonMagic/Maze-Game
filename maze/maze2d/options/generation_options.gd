@@ -172,7 +172,9 @@ func _on_auto_mode_slider_value_changed(value: float) -> void:
 			width_spin_box.editable = true
 
 
-func _on_preset_size_selected(index: int, _pos: Vector2=Vector2.ZERO, _mbi: int = 0) -> void:
+func _on_preset_size_selected(
+	index: int, _pos: Vector2 = Vector2.ZERO, _mbi: int = 0
+) -> void:
 	height_spin_box.value = PRESETS[index]
 	auto_mode_slider.value = 0
 	_on_auto_mode_slider_value_changed(0)

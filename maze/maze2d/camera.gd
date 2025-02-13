@@ -13,9 +13,9 @@ func _process(_delta: float) -> void:
 	if pan != Vector2.ZERO:
 		_input_pan(pan)
 
-	var scale: float = Input.get_axis("Zoom - Out", "Zoom - In")
-	if scale != 0:
-		_input_scale(scale)
+	var zoom_mod: float = Input.get_axis("Zoom - Out", "Zoom - In")
+	if zoom_mod != 0:
+		_input_zoom(zoom_mod)
 
 
 func _input(event: InputEvent) -> void:
@@ -23,12 +23,12 @@ func _input(event: InputEvent) -> void:
 		event.is_action_pressed("Zoom - In")
 		or event.is_action_pressed("Zoom - Out")
 	):
-		_input_scale(Input.get_axis("Zoom - Out", "Zoom - In"))
+		_input_zoom(Input.get_axis("Zoom - Out", "Zoom - In"))
 	elif event is InputEventMouse:
 		_input_mouse(event)
 
 	elif event is InputEventMagnifyGesture:
-		_input_scale(1 - event.factor)
+		_input_zoom(1 - event.factor)
 	elif event is InputEventPanGesture:
 		_input_pan(event.delta)
 
@@ -46,7 +46,7 @@ func _input_mouse(event: InputEventMouse) -> void:
 		_input_pan(event.relative * -0.5)
 
 
-func _input_scale(amount: float) -> void:
+func _input_zoom(amount: float) -> void:
 	zoom = (zoom + Vector2.ONE * amount).clampf(min_zoom, _max_zoom)
 	_set_limits()
 

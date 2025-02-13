@@ -6,6 +6,9 @@ signal restart_maze
 signal new_maze
 signal options_updated
 signal quit
+@onready var block_unpause: bool:
+	get:
+		return $OptionsMenu.visible
 
 
 func _ready() -> void:
@@ -33,7 +36,6 @@ func _on_new_maze_button_pressed() -> void:
 func _on_options_button_pressed() -> void:
 	$MarginContainer.visible = false
 	$OptionsMenu.visible = true
-	#$OptionsMenu/OptionsMenu/OptionsTabs/Appearance.grab_focus()
 	$OptionsMenu/OptionsTabs/Appearance.grab_focus()
 
 

@@ -11,7 +11,9 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Pause"):
-		if menu.visible:
+		if not has_maze:
+			pass
+		elif menu.visible:
 			show_maze()
 		else:
 			show_menu()
@@ -23,6 +25,8 @@ func _input(event: InputEvent) -> void:
 
 
 func show_maze() -> void:
+	if %Menu.block_unpause:
+		return
 	get_tree().paused = false
 	menu.visible = false
 	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN
