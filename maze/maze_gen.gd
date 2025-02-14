@@ -7,6 +7,44 @@ var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 var grid: Array[Array]  # Array[Array[MazeCell]]
 var start: Vector2i
 var end: Vector2i
+var walls: Array[Vector2i] = []:
+	get:
+		if len(walls) != 0:
+			return walls
+		# Outer Walls
+		walls.append_array(
+			[
+				Vector2i.ZERO,
+				Vector2i(dimensions.x, 0),
+				Vector2i.ZERO,
+				Vector2i(0, dimensions.y),
+				Vector2i(dimensions.x, 0),
+				dimensions,
+				Vector2i(0, dimensions.y),
+				dimensions
+			]
+		)
+		# Inner Walls
+		for y in range(dimensions.y):
+			for x in range(dimensions.x):
+				var cell := Vector2i(x, y)
+				# Right Wall
+				if (
+					not grid[cell.y][cell.x].right_open
+					and cell.x < dimensions.x - 1
+				):
+					walls.append_array(
+						[Vector2i(x + 1, y), Vector2i(x + 1, y + 1)]
+					)
+				# Bottom Wall
+				if (
+					not grid[cell.y][cell.x].down_open
+					and cell.y < dimensions.y - 1
+				):
+					walls.append_array(
+						[Vector2i(x, y + 1), Vector2i(x + 1, y + 1)]
+					)
+		return walls
 
 
 func can_travel_to(cell: Vector2i, destination: Vector2i) -> bool:
@@ -85,6 +123,7 @@ func new_maze(
 	var start_end := furthest_pair()
 	start = start_end[0]
 	end = start_end[1]
+	walls.clear()
 
 
 func furthest_pair() -> Array[Vector2i]:

@@ -24,7 +24,7 @@ func apply() -> void:
 	assert(maze.grid is Array[Array])
 	# `Invalid type` if done inline, for some reason
 	var start_end: Array[Vector2i] = [maze.start, maze.end]
-	$Geometry.new_maze(maze.grid, start_end)
+	$Geometry.new_maze(maze.walls, start_end)
 	$Camera2D.new_maze(maze.dimensions)
 
 

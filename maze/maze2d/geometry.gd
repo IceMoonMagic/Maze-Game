@@ -44,44 +44,8 @@ func update_line_options() -> void:
 		goal.width = MazeData.goal_options.thickness
 
 
-func new_maze(grid: Array[Array], start_end: Array[Vector2i]) -> void:
-	var raw_dimensions := Vector2i(len(grid[0]), len(grid))
-	raw_points.clear()
-
-	# Outer Walls
-	raw_points.append_array(
-		[
-			Vector2i.ZERO,
-			Vector2i(raw_dimensions.x, 0),
-			Vector2i.ZERO,
-			Vector2i(0, raw_dimensions.y),
-			Vector2i(raw_dimensions.x, 0),
-			raw_dimensions,
-			Vector2i(0, raw_dimensions.y),
-			raw_dimensions
-		]
-	)
-#
-	# Inner Walls
-	for y in range(raw_dimensions.y):
-		for x in range(raw_dimensions.x):
-			var cell := Vector2i(x, y)
-			# Right Wall
-			if (
-				not grid[cell.y][cell.x].right_open
-				and cell.x < raw_dimensions.x - 1
-			):
-				raw_points.append_array(
-					[Vector2i(x + 1, y), Vector2i(x + 1, y + 1)]
-				)
-			# Bottom Wall
-			if (
-				not grid[cell.y][cell.x].down_open
-				and cell.y < raw_dimensions.y - 1
-			):
-				raw_points.append_array(
-					[Vector2i(x, y + 1), Vector2i(x + 1, y + 1)]
-				)
+func new_maze(walls: Array[Vector2i], start_end: Array[Vector2i]) -> void:
+	raw_points = walls
 
 	queue_redraw()
 
