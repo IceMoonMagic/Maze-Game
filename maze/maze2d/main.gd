@@ -70,3 +70,8 @@ func _on_show_menu() -> void:
 
 func _on_resume_maze() -> void:
 	show_maze()
+
+
+func _on_menu_replay_path(mode: Maze2D.ReplayMode) -> void:
+	show_maze()
+	%Maze2D.replay_path(mode)

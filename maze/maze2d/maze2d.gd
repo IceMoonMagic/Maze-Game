@@ -1,6 +1,8 @@
 class_name Maze2D
 extends Node2D
 
+signal show_menu
+enum ReplayMode {EXPLORED_PATH, FINAL_PATH}
 var maze := Maze.new()
 
 
@@ -36,5 +38,14 @@ func update_line_options() -> void:
 
 
 func _on_player_maze_end() -> void:
-	pass
-	#show_menu.emit()
+	show_menu.emit()
+
+
+func replay_path(mode: ReplayMode) -> void:
+	var path: PackedVector2Array
+	match mode:
+		ReplayMode.EXPLORED_PATH:
+			path = $Player/ExploredLine.points
+		ReplayMode.FINAL_PATH:
+			path = $Player/FinalLine.points
+	$Player.replay_path(path)

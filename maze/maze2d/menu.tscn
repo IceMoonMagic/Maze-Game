@@ -31,14 +31,23 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="ResumeButton" type="Button" parent="MarginContainer/MainMenu"]
-visible = false
 layout_mode = 2
 text = "Resume"
 
 [node name="RestartButton" type="Button" parent="MarginContainer/MainMenu"]
-visible = false
 layout_mode = 2
 text = "Restart"
+
+[node name="ReplayButtonContainer" type="HBoxContainer" parent="MarginContainer/MainMenu"]
+layout_mode = 2
+
+[node name="ReplayExploredButton" type="Button" parent="MarginContainer/MainMenu/ReplayButtonContainer"]
+layout_mode = 2
+text = "Replay Explored"
+
+[node name="ReplayFinalButton" type="Button" parent="MarginContainer/MainMenu/ReplayButtonContainer"]
+layout_mode = 2
+text = "Replay Final"
 
 [node name="NewMazeButton" type="Button" parent="MarginContainer/MainMenu"]
 layout_mode = 2
@@ -65,6 +74,8 @@ offset_bottom = 0.47998
 
 [connection signal="pressed" from="MarginContainer/MainMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainMenu/ReplayButtonContainer/ReplayExploredButton" to="." method="_on_replay_explored_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainMenu/ReplayButtonContainer/ReplayFinalButton" to="." method="_on_replay_final_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/NewMazeButton" to="." method="_on_new_maze_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/ExitButton" to="." method="_on_exit_button_pressed"]

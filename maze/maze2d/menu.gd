@@ -3,6 +3,7 @@ extends Control
 
 signal resume_maze
 signal restart_maze
+signal replay_path(mode: Maze2D.ReplayMode)
 signal new_maze
 signal options_updated
 signal quit
@@ -27,6 +28,14 @@ func _on_resume_button_pressed() -> void:
 
 func _on_restart_button_pressed() -> void:
 	restart_maze.emit()
+
+
+func _on_replay_explored_button_pressed() -> void:
+	replay_path.emit(Maze2D.ReplayMode.EXPLORED_PATH)
+
+
+func _on_replay_final_button_pressed() -> void:
+	replay_path.emit(Maze2D.ReplayMode.FINAL_PATH)
 
 
 func _on_new_maze_button_pressed() -> void:

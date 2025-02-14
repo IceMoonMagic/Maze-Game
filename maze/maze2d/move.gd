@@ -49,8 +49,6 @@ func _input(event: InputEvent) -> void:
 		add_path(Vector2i.LEFT)
 	elif event.get_action_strength("Move - Right") == 1:
 		add_path(Vector2i.RIGHT)
-	elif event.as_text() == "3" and event.is_pressed():
-		replay_path(final_line.points)
 	elif event is InputEventScreenDrag:
 		if (
 			not _allow_drag_event
@@ -197,7 +195,7 @@ func replay_path(play_path: Array[Vector2]) -> void:
 	if len(play_path) < 1:
 		return
 
-	_clone = self.duplicate()
+	_clone = self.duplicate(12)
 	_clone._is_clone = true
 	add_sibling(_clone)
 	_clone.reset_to(play_path[0] / MazeData.TILE_SIZE, play_path[-1] / MazeData.TILE_SIZE)

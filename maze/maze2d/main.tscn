@@ -27,5 +27,7 @@ unique_name_in_owner = true
 [connection signal="new_maze" from="CanvasLayer/Menu" to="." method="_on_new_maze"]
 [connection signal="options_updated" from="CanvasLayer/Menu" to="." method="_on_options_updated"]
 [connection signal="quit" from="CanvasLayer/Menu" to="." method="_on_quit"]
+[connection signal="replay_path" from="CanvasLayer/Menu" to="." method="_on_menu_replay_path"]
 [connection signal="restart_maze" from="CanvasLayer/Menu" to="." method="_on_restart_maze"]
 [connection signal="resume_maze" from="CanvasLayer/Menu" to="." method="_on_resume_maze"]
+[connection signal="show_menu" from="Maze2D" to="." method="_on_show_menu"]
