@@ -191,6 +191,7 @@ func reset_to(start: Vector2i, end: Vector2i) -> void:
 	final_line.end_cap_mode = Line2D.LINE_CAP_NONE
 	accept_input = true
 
+
 func replay_path(play_path: Array[Vector2]) -> void:
 	if len(play_path) < 1:
 		return
@@ -198,8 +199,12 @@ func replay_path(play_path: Array[Vector2]) -> void:
 	_clone = self.duplicate(12)
 	_clone._is_clone = true
 	add_sibling(_clone)
-	_clone.reset_to(play_path[0] / MazeData.TILE_SIZE, play_path[-1] / MazeData.TILE_SIZE)
-	play_path[-1] = floor(play_path[-1] / MazeData.TILE_SIZE) * MazeData.TILE_SIZE
+	_clone.reset_to(
+		play_path[0] / MazeData.TILE_SIZE, play_path[-1] / MazeData.TILE_SIZE
+	)
+	play_path[-1] = (
+		floor(play_path[-1] / MazeData.TILE_SIZE) * MazeData.TILE_SIZE
+	)
 	_clone.path = play_path
 	_clone.calc_speed()
 	_clone.speed = min(_clone.speed, base_speed ** 2)
@@ -210,6 +215,7 @@ func replay_path(play_path: Array[Vector2]) -> void:
 
 	await _clone.maze_end
 	_clear_clone()
+
 
 func _clear_clone() -> void:
 	if not _clone:

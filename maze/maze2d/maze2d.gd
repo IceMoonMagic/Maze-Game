@@ -2,7 +2,7 @@ class_name Maze2D
 extends Node2D
 
 signal show_menu
-enum ReplayMode {EXPLORED_PATH, FINAL_PATH}
+enum ReplayMode { EXPLORED_PATH, FINAL_PATH }
 var maze := Maze.new()
 
 

@@ -22,6 +22,7 @@ func on_has_maze(maze_exists: bool = true) -> void:
 	$MarginContainer/MainMenu/RestartButton.visible = maze_exists
 	$MarginContainer/MainMenu/ReplayButtonContainer.visible = maze_exists
 
+
 func _on_resume_button_pressed() -> void:
 	resume_maze.emit()
 
