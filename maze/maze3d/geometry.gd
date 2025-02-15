@@ -48,12 +48,17 @@ func new_maze(
 		var wall := base_wall.duplicate()
 		wall.position = Vector3(center.x, 0, center.y)
 		if as_vector.length() > 1:
-			var mesh_instance: MeshInstance3D = wall.get_child(1)
+			var mesh_instance: MeshInstance3D = wall.get_node(
+				"WallMeshInstance"
+			)
 			mesh_instance.mesh = mesh_instance.mesh.duplicate()
 			mesh_instance.mesh.size.z = (
 				as_vector.length() * MazeData.TILE_SIZE
 				+ mesh_instance.mesh.size.x
 			)
+			var collision: CollisionShape3D = wall.get_node("WallCollision")
+			collision.shape = collision.shape.duplicate()
+			collision.shape.size.z = mesh_instance.mesh.size.z
 		if direction == Vector2.RIGHT:
 			wall.rotate_y(deg_to_rad(90))
 		wall_geometry.add_child(wall)
