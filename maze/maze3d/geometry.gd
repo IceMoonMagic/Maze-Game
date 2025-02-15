@@ -14,18 +14,6 @@ func _ready() -> void:
 	end_goal.name = "EndGoal"
 	end_goal.monitoring = true
 	end_goal.connect("body_entered", func(body: Node3D) -> void: print(body))
-	new_maze(
-		Vector2i(8, 5),
-		[
-			Vector2i(2, 2),
-			Vector2i(2, 2) + Vector2i.DOWN,
-			Vector2i(2, 1),
-			Vector2i(2, 1) + Vector2i.DOWN,
-			Vector2i(2, 2),
-			Vector2i(2, 2) + Vector2i.RIGHT
-		],
-		[Vector2i(3, 1), Vector2i(3, 3)]
-	)
 
 
 func new_maze(
@@ -45,7 +33,7 @@ func new_maze(
 
 	for child: Node3D in wall_geometry.get_children():
 		if "@" in child.name:
-			print("Freeing ", child.name)
+			#print("Freeing ", child.name)
 			child.queue_free()
 
 	for i: int in range(0, len(walls), 2):
@@ -54,17 +42,31 @@ func new_maze(
 		var center := (
 			Vector2(start * MazeData.TILE_SIZE + end * MazeData.TILE_SIZE) / 2
 		)
-		var direction := (walls[i + 1] - walls[i]).abs()
+		var as_vector := Vector2(walls[i + 1] - walls[i]).abs()
+		var direction := as_vector.normalized()
 
 		var wall := base_wall.duplicate()
 		wall.position = Vector3(center.x, 0, center.y)
-		if direction == Vector2i.DOWN:
+		if as_vector.length() > 1:
+			var mesh_instance: MeshInstance3D = wall.get_child(1)
+			mesh_instance.mesh = mesh_instance.mesh.duplicate()
+			mesh_instance.mesh.size.z = (
+				as_vector.length() * MazeData.TILE_SIZE
+				+ mesh_instance.mesh.size.x
+			)
+		if direction == Vector2.RIGHT:
 			wall.rotate_y(deg_to_rad(90))
 		wall_geometry.add_child(wall)
 
-	var start := start_end[0] * MazeData.TILE_SIZE
-	start_goal.position.x = start.x
-	start_goal.position.z = start.y
-	var end := start_end[1] * MazeData.TILE_SIZE
-	end_goal.position.x = end.x
-	end_goal.position.z = end.y
+	var start_pos := (
+		Vector2(start_end[0]) * MazeData.TILE_SIZE
+		+ Vector2.ONE * MazeData.TILE_SIZE / 2
+	)
+	start_goal.position.x = start_pos.x
+	start_goal.position.z = start_pos.y
+	var end_pos := (
+		Vector2(start_end[1]) * MazeData.TILE_SIZE
+		+ Vector2.ONE * MazeData.TILE_SIZE / 2
+	)
+	end_goal.position.x = end_pos.x
+	end_goal.position.z = end_pos.y
