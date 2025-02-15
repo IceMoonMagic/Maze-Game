@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://4dwtvngjl60f"]
+
+[ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="1_7dsuo"]
+[ext_resource type="Script" path="res://maze/maze3d/player.gd" id="2_appjc"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]
+size = Vector3(7, 0, 7)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jdtkn"]
+lightmap_size_hint = Vector2i(22, 12)
+size = Vector2(7, 7)
+
+[sub_resource type="SphereMesh" id="SphereMesh_ovbyi"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hpoqb"]
+
+[node name="Maze3D" type="Node3D"]
+process_mode = 1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0.5, -0.866025, 0, 0.866025, 0.5, 1, 2.18557e-08, -3.78552e-08, 0, 0, 0)
+directional_shadow_mode = 0
+
+[node name="Geometry" type="Node3D" parent="."]
+script = ExtResource("1_7dsuo")
+
+[node name="Floor" type="StaticBody3D" parent="Geometry"]
+
+[node name="FloorCollision" type="CollisionShape3D" parent="Geometry/Floor"]
+shape = SubResource("BoxShape3D_rn46y")
+
+[node name="FloorMeshInstance" type="MeshInstance3D" parent="Geometry/Floor"]
+mesh = SubResource("PlaneMesh_jdtkn")
+
+[node name="OriginMarker" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_ovbyi")
+
+[node name="Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("2_appjc")
+
+[node name="Camera3D" type="Camera3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="Player"]
+shape = SubResource("CapsuleShape3D_hpoqb")
