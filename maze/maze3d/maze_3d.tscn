@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://4dwtvngjl60f"]
+[gd_scene load_steps=11 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="1_7dsuo"]
 [ext_resource type="Script" path="res://maze/maze3d/player.gd" id="2_appjc"]
@@ -10,6 +10,16 @@ size = Vector3(7, 0, 7)
 lightmap_size_hint = Vector2i(22, 12)
 size = Vector2(7, 7)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_v6qvt"]
+size = Vector3(2, 1, 9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_x27as"]
+size = Vector3(2, 1, 9)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tgre5"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_sxqvd"]
+
 [sub_resource type="SphereMesh" id="SphereMesh_ovbyi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hpoqb"]
@@ -18,8 +28,11 @@ size = Vector2(7, 7)
 process_mode = 1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0.5, -0.866025, 0, 0.866025, 0.5, 1, 2.18557e-08, -3.78552e-08, 0, 0, 0)
+transform = Transform3D(-0.173648, 0.492404, -0.852869, 0, 0.866025, 0.5, 0.984808, 0.0868241, -0.150384, 0, 0, 0)
 directional_shadow_mode = 0
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.707107, 0.0616284, 0.704416, 0, 0.996195, -0.0871557, -0.707107, 0.0616284, 0.704416, 0, 0, 0)
 
 [node name="Geometry" type="Node3D" parent="."]
 script = ExtResource("1_7dsuo")
@@ -31,6 +44,29 @@ shape = SubResource("BoxShape3D_rn46y")
 
 [node name="FloorMeshInstance" type="MeshInstance3D" parent="Geometry/Floor"]
 mesh = SubResource("PlaneMesh_jdtkn")
+
+[node name="Walls" type="Node3D" parent="Geometry"]
+
+[node name="BaseWall" type="StaticBody3D" parent="Geometry/Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
+
+[node name="WallCollision" type="CollisionShape3D" parent="Geometry/Walls/BaseWall"]
+shape = SubResource("BoxShape3D_v6qvt")
+
+[node name="WallMeshInstance" type="MeshInstance3D" parent="Geometry/Walls/BaseWall"]
+mesh = SubResource("BoxMesh_x27as")
+skeleton = NodePath("../..")
+
+[node name="StartGoal" type="Area3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77247, 1.13497, 1.58071)
+monitoring = false
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StartGoal"]
+shape = SubResource("SphereShape3D_tgre5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StartGoal"]
+mesh = SubResource("SphereMesh_sxqvd")
 
 [node name="OriginMarker" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_ovbyi")
