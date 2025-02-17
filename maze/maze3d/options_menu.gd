@@ -18,6 +18,7 @@ func _ready() -> void:
 	)
 	_2d_options_tabs.tabs_visible = false
 	# MazeData.load_config_file()  # Called by 2DOptionsMenu
+	generation_options.applied_options = MazeData.generation_options
 	generation_options.set_to(MazeData.generation_options)
 
 	if MazeData.maze_3d_options == null:

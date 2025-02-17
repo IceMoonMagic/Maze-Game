@@ -5,15 +5,14 @@ var raw_points: Array[Vector2i] = []
 @onready var floor_mesh_instance: MeshInstance3D = $Floor/FloorMeshInstance
 @onready var wall_geometry: Node3D = $Walls
 @onready var base_wall: StaticBody3D = $Walls/BaseWall
-@onready var start_goal: Area3D = $StartGoal
-@onready var end_goal: Area3D = start_goal.duplicate(12)
+@onready var end_goal: Area3D = $EndGoal
+@onready var start_goal: Area3D = end_goal.duplicate(12)
 
 
 func _ready() -> void:
-	start_goal.add_sibling(end_goal)
-	end_goal.name = "EndGoal"
-	end_goal.monitoring = true
-	end_goal.connect("body_entered", func(body: Node3D) -> void: print(body))
+	end_goal.add_sibling(start_goal)
+	start_goal.name = "StartGoal"
+	start_goal.monitoring = false
 
 
 func new_maze(

@@ -30,5 +30,5 @@ func restart() -> void:
 	$Player.position = $Geometry/StartGoal.position
 
 
-func _on_player_maze_end() -> void:
+func _on_player_maze_end(_arg: Variant) -> void:
 	show_menu.emit()

@@ -1,9 +1,8 @@
-[gd_scene load_steps=12 format=3 uid="uid://4dwtvngjl60f"]
+[gd_scene load_steps=11 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="1_7dsuo"]
 [ext_resource type="Script" path="res://maze/maze3d/maze.gd" id="1_ocbum"]
 [ext_resource type="Script" path="res://maze/maze3d/player.gd" id="2_appjc"]
-[ext_resource type="PackedScene" uid="uid://bie6edph7focf" path="res://maze/maze2d/options/options_menu.tscn" id="2_x57a8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]
 size = Vector3(7, 1, 7)
@@ -27,9 +26,6 @@ size = Vector3(2, 2, 9)
 [node name="Maze3D" type="Node3D"]
 process_mode = 1
 script = ExtResource("1_ocbum")
-
-[node name="OptionsMenu" parent="." instance=ExtResource("2_x57a8")]
-visible = false
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.173648, 0.492404, -0.852869, 0, 0.866025, 0.5, 0.984808, 0.0868241, -0.150384, 0, 0, 0)
@@ -64,15 +60,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("BoxMesh_x27as")
 skeleton = NodePath("../..")
 
-[node name="StartGoal" type="Area3D" parent="Geometry"]
+[node name="EndGoal" type="Area3D" parent="Geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77247, 1.13497, 1.58071)
-monitoring = false
 monitorable = false
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StartGoal"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/EndGoal"]
 shape = SubResource("SphereShape3D_tgre5")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StartGoal"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/EndGoal"]
 mesh = SubResource("SphereMesh_sxqvd")
 
 [node name="Player" type="CharacterBody3D" parent="."]
@@ -89,3 +84,5 @@ shape = SubResource("CapsuleShape3D_hpoqb")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 85.8004, 169.087, 121.446)
 size = 200.0
+
+[connection signal="body_entered" from="Geometry/EndGoal" to="." method="_on_player_maze_end"]
