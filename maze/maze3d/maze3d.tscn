@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="1_7dsuo"]
-[ext_resource type="Script" path="res://maze/maze3d/maze.gd" id="1_ocbum"]
+[ext_resource type="Script" path="res://maze/maze3d/maze3d.gd" id="1_ocbum"]
 [ext_resource type="Script" path="res://maze/maze3d/player.gd" id="2_appjc"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]

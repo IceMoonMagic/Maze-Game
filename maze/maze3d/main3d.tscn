@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://b0e85la0oaege"]
 
-[ext_resource type="Script" path="res://maze/maze3d/main.gd" id="1_fxp7h"]
+[ext_resource type="Script" path="res://maze/maze3d/main3d.gd" id="1_fxp7h"]
 [ext_resource type="PackedScene" uid="uid://dae7y47miytd8" path="res://maze/maze2d/menu.tscn" id="2_guqmv"]
-[ext_resource type="PackedScene" uid="uid://4dwtvngjl60f" path="res://maze/maze3d/maze.tscn" id="3_duvoa"]
+[ext_resource type="PackedScene" uid="uid://4dwtvngjl60f" path="res://maze/maze3d/maze3d.tscn" id="3_duvoa"]
 [ext_resource type="PackedScene" uid="uid://cdb0n8h36owpy" path="res://maze/maze3d/options_menu.tscn" id="3_nesj0"]
 
 [node name="Main" type="Control"]
