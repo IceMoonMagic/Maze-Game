@@ -1,0 +1,62 @@
+[gd_scene load_steps=2 format=3 uid="uid://3mvlx6bvilqn"]
+
+[ext_resource type="Script" path="res://maze/selector.gd" id="1_lurlo"]
+
+[node name="Selector" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lurlo")
+
+[node name="SelectorMenu" type="Control" parent="."]
+unique_name_in_owner = true
+process_mode = 3
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HFlowContainer" type="HFlowContainer" parent="SelectorMenu"]
+layout_mode = 2
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -33.0
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Maze2DButton" type="Button" parent="SelectorMenu/HFlowContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Maze 2D"
+
+[node name="Maze3DButton" type="Button" parent="SelectorMenu/HFlowContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 6
+text = "Maze 3D"
+
+[node name="ExitButton" type="Button" parent="SelectorMenu"]
+unique_name_in_owner = true
+layout_mode = 2
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -18.5
+offset_top = -31.0
+offset_right = 18.5
+grow_horizontal = 2
+grow_vertical = 0
+text = "Exit"
+
+[connection signal="pressed" from="SelectorMenu/HFlowContainer/Maze2DButton" to="." method="_on_maze_2d_button_pressed"]
+[connection signal="pressed" from="SelectorMenu/HFlowContainer/Maze3DButton" to="." method="_on_maze_3d_button_pressed"]
+[connection signal="pressed" from="SelectorMenu/ExitButton" to="." method="_on_exit_button_pressed"]

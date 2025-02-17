@@ -12,13 +12,14 @@ config_version=5
 
 config/name="Maze Game"
 config/description="A simple maze game in to learn Godot."
-run/main_scene="res://maze/maze2d/main2d.tscn"
+run/main_scene="res://maze/selector.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-MazeData="*res://maze/globals.gd"
+MazeData="*res://maze/maze_data.gd"
+Globals="*res://globals.gd"
 
 [debug]
 
