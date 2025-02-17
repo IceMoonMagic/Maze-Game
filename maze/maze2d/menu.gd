@@ -13,14 +13,15 @@ signal quit
 
 
 func _ready() -> void:
-	pass
+	assert(get_node("OptionsMenu") != null)
 	$MarginContainer/MainMenu/NewMazeButton.grab_focus()
 
 
-func on_has_maze(maze_exists: bool = true) -> void:
+func on_has_maze(maze_exists: bool = true, include_replay: bool = true) -> void:
 	$MarginContainer/MainMenu/ResumeButton.visible = maze_exists
 	$MarginContainer/MainMenu/RestartButton.visible = maze_exists
-	$MarginContainer/MainMenu/ReplayButtonContainer.visible = maze_exists
+	if include_replay:
+		$MarginContainer/MainMenu/ReplayButtonContainer.visible = maze_exists
 
 
 func _on_resume_button_pressed() -> void:

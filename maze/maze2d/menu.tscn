@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://dae7y47miytd8"]
+[gd_scene load_steps=2 format=3 uid="uid://dae7y47miytd8"]
 
-[ext_resource type="PackedScene" uid="uid://bie6edph7focf" path="res://maze/maze2d/options/options_menu.tscn" id="1_hxv8e"]
 [ext_resource type="Script" path="res://maze/maze2d/menu.gd" id="1_yib8i"]
 
 [node name="Menu" type="Control"]
@@ -64,17 +63,6 @@ text = "Options"
 layout_mode = 2
 text = "Exit"
 
-[node name="OptionsMenu" parent="." instance=ExtResource("1_hxv8e")]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.01
-anchor_top = 0.01
-anchor_right = 0.99
-anchor_bottom = 0.99
-offset_right = -0.47998
-offset_bottom = 0.47998
-
 [connection signal="pressed" from="MarginContainer/MainMenu/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/ReplayButtonContainer/ReplayExploredButton" to="." method="_on_replay_explored_button_pressed"]
@@ -82,5 +70,3 @@ offset_bottom = 0.47998
 [connection signal="pressed" from="MarginContainer/MainMenu/NewMazeButton" to="." method="_on_new_maze_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/ExitButton" to="." method="_on_exit_button_pressed"]
-[connection signal="apply_options" from="OptionsMenu" to="." method="_on_options_applied"]
-[connection signal="leave_options_menu" from="OptionsMenu" to="." method="_on_leave_options_menu"]

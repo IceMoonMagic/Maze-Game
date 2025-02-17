@@ -68,6 +68,31 @@ class LineOptionData:
 		self.thickness = other.thickness
 
 
+class Maze3DOptions:
+	var flat: bool
+	var rotation_lock: bool
+	var wall_height: float
+
+	func _init(
+		p_flat: bool, p_rotation_lock: bool, p_wall_height: float
+	) -> void:
+		flat = p_flat
+		rotation_lock = p_rotation_lock
+		wall_height = p_wall_height
+
+	func equals(other: Maze3DOptions) -> bool:
+		return (
+			self.flat == other.flat
+			and self.rotation_lock == other.rotation_lock
+			and self.wall_height == other.wall_height
+		)
+
+	func set_to(other: Maze3DOptions) -> void:
+		self.flat = other.flat
+		self.rotation_lock = other.rotation_lock
+		self.wall_height = other.wall_height
+
+
 var cursor_options: LineOptionData
 var main_trail_options: LineOptionData
 var explored_trail_options: LineOptionData
@@ -75,6 +100,7 @@ var wall_options: LineOptionData
 var goal_options: LineOptionData
 var background_options: LineOptionData
 var generation_options: GenerationOptionData
+var maze_3d_options: Maze3DOptions
 
 var config_file := ConfigFile.new()
 var config_json := JSON.new()
@@ -136,6 +162,31 @@ func load_config_file() -> Error:
 		"Appearance", "background", background_options.color
 	)
 
+	if (
+		maze_3d_options == null
+		and config_file.has_section_key("Appearance", "maze3d.flat")
+		and config_file.has_section_key("Appearance", "maze3d.rotation_lock")
+		and config_file.has_section_key("Appearance", "maze3d.wall_height")
+	):
+		maze_3d_options = (
+			Maze3DOptions
+			. new(
+				config_file.get_value("Appearance", "maze3d.flat"),
+				config_file.get_value("Appearance", "maze3d.rotation_lock"),
+				config_file.get_value("Appearance", "maze3d.wall_height"),
+			)
+		)
+	elif maze_3d_options != null:
+		maze_3d_options.flat = config_file.get_value(
+			"Appearance", "maze3d.flat", maze_3d_options.flat
+		)
+		maze_3d_options.rotation_lock = config_file.get_value(
+			"Appearance", "maze3d.rotation_lock", maze_3d_options.rotation_lock
+		)
+		maze_3d_options.wall_height = config_file.get_value(
+			"Appearance", "maze3d.wall_height", maze_3d_options.wall_height
+		)
+
 	generation_options.weights = config_file.get_value(
 		"Generation", "weights", generation_options.weights
 	)
@@ -186,6 +237,15 @@ func save_config_file() -> Error:
 		"Appearance", "goal.thickness", goal_options.thickness
 	)
 	config_file.set_value("Appearance", "background", background_options.color)
+
+	if maze_3d_options != null:
+		config_file.set_value("Appearance", "maze3d.flat", maze_3d_options.flat)
+		config_file.set_value(
+			"Appearance", "maze3d.rotation_lock", maze_3d_options.rotation_lock
+		)
+		config_file.set_value(
+			"Appearance", "maze3d.wall_height", maze_3d_options.wall_height
+		)
 
 	config_file.set_value("Generation", "weights", generation_options.weights)
 	config_file.set_value(

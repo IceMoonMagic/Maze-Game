@@ -1,0 +1,204 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdb0n8h36owpy"]
+
+[ext_resource type="Script" path="res://maze/maze3d/options_menu.gd" id="1_7ci45"]
+[ext_resource type="PackedScene" uid="uid://bie6edph7focf" path="res://maze/maze2d/options/options_menu.tscn" id="2_8vgr0"]
+[ext_resource type="PackedScene" uid="uid://7exio4kaokks" path="res://maze/maze2d/options/generation_options.tscn" id="3_adg1m"]
+[ext_resource type="Script" path="res://maze/maze3d/maze_3d_options.gd" id="3_v0oak"]
+
+[node name="OptionsMenu" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7ci45")
+
+[node name="2DOptionsMenu" parent="." instance=ExtResource("2_8vgr0")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="OptionsTabs" type="TabContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Appearance" type="TabBar" parent="OptionsTabs"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsTabs/Appearance"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+follow_focus = true
+
+[node name="3DMazeOptions" type="VBoxContainer" parent="OptionsTabs/Appearance/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme_override_constants/separation = 16
+script = ExtResource("3_v0oak")
+
+[node name="FlatContainer" type="HBoxContainer" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/FlatContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Simple Aesthetic"
+
+[node name="FlatCheck" type="CheckButton" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/FlatContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="FlatReset" type="Button" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/FlatContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "↻"
+
+[node name="MapRotationContainer" type="HBoxContainer" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MapRotationContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Minimap Lock Rotation"
+
+[node name="RotateCheck" type="CheckButton" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MapRotationContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RotateReset" type="Button" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MapRotationContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "↻"
+
+[node name="HeightContainer" type="HBoxContainer" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/HeightContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Wall Height"
+
+[node name="WallSpinBox" type="SpinBox" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/HeightContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="WallReset" type="Button" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/HeightContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "↻"
+
+[node name="Maze2DOptionsButton" type="Button" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Minimap Appearance Options"
+
+[node name="Generation" type="TabBar" parent="OptionsTabs"]
+visible = false
+layout_mode = 2
+focus_neighbor_bottom = NodePath("ScrollContainer/GenerationOptions")
+metadata/_tab_index = 1
+
+[node name="ScrollContainer" type="ScrollContainer" parent="OptionsTabs/Generation"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GenerationOptions" parent="OptionsTabs/Generation/ScrollContainer" instance=ExtResource("3_adg1m")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Controls" type="TabBar" parent="OptionsTabs"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="OptionsTabs/Controls"]
+clip_contents = false
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -91.0
+offset_right = 200.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+bbcode_enabled = true
+text = "[table=2]
+[cell]Move[/cell]
+[cell]WASD / ↑←↓→ / Left Stick / D-Pad[/cell]
+[cell]Quick New Maze[/cell]
+[cell]1 / RB[/cell]
+[cell]Quick Restart[/cell]
+[cell]2 / LB[/cell]
+[cell]Pause[/cell]
+[cell]Esc / Start[/cell]
+[cell]Move Camera[/cell]
+[cell]Click and Drag / Right Stick[/cell]
+[cell]Zoom In[/cell]
+[cell]Mouse Wheel Up / RT[/cell]
+[cell]Zoom Out[/cell]
+[cell]Mouse Wheel Down / LT[/cell]
+[/table]"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="LeaveButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "Back
+"
+
+[node name="RevertButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Revert
+"
+
+[node name="ApplyButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+disabled = true
+text = "Apply"
+
+[node name="CheckIfModified" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="apply_options" from="2DOptionsMenu" to="." method="_on_2d_options_menu_apply_options"]
+[connection signal="leave_options_menu" from="2DOptionsMenu" to="." method="_on_2d_options_menu_leave_options_menu"]
+[connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/FlatContainer/FlatCheck" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_flat_check_pressed"]
+[connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/FlatContainer/FlatReset" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_flat_reset_pressed"]
+[connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MapRotationContainer/RotateCheck" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_rotate_check_pressed"]
+[connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MapRotationContainer/RotateReset" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_rotate_reset_pressed"]
+[connection signal="value_changed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/HeightContainer/WallSpinBox" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_wall_spin_box_value_changed"]
+[connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/HeightContainer/WallReset" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_wall_reset_pressed"]
+[connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/Maze2DOptionsButton" to="." method="_on_maze_2d_options_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/RevertButton" to="." method="_on_revert_button_pressed"]
+[connection signal="pressed" from="HBoxContainer/ApplyButton" to="." method="_on_apply_button_pressed"]
+[connection signal="timeout" from="CheckIfModified" to="." method="_on_timer_timeout"]

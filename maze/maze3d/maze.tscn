@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="1_7dsuo"]
-[ext_resource type="Script" path="res://maze/maze3d/maze_3d.gd" id="1_ocbum"]
+[ext_resource type="Script" path="res://maze/maze3d/maze.gd" id="1_ocbum"]
 [ext_resource type="Script" path="res://maze/maze3d/player.gd" id="2_appjc"]
 [ext_resource type="PackedScene" uid="uid://bie6edph7focf" path="res://maze/maze2d/options/options_menu.tscn" id="2_x57a8"]
 

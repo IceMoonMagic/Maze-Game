@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://chqg0jvps3ygm"]
+[gd_scene load_steps=5 format=3 uid="uid://b0e85la0oaege"]
 
-[ext_resource type="Script" path="res://maze/maze2d/main.gd" id="1_qu77e"]
-[ext_resource type="PackedScene" uid="uid://dae7y47miytd8" path="res://maze/maze2d/menu.tscn" id="2_saigj"]
-[ext_resource type="PackedScene" uid="uid://bne3e0t0rrrbn" path="res://maze/maze2d/maze2d.tscn" id="3_86jqj"]
-[ext_resource type="PackedScene" uid="uid://bie6edph7focf" path="res://maze/maze2d/options/options_menu.tscn" id="3_v5c3u"]
+[ext_resource type="Script" path="res://maze/maze3d/main.gd" id="1_fxp7h"]
+[ext_resource type="PackedScene" uid="uid://dae7y47miytd8" path="res://maze/maze2d/menu.tscn" id="2_guqmv"]
+[ext_resource type="PackedScene" uid="uid://4dwtvngjl60f" path="res://maze/maze3d/maze.tscn" id="3_duvoa"]
+[ext_resource type="PackedScene" uid="uid://cdb0n8h36owpy" path="res://maze/maze3d/options_menu.tscn" id="3_nesj0"]
 
 [node name="Main" type="Control"]
 process_mode = 3
@@ -13,20 +13,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_qu77e")
+script = ExtResource("1_fxp7h")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Menu" parent="CanvasLayer" instance=ExtResource("2_saigj")]
+[node name="Menu" parent="CanvasLayer" instance=ExtResource("2_guqmv")]
 unique_name_in_owner = true
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="OptionsMenu" parent="CanvasLayer/Menu" instance=ExtResource("3_v5c3u")]
+[node name="OptionsMenu" parent="CanvasLayer/Menu" instance=ExtResource("3_nesj0")]
 visible = false
 layout_mode = 1
 
-[node name="Maze2D" parent="." instance=ExtResource("3_86jqj")]
+[node name="Maze3D" parent="." instance=ExtResource("3_duvoa")]
 unique_name_in_owner = true
 
 [connection signal="new_maze" from="CanvasLayer/Menu" to="." method="_on_new_maze"]
@@ -37,4 +37,4 @@ unique_name_in_owner = true
 [connection signal="resume_maze" from="CanvasLayer/Menu" to="." method="_on_resume_maze"]
 [connection signal="apply_options" from="CanvasLayer/Menu/OptionsMenu" to="CanvasLayer/Menu" method="_on_options_applied"]
 [connection signal="leave_options_menu" from="CanvasLayer/Menu/OptionsMenu" to="CanvasLayer/Menu" method="_on_leave_options_menu"]
-[connection signal="show_menu" from="Maze2D" to="." method="_on_show_menu"]
+[connection signal="show_menu" from="Maze3D" to="." method="_on_show_menu"]
