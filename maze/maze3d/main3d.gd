@@ -25,6 +25,7 @@ func _input(event: InputEvent) -> void:
 
 
 func show_maze() -> void:
+	maze.visible = true
 	if menu.block_unpause:
 		return
 	get_tree().paused = false

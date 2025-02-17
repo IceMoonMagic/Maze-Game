@@ -45,6 +45,7 @@ func new_maze(
 		var direction := as_vector.normalized()
 
 		var wall := base_wall.duplicate()
+		wall.visible = true
 		wall.position = Vector3(center.x, 0, center.y)
 		if as_vector.length() > 1:
 			var mesh_instance: MeshInstance3D = wall.get_node(

@@ -51,6 +51,7 @@ mesh = SubResource("PlaneMesh_jdtkn")
 
 [node name="BaseWall" type="StaticBody3D" parent="Geometry/Walls"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
+visible = false
 
 [node name="WallCollision" type="CollisionShape3D" parent="Geometry/Walls/BaseWall"]
 shape = SubResource("BoxShape3D_v6qvt")
