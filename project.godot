@@ -18,8 +18,8 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-MazeData="*res://maze/maze_data.gd"
 Globals="*res://globals.gd"
+MazeData="*res://maze/maze_data.gd"
 
 [debug]
 

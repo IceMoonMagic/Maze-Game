@@ -1,6 +1,5 @@
 extends Control
 
-signal apply_options
 signal leave_options_menu
 
 @onready var cursor_options: LineOptionControl = %CursorOptions
@@ -96,6 +95,5 @@ func _on_apply_button_pressed() -> void:
 	generation_options.applied_options.set_to(
 		generation_options.unapplied_options
 	)
-	MazeData.save_config_file()
+	Globals.options_applied.emit()
 	_on_timer_timeout()
-	apply_options.emit()

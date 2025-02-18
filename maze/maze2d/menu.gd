@@ -5,7 +5,6 @@ signal resume_maze
 signal restart_maze
 signal replay_path(mode: Maze2D.ReplayMode)
 signal new_maze
-signal options_updated
 signal quit
 @onready var block_unpause: bool:
 	get:
@@ -48,10 +47,6 @@ func _on_options_button_pressed() -> void:
 	$MarginContainer.visible = false
 	$OptionsMenu.visible = true
 	$OptionsMenu/OptionsTabs/Appearance.grab_focus()
-
-
-func _on_options_applied() -> void:
-	options_updated.emit()
 
 
 func _on_leave_options_menu() -> void:

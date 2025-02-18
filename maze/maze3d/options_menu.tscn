@@ -189,7 +189,6 @@ text = "Apply"
 wait_time = 0.1
 autostart = true
 
-[connection signal="apply_options" from="2DOptionsMenu" to="." method="_on_2d_options_menu_apply_options"]
 [connection signal="leave_options_menu" from="2DOptionsMenu" to="." method="_on_2d_options_menu_leave_options_menu"]
 [connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/FlatContainer/FlatCheck" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_flat_check_pressed"]
 [connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/FlatContainer/FlatReset" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_flat_reset_pressed"]

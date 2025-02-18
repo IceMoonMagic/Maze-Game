@@ -1,6 +1,5 @@
 extends Control
 
-signal apply_options
 signal leave_options_menu
 
 @onready var maze_2d_options_button: Button = %Maze2DOptionsButton
@@ -61,19 +60,13 @@ func _on_apply_button_pressed() -> void:
 		generation_options.unapplied_options
 	)
 	_3d_maze_options.applied_options.set_to(_3d_maze_options.unapplied_options)
-	MazeData.save_config_file()
-	_on_timer_timeout()
-	apply_options.emit()
+	Globals.options_applied.emit()
 
 
 func _on_maze_2d_options_button_pressed() -> void:
 	$OptionsTabs.visible = false
 	$HBoxContainer.visible = false
 	$"2DOptionsMenu".visible = true
-
-
-func _on_2d_options_menu_apply_options() -> void:
-	apply_options.emit()
 
 
 func _on_2d_options_menu_leave_options_menu() -> void:

@@ -29,6 +29,7 @@ func _ready() -> void:
 	final_line.position = lines_offset
 
 	update_line_options()
+	Globals.options_applied.connect(update_line_options)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

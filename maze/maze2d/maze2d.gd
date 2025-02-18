@@ -32,11 +32,6 @@ func restart() -> void:
 	$Player.reset_to(maze.start, maze.end)
 
 
-func update_line_options() -> void:
-	$Geometry.update_line_options()
-	$Player.update_line_options()
-
-
 func _on_player_maze_end() -> void:
 	show_menu.emit()
 

@@ -30,11 +30,9 @@ unique_name_in_owner = true
 visible = false
 
 [connection signal="new_maze" from="Menu" to="." method="_on_new_maze"]
-[connection signal="options_updated" from="Menu" to="." method="_on_options_updated"]
 [connection signal="quit" from="Menu" to="." method="_on_quit"]
 [connection signal="replay_path" from="Menu" to="." method="_on_menu_replay_path"]
 [connection signal="restart_maze" from="Menu" to="." method="_on_restart_maze"]
 [connection signal="resume_maze" from="Menu" to="." method="_on_resume_maze"]
-[connection signal="apply_options" from="Menu/OptionsMenu" to="Menu" method="_on_options_applied"]
 [connection signal="leave_options_menu" from="Menu/OptionsMenu" to="Menu" method="_on_leave_options_menu"]
 [connection signal="show_menu" from="Maze3D" to="." method="_on_show_menu"]

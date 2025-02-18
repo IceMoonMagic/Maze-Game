@@ -8,6 +8,7 @@ var raw_points: Array[Vector2i] = []
 func _ready() -> void:
 	add_child(end_marker)
 	update_line_options()
+	Globals.options_applied.connect(update_line_options)
 
 
 func _draw() -> void:

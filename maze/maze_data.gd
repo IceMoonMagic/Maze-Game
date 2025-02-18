@@ -106,6 +106,14 @@ var config_file := ConfigFile.new()
 var config_json := JSON.new()
 
 
+func _ready() -> void:
+	Globals.options_applied.connect(save_config_file)
+	Globals.options_applied.connect(
+		func() -> void:
+			RenderingServer.set_default_clear_color(background_options.color)
+	)
+
+
 func load_config_file() -> Error:
 	var err := config_file.load("user://config.cfg")
 	if err != OK:
@@ -195,6 +203,7 @@ func load_config_file() -> Error:
 	)
 
 	print(OS.get_user_data_dir())
+	Globals.options_applied.emit()
 	return OK
 
 
