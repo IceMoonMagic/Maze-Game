@@ -1,10 +1,11 @@
 extends Node3D
 
-var raw_points: Array[Vector2i] = []
+var walls: Array[Vector2i] = []
 @onready var floor_collision: CollisionShape3D = $Floor/FloorCollision
 @onready var floor_mesh_instance: MeshInstance3D = $Floor/FloorMeshInstance
 @onready var wall_geometry: Node3D = $Walls
 @onready var base_wall: StaticBody3D = $Walls/BaseWall
+@onready var wall_mesh_instance: MeshInstance3D = $Walls/BaseWall/WallMeshInstance
 @onready var end_goal: Area3D = $EndGoal
 @onready var start_goal: Area3D = end_goal.duplicate(12)
 
@@ -13,27 +14,19 @@ func _ready() -> void:
 	end_goal.add_sibling(start_goal)
 	start_goal.name = "StartGoal"
 	start_goal.monitoring = false
+	Globals.options_applied.connect(build_walls)
 
 
-func new_maze(
-	dimensions: Vector2i, walls: Array[Vector2i], start_end: Array[Vector2i]
-) -> void:
-	raw_points = walls
-#
-	var modified := Vector2(dimensions) * MazeData.TILE_SIZE
-
-	var floor_mesh: PlaneMesh = floor_mesh_instance.mesh
-	floor_mesh.size = modified
-	floor_mesh.center_offset = Vector3(modified.x / 2, 0, modified.y / 2)
-
-	var floor_collision_box: BoxShape3D = floor_collision.shape
-	floor_collision_box.size = Vector3(modified.x, 0, modified.y)
-	floor_collision.position = floor_mesh.center_offset
-
+func build_walls() -> void:
 	for child: Node3D in wall_geometry.get_children():
 		if "@" in child.name:
 			#print("Freeing ", child.name)
 			child.queue_free()
+
+	wall_mesh_instance.mesh.size.y = MazeData.maze_3d_options.wall_height
+	wall_mesh_instance.position.y = MazeData.maze_3d_options.wall_height / 2
+
+
 
 	for i: int in range(0, len(walls), 2):
 		var start := walls[i]
@@ -62,6 +55,23 @@ func new_maze(
 		if direction == Vector2.RIGHT:
 			wall.rotate_y(deg_to_rad(90))
 		wall_geometry.add_child(wall)
+
+
+func new_maze(
+	dimensions: Vector2i, new_walls: Array[Vector2i], start_end: Array[Vector2i]
+) -> void:#
+	var modified := Vector2(dimensions) * MazeData.TILE_SIZE
+
+	var floor_mesh: PlaneMesh = floor_mesh_instance.mesh
+	floor_mesh.size = modified
+	floor_mesh.center_offset = Vector3(modified.x / 2, 0, modified.y / 2)
+
+	var floor_collision_box: BoxShape3D = floor_collision.shape
+	floor_collision_box.size = Vector3(modified.x, 0, modified.y)
+	floor_collision.position = floor_mesh.center_offset
+
+	walls = new_walls
+	build_walls()
 
 	var start_pos := (
 		Vector2(start_end[0]) * MazeData.TILE_SIZE
