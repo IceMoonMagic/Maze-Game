@@ -36,6 +36,10 @@ func _physics_process(_delta: float) -> void:
 
 func apply() -> void:
 	maze_2d.apply()
+	background.size = maze.dimensions * MazeData.TILE_SIZE
+	var target := get_viewport().get_visible_rect().size * 0.2
+	var multiplier: Vector2 = target / background.size
+	scale = Vector2.ONE * min(multiplier.x, multiplier.y)
 
 
 func restart() -> void:
