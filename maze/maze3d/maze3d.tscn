@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://4dwtvngjl60f"]
+[gd_scene load_steps=13 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="1_7dsuo"]
 [ext_resource type="Script" path="res://maze/maze3d/maze3d.gd" id="1_ocbum"]
 [ext_resource type="Script" path="res://maze/maze3d/player.gd" id="2_appjc"]
+[ext_resource type="PackedScene" uid="uid://bne3e0t0rrrbn" path="res://maze/maze2d/maze2d.tscn" id="4_0ca1e"]
+[ext_resource type="Script" path="res://maze/maze3d/minimap.gd" id="4_3oinu"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]
 size = Vector3(7, 1, 7)
@@ -85,5 +87,22 @@ shape = SubResource("CapsuleShape3D_hpoqb")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 85.8004, 169.087, 121.446)
 size = 200.0
+
+[node name="Minimap" type="CanvasLayer" parent="."]
+visible = false
+follow_viewport_scale = 401.0
+script = ExtResource("4_3oinu")
+
+[node name="ColorRect" type="ColorRect" parent="Minimap"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="Maze2D" parent="Minimap" instance=ExtResource("4_0ca1e")]
+unique_name_in_owner = true
 
 [connection signal="body_entered" from="Geometry/EndGoal" to="." method="_on_player_maze_end"]

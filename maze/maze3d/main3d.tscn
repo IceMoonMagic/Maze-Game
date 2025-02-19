@@ -15,13 +15,14 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_fxp7h")
 
-[node name="Menu" parent="." instance=ExtResource("2_guqmv")]
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Menu" parent="CanvasLayer" instance=ExtResource("2_guqmv")]
 unique_name_in_owner = true
-layout_mode = 1
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="OptionsMenu" parent="Menu" instance=ExtResource("3_nesj0")]
+[node name="OptionsMenu" parent="CanvasLayer/Menu" instance=ExtResource("3_nesj0")]
 visible = false
 layout_mode = 1
 
@@ -29,10 +30,10 @@ layout_mode = 1
 unique_name_in_owner = true
 visible = false
 
-[connection signal="new_maze" from="Menu" to="." method="_on_new_maze"]
-[connection signal="quit" from="Menu" to="." method="_on_quit"]
-[connection signal="replay_path" from="Menu" to="." method="_on_menu_replay_path"]
-[connection signal="restart_maze" from="Menu" to="." method="_on_restart_maze"]
-[connection signal="resume_maze" from="Menu" to="." method="_on_resume_maze"]
-[connection signal="leave_options_menu" from="Menu/OptionsMenu" to="Menu" method="_on_leave_options_menu"]
+[connection signal="new_maze" from="CanvasLayer/Menu" to="." method="_on_new_maze"]
+[connection signal="quit" from="CanvasLayer/Menu" to="." method="_on_quit"]
+[connection signal="replay_path" from="CanvasLayer/Menu" to="." method="_on_menu_replay_path"]
+[connection signal="restart_maze" from="CanvasLayer/Menu" to="." method="_on_restart_maze"]
+[connection signal="resume_maze" from="CanvasLayer/Menu" to="." method="_on_resume_maze"]
+[connection signal="leave_options_menu" from="CanvasLayer/Menu/OptionsMenu" to="CanvasLayer/Menu" method="_on_leave_options_menu"]
 [connection signal="show_menu" from="Maze3D" to="." method="_on_show_menu"]

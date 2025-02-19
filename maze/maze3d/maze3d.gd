@@ -3,6 +3,7 @@ extends Node3D
 
 signal show_menu
 var maze := Maze.new()
+@onready var minimap := $Minimap
 
 
 func new_maze() -> void:
@@ -15,6 +16,8 @@ func new_maze() -> void:
 	elif maze.dimensions.y == 0:
 		maze.dimensions.y = maze.dimensions.x
 	maze.new_maze(maze.dimensions)
+	minimap.maze = maze
+	minimap.visible = true
 	apply()
 	restart()
 
@@ -24,10 +27,12 @@ func apply() -> void:
 	# `Invalid type` if done inline, for some reason
 	var start_end: Array[Vector2i] = [maze.start, maze.end]
 	$Geometry.new_maze(maze.dimensions, maze.walls, start_end)
+	minimap.apply()
 
 
 func restart() -> void:
 	$Player.position = $Geometry/StartGoal.position
+	minimap.restart()
 
 
 func _on_player_maze_end(_arg: Variant) -> void:
