@@ -6,21 +6,32 @@ extends Control
 @onready var rotate_reset: Button = %RotateReset
 @onready var wall_spin_box: SpinBox = %WallSpinBox
 @onready var wall_reset: Button = %WallReset
+@onready var minimap_spin_box: SpinBox = %MinimapSpinBox
+@onready var minimap_size_reset: Button = %MinimapSizeReset
 
 ## Default options set in the inspector
 ## DO NOT MODIFY
 @onready var default_options := MazeData.Maze3DOptions.new(
-	flat_check.button_pressed, rotate_check.button_pressed, wall_spin_box.value
+	flat_check.button_pressed,
+	rotate_check.button_pressed,
+	wall_spin_box.value,
+	minimap_spin_box.value
 )
 
 ## Options actively in use
 @onready var applied_options := MazeData.Maze3DOptions.new(
-	flat_check.button_pressed, rotate_check.button_pressed, wall_spin_box.value
+	flat_check.button_pressed,
+	rotate_check.button_pressed,
+	wall_spin_box.value,
+	minimap_spin_box.value
 )
 
 ## Modified but unsaved options
 @onready var unapplied_options := MazeData.Maze3DOptions.new(
-	flat_check.button_pressed, rotate_check.button_pressed, wall_spin_box.value
+	flat_check.button_pressed,
+	rotate_check.button_pressed,
+	wall_spin_box.value,
+	minimap_spin_box.value
 )
 
 
@@ -66,3 +77,15 @@ func _on_wall_spin_box_value_changed(value: float) -> void:
 func _on_wall_reset_pressed() -> void:
 	wall_spin_box.value = default_options.wall_height
 	_on_wall_spin_box_value_changed(default_options.wall_height)
+
+
+func _on_minimap_spin_box_value_changed(value: float) -> void:
+	unapplied_options.minimap_size = value
+	minimap_size_reset.disabled = (
+		unapplied_options.minimap_size == default_options.minimap_size
+	)
+
+
+func _on_minimap_size_reset_pressed() -> void:
+	minimap_spin_box.value = default_options.minimap_size
+	_on_minimap_spin_box_value_changed(default_options.minimap_size)

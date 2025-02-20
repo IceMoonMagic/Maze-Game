@@ -103,6 +103,25 @@ layout_mode = 2
 disabled = true
 text = "↻"
 
+[node name="MinimapSizeContainer" type="HBoxContainer" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MinimapSizeContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Minimap Size"
+
+[node name="MinimapSpinBox" type="SpinBox" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MinimapSizeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 20.0
+
+[node name="MinimapSizeReset" type="Button" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MinimapSizeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = "↻"
+
 [node name="Maze2DOptionsButton" type="Button" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -199,6 +218,8 @@ autostart = true
 [connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MapRotationContainer/RotateReset" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_rotate_reset_pressed"]
 [connection signal="value_changed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/HeightContainer/WallSpinBox" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_wall_spin_box_value_changed"]
 [connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/HeightContainer/WallReset" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_wall_reset_pressed"]
+[connection signal="value_changed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MinimapSizeContainer/MinimapSpinBox" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_minimap_spin_box_value_changed"]
+[connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/MinimapSizeContainer/MinimapSizeReset" to="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions" method="_on_minimap_size_reset_pressed"]
 [connection signal="pressed" from="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions/Maze2DOptionsButton" to="." method="_on_maze_2d_options_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/LeaveButton" to="." method="_on_leave_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/RevertButton" to="." method="_on_revert_button_pressed"]

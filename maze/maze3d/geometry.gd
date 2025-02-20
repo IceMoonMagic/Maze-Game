@@ -5,7 +5,8 @@ var walls: Array[Vector2i] = []
 @onready var floor_mesh_instance: MeshInstance3D = $Floor/FloorMeshInstance
 @onready var wall_geometry: Node3D = $Walls
 @onready var base_wall: StaticBody3D = $Walls/BaseWall
-@onready var wall_mesh_instance: MeshInstance3D = $Walls/BaseWall/WallMeshInstance
+@onready
+var wall_mesh_instance: MeshInstance3D = $Walls/BaseWall/WallMeshInstance
 @onready var end_goal: Area3D = $EndGoal
 @onready var start_goal: Area3D = end_goal.duplicate(12)
 
@@ -25,8 +26,6 @@ func build_walls() -> void:
 
 	wall_mesh_instance.mesh.size.y = MazeData.maze_3d_options.wall_height
 	wall_mesh_instance.position.y = MazeData.maze_3d_options.wall_height / 2
-
-
 
 	for i: int in range(0, len(walls), 2):
 		var start := walls[i]
@@ -59,7 +58,7 @@ func build_walls() -> void:
 
 func new_maze(
 	dimensions: Vector2i, new_walls: Array[Vector2i], start_end: Array[Vector2i]
-) -> void:#
+) -> void:  #
 	var modified := Vector2(dimensions) * MazeData.TILE_SIZE
 
 	var floor_mesh: PlaneMesh = floor_mesh_instance.mesh
