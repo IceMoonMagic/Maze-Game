@@ -8,7 +8,9 @@ var walls: Array[Vector2i] = []
 @onready
 var wall_mesh_instance: MeshInstance3D = $Walls/BaseWall/WallMeshInstance
 @onready var end_goal: Area3D = $EndGoal
+@onready var end_goal_mesh_instance: MeshInstance3D = $EndGoal/MeshInstance3D
 @onready var start_goal: Area3D = end_goal.duplicate(12)
+@onready var start_goal_mesh_instance: MeshInstance3D = start_goal.get_node("MeshInstance3D")
 
 
 func _ready() -> void:
@@ -16,6 +18,13 @@ func _ready() -> void:
 	start_goal.name = "StartGoal"
 	start_goal.monitoring = false
 	Globals.options_applied.connect(build_walls)
+	Globals.options_applied.connect(update_colors)
+	update_colors()
+
+
+func update_colors() -> void:
+	floor_mesh_instance.mesh.surface_get_material(0).albedo_color = MazeData.background_options.color
+	end_goal_mesh_instance.mesh.surface_get_material(0).albedo_color = MazeData.goal_options.color
 
 
 func build_walls() -> void:
@@ -26,6 +35,7 @@ func build_walls() -> void:
 
 	wall_mesh_instance.mesh.size.y = MazeData.maze_3d_options.wall_height
 	wall_mesh_instance.position.y = MazeData.maze_3d_options.wall_height / 2
+	wall_mesh_instance.mesh.surface_get_material(0).albedo_color = MazeData.wall_options.color
 
 	for i: int in range(0, len(walls), 2):
 		var start := walls[i]
@@ -63,7 +73,8 @@ func new_maze(
 
 	var floor_mesh: PlaneMesh = floor_mesh_instance.mesh
 	floor_mesh.size = modified
-	floor_mesh.center_offset = Vector3(modified.x / 2, 0, modified.y / 2)
+	floor_mesh.center_offset.x = modified.x / 2
+	floor_mesh.center_offset.z = modified.y / 2
 
 	var floor_collision_box: BoxShape3D = floor_collision.shape
 	floor_collision_box.size = Vector3(modified.x, 0, modified.y)

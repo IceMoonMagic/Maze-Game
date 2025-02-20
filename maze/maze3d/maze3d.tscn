@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://4dwtvngjl60f"]
+[gd_scene load_steps=16 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="1_7dsuo"]
 [ext_resource type="Script" path="res://maze/maze3d/maze3d.gd" id="1_ocbum"]
@@ -9,19 +9,28 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]
 size = Vector3(7, 1, 7)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1ods"]
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_jdtkn"]
 lightmap_size_hint = Vector2i(22, 12)
+material = SubResource("StandardMaterial3D_e1ods")
 size = Vector2(7, 7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v6qvt"]
 size = Vector3(2, 10, 9)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yo2cf"]
+
 [sub_resource type="BoxMesh" id="BoxMesh_x27as"]
+material = SubResource("StandardMaterial3D_yo2cf")
 size = Vector3(2, 2, 9)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tgre5"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ydcsf"]
+
 [sub_resource type="SphereMesh" id="SphereMesh_sxqvd"]
+material = SubResource("StandardMaterial3D_ydcsf")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hpoqb"]
 
