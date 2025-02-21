@@ -1,10 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://4dwtvngjl60f"]
+[gd_scene load_steps=14 format=3 uid="uid://4dwtvngjl60f"]
 
-[ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="1_7dsuo"]
-[ext_resource type="Script" path="res://maze/maze3d/maze3d.gd" id="1_ocbum"]
-[ext_resource type="Script" path="res://maze/maze3d/player.gd" id="2_appjc"]
-[ext_resource type="PackedScene" uid="uid://bne3e0t0rrrbn" path="res://maze/maze2d/maze2d.tscn" id="4_0ca1e"]
-[ext_resource type="Script" path="res://maze/maze3d/minimap.gd" id="4_3oinu"]
+[ext_resource type="Script" path="res://maze/maze3d/maze3d.gd" id="1_ia1mb"]
+[ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="2_gnxxn"]
+[ext_resource type="Script" path="res://maze/maze3d/player.gd" id="3_8gkcs"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]
 size = Vector3(7, 1, 7)
@@ -36,7 +34,7 @@ material = SubResource("StandardMaterial3D_ydcsf")
 
 [node name="Maze3D" type="Node3D"]
 process_mode = 1
-script = ExtResource("1_ocbum")
+script = ExtResource("1_ia1mb")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.173648, 0.492404, -0.852869, 0, 0.866025, 0.5, 0.984808, 0.0868241, -0.150384, 0, 0, 0)
@@ -48,7 +46,7 @@ directional_shadow_mode = 1
 transform = Transform3D(0.707107, 0.0616284, 0.704416, 0, 0.996195, -0.0871557, -0.707107, 0.0616284, 0.704416, 0, 0, 0)
 
 [node name="Geometry" type="Node3D" parent="."]
-script = ExtResource("1_7dsuo")
+script = ExtResource("2_gnxxn")
 
 [node name="Floor" type="StaticBody3D" parent="Geometry"]
 
@@ -56,6 +54,7 @@ script = ExtResource("1_7dsuo")
 shape = SubResource("BoxShape3D_rn46y")
 
 [node name="FloorMeshInstance" type="MeshInstance3D" parent="Geometry/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.001, 0)
 mesh = SubResource("PlaneMesh_jdtkn")
 
 [node name="Walls" type="Node3D" parent="Geometry"]
@@ -84,7 +83,7 @@ mesh = SubResource("SphereMesh_sxqvd")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("2_appjc")
+script = ExtResource("3_8gkcs")
 
 [node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -92,21 +91,5 @@ current = true
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_hpoqb")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 85.8004, 169.087, 121.446)
-size = 200.0
-
-[node name="Minimap" type="CanvasLayer" parent="."]
-layer = 0
-visible = false
-follow_viewport_scale = 401.0
-script = ExtResource("4_3oinu")
-
-[node name="ColorRect" type="ColorRect" parent="Minimap"]
-size_flags_horizontal = 4
-
-[node name="Maze2D" parent="Minimap" instance=ExtResource("4_0ca1e")]
-unique_name_in_owner = true
 
 [connection signal="body_entered" from="Geometry/EndGoal" to="." method="_on_player_maze_end"]

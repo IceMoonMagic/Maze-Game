@@ -70,34 +70,24 @@ class LineOptionData:
 
 class Maze3DOptions:
 	var flat: bool
-	var rotation_lock: bool
 	var wall_height: float
-	var minimap_size: float
 
 	func _init(
 		p_flat: bool,
-		p_rotation_lock: bool,
 		p_wall_height: float,
-		p_minimap_size: float
 	) -> void:
 		flat = p_flat
-		rotation_lock = p_rotation_lock
 		wall_height = p_wall_height
-		minimap_size = p_minimap_size
 
 	func equals(other: Maze3DOptions) -> bool:
 		return (
 			self.flat == other.flat
-			and self.rotation_lock == other.rotation_lock
 			and self.wall_height == other.wall_height
-			and self.minimap_size == other.minimap_size
 		)
 
 	func set_to(other: Maze3DOptions) -> void:
 		self.flat = other.flat
-		self.rotation_lock = other.rotation_lock
 		self.wall_height = other.wall_height
-		self.minimap_size = other.minimap_size
 
 
 var cursor_options: LineOptionData
@@ -180,31 +170,21 @@ func load_config_file() -> Error:
 	if (
 		maze_3d_options == null
 		and config_file.has_section_key("Appearance", "maze3d.flat")
-		and config_file.has_section_key("Appearance", "maze3d.rotation_lock")
 		and config_file.has_section_key("Appearance", "maze3d.wall_height")
-		and config_file.has_section_key("Appearance", "maze3d.minimap_size")
 	):
 		maze_3d_options = (
 			Maze3DOptions
 			. new(
 				config_file.get_value("Appearance", "maze3d.flat"),
-				config_file.get_value("Appearance", "maze3d.rotation_lock"),
 				config_file.get_value("Appearance", "maze3d.wall_height"),
-				config_file.get_value("Appearance", "maze3d.minimap_size"),
 			)
 		)
 	elif maze_3d_options != null:
 		maze_3d_options.flat = config_file.get_value(
 			"Appearance", "maze3d.flat", maze_3d_options.flat
 		)
-		maze_3d_options.rotation_lock = config_file.get_value(
-			"Appearance", "maze3d.rotation_lock", maze_3d_options.rotation_lock
-		)
 		maze_3d_options.wall_height = config_file.get_value(
 			"Appearance", "maze3d.wall_height", maze_3d_options.wall_height
-		)
-		maze_3d_options.minimap_size = config_file.get_value(
-			"Appearance", "maze3d.minimap_size", maze_3d_options.minimap_size
 		)
 
 	generation_options.weights = config_file.get_value(
@@ -262,13 +242,7 @@ func save_config_file() -> Error:
 	if maze_3d_options != null:
 		config_file.set_value("Appearance", "maze3d.flat", maze_3d_options.flat)
 		config_file.set_value(
-			"Appearance", "maze3d.rotation_lock", maze_3d_options.rotation_lock
-		)
-		config_file.set_value(
 			"Appearance", "maze3d.wall_height", maze_3d_options.wall_height
-		)
-		config_file.set_value(
-			"Appearance", "maze3d.minimap_size", maze_3d_options.minimap_size
 		)
 
 	config_file.set_value("Generation", "weights", generation_options.weights)
