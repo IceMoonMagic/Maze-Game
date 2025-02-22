@@ -10,7 +10,9 @@ var wall_mesh_instance: MeshInstance3D = $Walls/BaseWall/WallMeshInstance
 @onready var end_goal: Area3D = $EndGoal
 @onready var end_goal_mesh_instance: MeshInstance3D = $EndGoal/MeshInstance3D
 @onready var start_goal: Area3D = end_goal.duplicate(12)
-@onready var start_goal_mesh_instance: MeshInstance3D = start_goal.get_node("MeshInstance3D")
+@onready var start_goal_mesh_instance: MeshInstance3D = start_goal.get_node(
+	"MeshInstance3D"
+)
 
 
 func _ready() -> void:
@@ -23,8 +25,16 @@ func _ready() -> void:
 
 
 func update_colors() -> void:
-	floor_mesh_instance.mesh.surface_get_material(0).albedo_color = MazeData.background_options.color
-	end_goal_mesh_instance.mesh.surface_get_material(0).albedo_color = MazeData.goal_options.color
+	floor_mesh_instance.mesh.surface_get_material(0).albedo_color = (
+		MazeData.background_options.color
+	)
+	end_goal_mesh_instance.mesh.surface_get_material(0).albedo_color = (
+		MazeData.goal_options.color
+	)
+	end_goal.get_node("BeaconMeshInstance").mesh.surface_get_material(0).albedo_color = (
+		MazeData.goal_options.color
+	)
+	end_goal.get_node("BeaconMeshInstance").mesh.surface_get_material(0).albedo_color.a8 = 128
 
 
 func build_walls() -> void:
@@ -35,7 +45,9 @@ func build_walls() -> void:
 
 	wall_mesh_instance.mesh.size.y = MazeData.maze_3d_options.wall_height
 	wall_mesh_instance.position.y = MazeData.maze_3d_options.wall_height / 2
-	wall_mesh_instance.mesh.surface_get_material(0).albedo_color = MazeData.wall_options.color
+	wall_mesh_instance.mesh.surface_get_material(0).albedo_color = (
+		MazeData.wall_options.color
+	)
 
 	for i: int in range(0, len(walls), 2):
 		var start := walls[i]

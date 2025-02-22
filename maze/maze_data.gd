@@ -80,10 +80,7 @@ class Maze3DOptions:
 		wall_height = p_wall_height
 
 	func equals(other: Maze3DOptions) -> bool:
-		return (
-			self.flat == other.flat
-			and self.wall_height == other.wall_height
-		)
+		return self.flat == other.flat and self.wall_height == other.wall_height
 
 	func set_to(other: Maze3DOptions) -> void:
 		self.flat = other.flat

@@ -7,21 +7,33 @@ extends Control
 
 ## Default options set in the inspector
 ## DO NOT MODIFY
-@onready var default_options := MazeData.Maze3DOptions.new(
-	flat_check.button_pressed,
-	wall_spin_box.value,
+@onready var default_options := (
+	MazeData
+	. Maze3DOptions
+	. new(
+		flat_check.button_pressed,
+		wall_spin_box.value,
+	)
 )
 
 ## Options actively in use
-@onready var applied_options := MazeData.Maze3DOptions.new(
-	flat_check.button_pressed,
-	wall_spin_box.value,
+@onready var applied_options := (
+	MazeData
+	. Maze3DOptions
+	. new(
+		flat_check.button_pressed,
+		wall_spin_box.value,
+	)
 )
 
 ## Modified but unsaved options
-@onready var unapplied_options := MazeData.Maze3DOptions.new(
-	flat_check.button_pressed,
-	wall_spin_box.value,
+@onready var unapplied_options := (
+	MazeData
+	. Maze3DOptions
+	. new(
+		flat_check.button_pressed,
+		wall_spin_box.value,
+	)
 )
 
 

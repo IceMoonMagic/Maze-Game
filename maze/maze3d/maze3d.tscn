@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://4dwtvngjl60f"]
+[gd_scene load_steps=16 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" path="res://maze/maze3d/maze3d.gd" id="1_ia1mb"]
 [ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="2_gnxxn"]
@@ -29,6 +29,15 @@ size = Vector3(2, 2, 9)
 
 [sub_resource type="SphereMesh" id="SphereMesh_sxqvd"]
 material = SubResource("StandardMaterial3D_ydcsf")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w8fq3"]
+transparency = 1
+no_depth_test = true
+shading_mode = 0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_bug1e"]
+material = SubResource("StandardMaterial3D_w8fq3")
+height = 128.0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hpoqb"]
 
@@ -80,6 +89,10 @@ shape = SubResource("SphereShape3D_tgre5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/EndGoal"]
 mesh = SubResource("SphereMesh_sxqvd")
+
+[node name="BeaconMeshInstance" type="MeshInstance3D" parent="Geometry/EndGoal"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 63.5, 0)
+mesh = SubResource("CapsuleMesh_bug1e")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
