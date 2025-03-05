@@ -1,8 +1,8 @@
 [gd_scene load_steps=16 format=3 uid="uid://4dwtvngjl60f"]
 
-[ext_resource type="Script" path="res://maze/maze3d/maze3d.gd" id="1_ia1mb"]
-[ext_resource type="Script" path="res://maze/maze3d/geometry.gd" id="2_gnxxn"]
-[ext_resource type="Script" path="res://maze/maze3d/player.gd" id="3_8gkcs"]
+[ext_resource type="Script" uid="uid://rpkdpm2k07vs" path="res://maze/maze3d/maze3d.gd" id="1_ia1mb"]
+[ext_resource type="Script" uid="uid://c7b250l5k4dcb" path="res://maze/maze3d/geometry.gd" id="2_gnxxn"]
+[ext_resource type="Script" uid="uid://dia8771v3dtvv" path="res://maze/maze3d/player.gd" id="3_8gkcs"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]
 size = Vector3(7, 1, 7)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bie6edph7focf"]
 
-[ext_resource type="Script" path="res://maze/maze2d/options/options_menu.gd" id="1_v8vcu"]
+[ext_resource type="Script" uid="uid://bvd7qg4dhmk1i" path="res://maze/maze2d/options/options_menu.gd" id="1_v8vcu"]
 [ext_resource type="PackedScene" uid="uid://b2sag05lj0fwq" path="res://maze/maze2d/options/line_options.tscn" id="2_28sa0"]
 [ext_resource type="PackedScene" uid="uid://7exio4kaokks" path="res://maze/maze2d/options/generation_options.tscn" id="2_bjf27"]
 

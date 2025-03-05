@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://3mvlx6bvilqn"]
 
-[ext_resource type="Script" path="res://maze/selector.gd" id="1_lurlo"]
+[ext_resource type="Script" uid="uid://dg0yfptwv2ohg" path="res://maze/selector.gd" id="1_lurlo"]
 
 [node name="Selector" type="Control"]
 layout_mode = 3

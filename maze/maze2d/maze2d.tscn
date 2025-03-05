@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://bne3e0t0rrrbn"]
 
-[ext_resource type="Script" path="res://maze/maze2d/maze2d.gd" id="1_k416j"]
-[ext_resource type="Script" path="res://maze/maze2d/camera.gd" id="2_cfn4n"]
-[ext_resource type="Script" path="res://maze/maze2d/geometry.gd" id="3_nj188"]
-[ext_resource type="Script" path="res://maze/maze2d/move.gd" id="4_1alv8"]
+[ext_resource type="Script" uid="uid://dfdwb62teei6x" path="res://maze/maze2d/maze2d.gd" id="1_k416j"]
+[ext_resource type="Script" uid="uid://bp5bo3sgcen7j" path="res://maze/maze2d/camera.gd" id="2_cfn4n"]
+[ext_resource type="Script" uid="uid://dh6exeho3tomc" path="res://maze/maze2d/geometry.gd" id="3_nj188"]
+[ext_resource type="Script" uid="uid://htkyjy623vmf" path="res://maze/maze2d/move.gd" id="4_1alv8"]
 
 [node name="Maze2D" type="Node2D"]
 process_mode = 1

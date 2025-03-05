@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cdb0n8h36owpy"]
 
-[ext_resource type="Script" path="res://maze/maze3d/options_menu.gd" id="1_7ci45"]
+[ext_resource type="Script" uid="uid://3gx0fbeysd5a" path="res://maze/maze3d/options_menu.gd" id="1_7ci45"]
 [ext_resource type="PackedScene" uid="uid://bie6edph7focf" path="res://maze/maze2d/options/options_menu.tscn" id="2_8vgr0"]
 [ext_resource type="PackedScene" uid="uid://7exio4kaokks" path="res://maze/maze2d/options/generation_options.tscn" id="3_adg1m"]
-[ext_resource type="Script" path="res://maze/maze3d/maze_3d_options.gd" id="3_v0oak"]
+[ext_resource type="Script" uid="uid://cc0epevke0msi" path="res://maze/maze3d/maze_3d_options.gd" id="3_v0oak"]
 
 [node name="OptionsMenu" type="VBoxContainer"]
 anchors_preset = 15

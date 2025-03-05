@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2sag05lj0fwq"]
 
-[ext_resource type="Script" path="res://maze/maze2d/options/line_options.gd" id="1_6h6di"]
+[ext_resource type="Script" uid="uid://s72a7qn6jvj5" path="res://maze/maze2d/options/line_options.gd" id="1_6h6di"]
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_3v553"]
 color = Color(0.231067, 0.258915, 0.321431, 1)
