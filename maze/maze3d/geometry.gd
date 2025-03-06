@@ -13,6 +13,7 @@ var wall_mesh_instance: MeshInstance3D = $Walls/BaseWall/WallMeshInstance
 @onready var start_goal_mesh_instance: MeshInstance3D = start_goal.get_node(
 	"MeshInstance3D"
 )
+@onready var world_environment: WorldEnvironment = $WorldEnvironment
 
 
 func _ready() -> void:
@@ -35,6 +36,11 @@ func update_colors() -> void:
 		MazeData.goal_options.color
 	)
 	end_goal.get_node("BeaconMeshInstance").mesh.surface_get_material(0).albedo_color.a8 = 128
+	world_environment.environment.background_mode = (
+		Environment.BG_CLEAR_COLOR
+		if MazeData.maze_3d_options.flat
+		else Environment.BG_SKY
+	)
 
 
 func build_walls() -> void:

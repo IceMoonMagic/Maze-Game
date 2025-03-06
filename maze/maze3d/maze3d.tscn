@@ -1,13 +1,15 @@
-[gd_scene load_steps=16 format=3 uid="uid://4dwtvngjl60f"]
+[gd_scene load_steps=20 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" uid="uid://rpkdpm2k07vs" path="res://maze/maze3d/maze3d.gd" id="1_ia1mb"]
 [ext_resource type="Script" uid="uid://c7b250l5k4dcb" path="res://maze/maze3d/geometry.gd" id="2_gnxxn"]
 [ext_resource type="Script" uid="uid://dia8771v3dtvv" path="res://maze/maze3d/player.gd" id="3_8gkcs"]
+[ext_resource type="Texture2D" uid="uid://cbk0l23omkynd" path="res://maze/maze3d/assets/asteroid_belt.png" id="4_864sv"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]
 size = Vector3(7, 1, 7)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1ods"]
+emission_operator = 1
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_jdtkn"]
 lightmap_size_hint = Vector2i(22, 12)
@@ -38,6 +40,16 @@ shading_mode = 0
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_bug1e"]
 material = SubResource("StandardMaterial3D_w8fq3")
 height = 128.0
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_864sv"]
+panorama = ExtResource("4_864sv")
+
+[sub_resource type="Sky" id="Sky_2elut"]
+sky_material = SubResource("PanoramaSkyMaterial_864sv")
+
+[sub_resource type="Environment" id="Environment_745lo"]
+sky = SubResource("Sky_2elut")
+sky_rotation = Vector3(-0.401426, 4.8398, 0)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hpoqb"]
 
@@ -93,6 +105,9 @@ mesh = SubResource("SphereMesh_sxqvd")
 [node name="BeaconMeshInstance" type="MeshInstance3D" parent="Geometry/EndGoal"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 63.5, 0)
 mesh = SubResource("CapsuleMesh_bug1e")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Geometry"]
+environment = SubResource("Environment_745lo")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
