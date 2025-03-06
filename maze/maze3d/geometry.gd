@@ -1,5 +1,8 @@
 extends Node3D
 
+var wall_texture: Texture2D = load("res://maze/maze3d/assets/rocky2.png")
+var floor_texture: Texture2D = load("res://maze/maze3d/assets/stones_angular.png")
+
 var walls: Array[Vector2i] = []
 @onready var floor_collision: CollisionShape3D = $Floor/FloorCollision
 @onready var floor_mesh_instance: MeshInstance3D = $Floor/FloorMeshInstance
@@ -26,9 +29,6 @@ func _ready() -> void:
 
 
 func update_colors() -> void:
-	floor_mesh_instance.mesh.surface_get_material(0).albedo_color = (
-		MazeData.background_options.color
-	)
 	end_goal_mesh_instance.mesh.surface_get_material(0).albedo_color = (
 		MazeData.goal_options.color
 	)
@@ -36,11 +36,16 @@ func update_colors() -> void:
 		MazeData.goal_options.color
 	)
 	end_goal.get_node("BeaconMeshInstance").mesh.surface_get_material(0).albedo_color.a8 = 128
-	world_environment.environment.background_mode = (
-		Environment.BG_CLEAR_COLOR
-		if MazeData.maze_3d_options.flat
-		else Environment.BG_SKY
-	)
+
+	var floor_material: BaseMaterial3D = floor_mesh_instance.mesh.surface_get_material(0)
+	if MazeData.maze_3d_options.flat:
+		floor_material.albedo_color = MazeData.background_options.color
+		floor_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, null)
+		world_environment.environment.background_mode = Environment.BG_CLEAR_COLOR
+	else:
+		floor_material.albedo_color = Color.WHITE
+		floor_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, floor_texture)
+		world_environment.environment.background_mode = Environment.BG_SKY
 
 
 func build_walls() -> void:
@@ -51,9 +56,14 @@ func build_walls() -> void:
 
 	wall_mesh_instance.mesh.size.y = MazeData.maze_3d_options.wall_height
 	wall_mesh_instance.position.y = MazeData.maze_3d_options.wall_height / 2
-	wall_mesh_instance.mesh.surface_get_material(0).albedo_color = (
-		MazeData.wall_options.color
-	)
+	var wall_material: BaseMaterial3D = wall_mesh_instance.mesh.surface_get_material(0)
+
+	if MazeData.maze_3d_options.flat:
+		wall_material.albedo_color = MazeData.wall_options.color
+		wall_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, null)
+	else:
+		wall_material.albedo_color = Color.FOREST_GREEN
+		wall_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, wall_texture)
 
 	for i: int in range(0, len(walls), 2):
 		var start := walls[i]
@@ -93,6 +103,7 @@ func new_maze(
 	floor_mesh.size = modified
 	floor_mesh.center_offset.x = modified.x / 2
 	floor_mesh.center_offset.z = modified.y / 2
+	floor_mesh.surface_get_material(0).uv1_scale = Vector3(dimensions.x, dimensions.y, 0) * 4
 
 	var floor_collision_box: BoxShape3D = floor_collision.shape
 	floor_collision_box.size = Vector3(modified.x, 0, modified.y)
