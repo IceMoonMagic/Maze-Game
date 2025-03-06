@@ -29,6 +29,7 @@ albedo_color = Color(0.0156863, 0.364706, 0.14902, 1)
 albedo_texture = ExtResource("4_745lo")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
+uv1_world_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_x27as"]
 material = SubResource("StandardMaterial3D_yo2cf")
@@ -94,6 +95,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 0)
 visible = false
 
 [node name="WallCollision" type="CollisionShape3D" parent="Geometry/Walls/BaseWall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5, 0)
 shape = SubResource("BoxShape3D_v6qvt")
 
 [node name="WallMeshInstance" type="MeshInstance3D" parent="Geometry/Walls/BaseWall"]

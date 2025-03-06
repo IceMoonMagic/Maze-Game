@@ -1,7 +1,9 @@
 extends Node3D
 
 var wall_texture: Texture2D = load("res://maze/maze3d/assets/rocky2.png")
-var floor_texture: Texture2D = load("res://maze/maze3d/assets/stones_angular.png")
+var floor_texture: Texture2D = load(
+	"res://maze/maze3d/assets/stones_angular.png"
+)
 
 var walls: Array[Vector2i] = []
 @onready var floor_collision: CollisionShape3D = $Floor/FloorCollision
@@ -37,11 +39,15 @@ func update_colors() -> void:
 	)
 	end_goal.get_node("BeaconMeshInstance").mesh.surface_get_material(0).albedo_color.a8 = 128
 
-	var floor_material: BaseMaterial3D = floor_mesh_instance.mesh.surface_get_material(0)
+	var floor_material: BaseMaterial3D = (
+		floor_mesh_instance.mesh.surface_get_material(0)
+	)
 	if MazeData.maze_3d_options.flat:
 		floor_material.albedo_color = MazeData.background_options.color
 		floor_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, null)
-		world_environment.environment.background_mode = Environment.BG_CLEAR_COLOR
+		world_environment.environment.background_mode = (
+			Environment.BG_CLEAR_COLOR
+		)
 	else:
 		floor_material.albedo_color = Color.WHITE
 		floor_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, floor_texture)
@@ -56,7 +62,9 @@ func build_walls() -> void:
 
 	wall_mesh_instance.mesh.size.y = MazeData.maze_3d_options.wall_height
 	wall_mesh_instance.position.y = MazeData.maze_3d_options.wall_height / 2
-	var wall_material: BaseMaterial3D = wall_mesh_instance.mesh.surface_get_material(0)
+	var wall_material: BaseMaterial3D = (
+		wall_mesh_instance.mesh.surface_get_material(0)
+	)
 
 	if MazeData.maze_3d_options.flat:
 		wall_material.albedo_color = MazeData.wall_options.color
@@ -103,7 +111,9 @@ func new_maze(
 	floor_mesh.size = modified
 	floor_mesh.center_offset.x = modified.x / 2
 	floor_mesh.center_offset.z = modified.y / 2
-	floor_mesh.surface_get_material(0).uv1_scale = Vector3(dimensions.x, dimensions.y, 0) * 4
+	floor_mesh.surface_get_material(0).uv1_scale = (
+		Vector3(dimensions.x, dimensions.y, 0) * 4
+	)
 
 	var floor_collision_box: BoxShape3D = floor_collision.shape
 	floor_collision_box.size = Vector3(modified.x, 0, modified.y)
