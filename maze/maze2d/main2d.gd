@@ -6,6 +6,7 @@ var has_maze: bool = false
 var exit_mode: Globals.ExitMode
 @onready var menu: MazeMenu = %Menu
 @onready var maze: Maze2D = %Maze2D
+@onready var hold_to_pause: Timer = %HoldToPause
 
 
 func _init(p_exit_mode: Globals.ExitMode = Globals.ExitMode.QUIT_TREE) -> void:
@@ -18,12 +19,12 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("Pause"):
-		if not has_maze:
-			pass
-		elif menu.visible:
-			show_maze()
+		_on_hold_to_pause_timeout()
+	if event is InputEventScreenTouch:
+		if event.is_pressed():
+			hold_to_pause.start()
 		else:
-			show_menu()
+			hold_to_pause.stop()
 	if event.is_action_pressed("Quick New"):
 		_on_new_maze()
 	if event.is_action_pressed("Quick Restart"):
@@ -80,3 +81,12 @@ func _on_resume_maze() -> void:
 func _on_menu_replay_path(mode: Maze2D.ReplayMode) -> void:
 	show_maze()
 	%Maze2D.replay_path(mode)
+
+
+func _on_hold_to_pause_timeout() -> void:
+	if not has_maze:
+		pass
+	elif menu.visible:
+		show_maze()
+	else:
+		show_menu()

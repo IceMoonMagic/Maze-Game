@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbk0l23omkynd"
 path.s3tc="res://.godot/imported/asteroid_belt.png-e8a26206432594ea130733ce0ae8cccf.s3tc.ctex"
+path.etc2="res://.godot/imported/asteroid_belt.png-e8a26206432594ea130733ce0ae8cccf.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://maze/maze3d/assets/asteroid_belt.png"
-dest_files=["res://.godot/imported/asteroid_belt.png-e8a26206432594ea130733ce0ae8cccf.s3tc.ctex"]
+dest_files=["res://.godot/imported/asteroid_belt.png-e8a26206432594ea130733ce0ae8cccf.s3tc.ctex", "res://.godot/imported/asteroid_belt.png-e8a26206432594ea130733ce0ae8cccf.etc2.ctex"]
 
 [params]
 

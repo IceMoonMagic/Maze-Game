@@ -21,42 +21,87 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HFlowContainer" type="HFlowContainer" parent="SelectorMenu"]
-layout_mode = 2
-anchor_top = 0.5
+[node name="VBoxContainer" type="VBoxContainer" parent="SelectorMenu"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -33.0
-offset_bottom = 33.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Maze2DButton" type="Button" parent="SelectorMenu/HFlowContainer"]
+[node name="Spacer" type="Control" parent="SelectorMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SelectorMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Spacer" type="Control" parent="SelectorMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Maze2DButton" type="Button" parent="SelectorMenu/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 text = "Maze 2D"
 
-[node name="Maze3DButton" type="Button" parent="SelectorMenu/HFlowContainer"]
+[node name="Spacer2" type="Control" parent="SelectorMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Maze3DButton" type="Button" parent="SelectorMenu/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
 text = "Maze 3D"
 
-[node name="ExitButton" type="Button" parent="SelectorMenu"]
-unique_name_in_owner = true
+[node name="Spacer3" type="Control" parent="SelectorMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -18.5
-offset_top = -31.0
-offset_right = 18.5
-grow_horizontal = 2
-grow_vertical = 0
+size_flags_horizontal = 3
+
+[node name="Spacer2" type="Control" parent="SelectorMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SelectorMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Spacer" type="Control" parent="SelectorMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.67
+
+[node name="CreditsButton" type="Button" parent="SelectorMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Credits"
+
+[node name="Spacer2" type="Control" parent="SelectorMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.67
+
+[node name="ExitButton" type="Button" parent="SelectorMenu/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
 text = "Exit"
 
-[connection signal="pressed" from="SelectorMenu/HFlowContainer/Maze2DButton" to="." method="_on_maze_2d_button_pressed"]
-[connection signal="pressed" from="SelectorMenu/HFlowContainer/Maze3DButton" to="." method="_on_maze_3d_button_pressed"]
-[connection signal="pressed" from="SelectorMenu/ExitButton" to="." method="_on_exit_button_pressed"]
+[node name="Spacer3" type="Control" parent="SelectorMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.67
+
+[node name="Spacer3" type="Control" parent="SelectorMenu/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.5
+
+[connection signal="pressed" from="SelectorMenu/VBoxContainer/HBoxContainer/Maze2DButton" to="." method="_on_maze_2d_button_pressed"]
+[connection signal="pressed" from="SelectorMenu/VBoxContainer/HBoxContainer/Maze3DButton" to="." method="_on_maze_3d_button_pressed"]
+[connection signal="pressed" from="SelectorMenu/VBoxContainer/HBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]
