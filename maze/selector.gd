@@ -40,6 +40,10 @@ func _on_maze_3d_button_pressed() -> void:
 	load_scene("res://maze/maze3d/main3d.tscn")
 
 
+func _on_credit_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://credits.tscn")
+
+
 func _on_exit_button_pressed() -> void:
 	match exit_mode:
 		Globals.ExitMode.SIGNAL_EXIT:

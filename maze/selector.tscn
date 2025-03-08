@@ -76,9 +76,11 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.67
 
 [node name="CreditsButton" type="Button" parent="SelectorMenu/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Credits"
+text = "3rd Party
+Credits"
 
 [node name="Spacer2" type="Control" parent="SelectorMenu/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -104,4 +106,5 @@ size_flags_stretch_ratio = 0.5
 
 [connection signal="pressed" from="SelectorMenu/VBoxContainer/HBoxContainer/Maze2DButton" to="." method="_on_maze_2d_button_pressed"]
 [connection signal="pressed" from="SelectorMenu/VBoxContainer/HBoxContainer/Maze3DButton" to="." method="_on_maze_3d_button_pressed"]
+[connection signal="pressed" from="SelectorMenu/VBoxContainer/HBoxContainer2/CreditsButton" to="." method="_on_credit_button_pressed"]
 [connection signal="pressed" from="SelectorMenu/VBoxContainer/HBoxContainer2/ExitButton" to="." method="_on_exit_button_pressed"]
