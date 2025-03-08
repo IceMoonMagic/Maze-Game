@@ -1,5 +1,5 @@
 class_name Maze
-extends Node
+extends RefCounted
 
 @export var dimensions: Vector2i = Vector2i(1, 1)
 @export var choose_cell_weights: Array[float] = [0.0, 0.0, 1.0]
