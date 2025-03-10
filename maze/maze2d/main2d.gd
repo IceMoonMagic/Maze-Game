@@ -25,6 +25,8 @@ func _input(event: InputEvent) -> void:
 			hold_to_pause.start()
 		else:
 			hold_to_pause.stop()
+	if event is InputEventScreenDrag:
+		hold_to_pause.stop()
 	if event.is_action_pressed("Quick New"):
 		_on_new_maze()
 	if event.is_action_pressed("Quick Restart"):
