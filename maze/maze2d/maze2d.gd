@@ -9,6 +9,20 @@ var maze := Maze.new()
 func new_maze() -> void:
 	maze.choose_cell_weights = MazeData.generation_options.weights
 	maze.dimensions = MazeData.generation_options.dimensions
+	if (
+		get_viewport_rect().size.aspect() < 1
+		and (
+			(
+				get_parent()
+				. get_node("%Menu/OptionsMenu")
+				. get_node("%GenerationOptions")
+				. auto_mode_label
+				. text
+			)
+			== "Fit"
+		)
+	):
+		maze.dimensions = Vector2(maze.dimensions.y, maze.dimensions.x)
 	if maze.dimensions == Vector2i.ZERO:
 		pass
 	elif maze.dimensions.x == 0:
