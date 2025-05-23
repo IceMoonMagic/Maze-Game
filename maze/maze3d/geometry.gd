@@ -1,7 +1,7 @@
 extends Node3D
 
-var wall_texture: Texture2D = load("res://maze/maze3d/assets/rocky2.png")
-var floor_texture: Texture2D = load(
+var wall_texture: Texture2D = preload("res://maze/maze3d/assets/rocky2.png")
+var floor_texture: Texture2D = preload(
 	"res://maze/maze3d/assets/stones_angular.png"
 )
 
@@ -45,12 +45,14 @@ func update_colors() -> void:
 	if MazeOptions.maze_3d_options.flat:
 		floor_material.albedo_color = MazeOptions.background_options.color
 		floor_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, null)
+		floor_material.normal_enabled = false
 		world_environment.environment.background_mode = (
 			Environment.BG_CLEAR_COLOR
 		)
 	else:
 		floor_material.albedo_color = Color.WHITE
 		floor_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, floor_texture)
+		floor_material.normal_enabled = true
 		world_environment.environment.background_mode = Environment.BG_SKY
 
 
@@ -69,9 +71,11 @@ func build_walls() -> void:
 	if MazeOptions.maze_3d_options.flat:
 		wall_material.albedo_color = MazeOptions.wall_options.color
 		wall_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, null)
+		wall_material.normal_enabled = false
 	else:
 		wall_material.albedo_color = Color.FOREST_GREEN
 		wall_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, wall_texture)
+		wall_material.normal_enabled = true
 
 	for i: int in range(0, len(walls), 2):
 		var start := walls[i]

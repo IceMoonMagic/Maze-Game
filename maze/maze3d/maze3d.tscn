@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://4dwtvngjl60f"]
+[gd_scene load_steps=24 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" uid="uid://rpkdpm2k07vs" path="res://maze/maze3d/maze3d.gd" id="1_ia1mb"]
 [ext_resource type="Script" uid="uid://c7b250l5k4dcb" path="res://maze/maze3d/geometry.gd" id="2_gnxxn"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://dia8771v3dtvv" path="res://maze/maze3d/player.gd" id="3_8gkcs"]
 [ext_resource type="Texture2D" uid="uid://baiwl6aomu61u" path="res://maze/maze3d/assets/rocky2.png" id="4_745lo"]
 [ext_resource type="Texture2D" uid="uid://cbk0l23omkynd" path="res://maze/maze3d/assets/asteroid_belt.png" id="4_864sv"]
+[ext_resource type="Texture2D" uid="uid://cu31ancannkyw" path="res://maze/maze3d/assets/stones_angular.normal.png" id="4_jejre"]
+[ext_resource type="Texture2D" uid="uid://bpkgx3bydct3q" path="res://maze/maze3d/assets/rocky2.normal.png" id="7_rs0iy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]
 size = Vector3(7, 1, 7)
@@ -13,6 +15,11 @@ size = Vector3(7, 1, 7)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e1ods"]
 albedo_texture = ExtResource("3_1udwv")
 emission_operator = 1
+normal_enabled = true
+normal_scale = 0.25
+normal_texture = ExtResource("4_jejre")
+rim_enabled = true
+rim = 0.01
 heightmap_scale = -16.0
 uv1_scale = Vector3(7, 7, 7)
 
@@ -27,6 +34,11 @@ size = Vector3(2, 10, 9)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yo2cf"]
 albedo_color = Color(0.0156863, 0.364706, 0.14902, 1)
 albedo_texture = ExtResource("4_745lo")
+normal_enabled = true
+normal_scale = 0.5
+normal_texture = ExtResource("7_rs0iy")
+rim_enabled = true
+rim = 0.05
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true
 uv1_world_triplanar = true
@@ -38,6 +50,7 @@ size = Vector3(2, 2, 9)
 [sub_resource type="SphereShape3D" id="SphereShape3D_tgre5"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ydcsf"]
+backlight = Color(1, 1, 1, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_sxqvd"]
 material = SubResource("StandardMaterial3D_ydcsf")
@@ -58,6 +71,7 @@ panorama = ExtResource("4_864sv")
 sky_material = SubResource("PanoramaSkyMaterial_864sv")
 
 [sub_resource type="Environment" id="Environment_745lo"]
+background_mode = 2
 sky = SubResource("Sky_2elut")
 sky_rotation = Vector3(-0.401426, 4.8398, 0)
 
@@ -70,11 +84,7 @@ script = ExtResource("1_ia1mb")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.173648, 0.492404, -0.852869, 0, 0.866025, 0.5, 0.984808, 0.0868241, -0.150384, 0, 0, 0)
 shadow_enabled = true
-shadow_opacity = 0.8
 directional_shadow_mode = 1
-
-[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.707107, 0.0616284, 0.704416, 0, 0.996195, -0.0871557, -0.707107, 0.0616284, 0.704416, 0, 0, 0)
 
 [node name="Geometry" type="Node3D" parent="."]
 script = ExtResource("2_gnxxn")
