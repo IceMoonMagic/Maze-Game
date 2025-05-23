@@ -9,7 +9,7 @@ extends Resource
 	set(val):
 		color = val
 		emit_changed()
-@export_range(0.5, MazeData.TILE_SIZE, 0.5) var thickness := 1.0:
+@export_range(0.5, MazeOptions.TILE_SIZE, 0.5) var thickness := 1.0:
 	set(val):
 		thickness = val
 		emit_changed()

@@ -65,7 +65,9 @@ func _on_restart_maze() -> void:
 func _on_options_updated() -> void:
 	if has_maze:
 		maze.update_line_options()
-	RenderingServer.set_default_clear_color(MazeData.background_options.color)
+	RenderingServer.set_default_clear_color(
+		MazeOptions.background_options.color
+	)
 
 
 func _on_quit() -> void:

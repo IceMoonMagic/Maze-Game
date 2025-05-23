@@ -32,18 +32,18 @@ func _ready() -> void:
 
 func update_colors() -> void:
 	end_goal_mesh_instance.mesh.surface_get_material(0).albedo_color = (
-		MazeData.goal_options.color
+		MazeOptions.goal_options.color
 	)
 	end_goal.get_node("BeaconMeshInstance").mesh.surface_get_material(0).albedo_color = (
-		MazeData.goal_options.color
+		MazeOptions.goal_options.color
 	)
 	end_goal.get_node("BeaconMeshInstance").mesh.surface_get_material(0).albedo_color.a8 = 128
 
 	var floor_material: BaseMaterial3D = (
 		floor_mesh_instance.mesh.surface_get_material(0)
 	)
-	if MazeData.maze_3d_options.flat:
-		floor_material.albedo_color = MazeData.background_options.color
+	if MazeOptions.maze_3d_options.flat:
+		floor_material.albedo_color = MazeOptions.background_options.color
 		floor_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, null)
 		world_environment.environment.background_mode = (
 			Environment.BG_CLEAR_COLOR
@@ -60,14 +60,14 @@ func build_walls() -> void:
 			#print("Freeing ", child.name)
 			child.queue_free()
 
-	wall_mesh_instance.mesh.size.y = MazeData.maze_3d_options.wall_height
-	wall_mesh_instance.position.y = MazeData.maze_3d_options.wall_height / 2
+	wall_mesh_instance.mesh.size.y = MazeOptions.maze_3d_options.wall_height
+	wall_mesh_instance.position.y = MazeOptions.maze_3d_options.wall_height / 2
 	var wall_material: BaseMaterial3D = (
 		wall_mesh_instance.mesh.surface_get_material(0)
 	)
 
-	if MazeData.maze_3d_options.flat:
-		wall_material.albedo_color = MazeData.wall_options.color
+	if MazeOptions.maze_3d_options.flat:
+		wall_material.albedo_color = MazeOptions.wall_options.color
 		wall_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, null)
 	else:
 		wall_material.albedo_color = Color.FOREST_GREEN
@@ -77,7 +77,8 @@ func build_walls() -> void:
 		var start := walls[i]
 		var end := walls[i + 1]
 		var center := (
-			Vector2(start * MazeData.TILE_SIZE + end * MazeData.TILE_SIZE) / 2
+			Vector2(start * MazeOptions.TILE_SIZE + end * MazeOptions.TILE_SIZE)
+			/ 2
 		)
 		var as_vector := Vector2(walls[i + 1] - walls[i]).abs()
 		var direction := as_vector.normalized()
@@ -91,7 +92,7 @@ func build_walls() -> void:
 			)
 			mesh_instance.mesh = mesh_instance.mesh.duplicate()
 			mesh_instance.mesh.size.z = (
-				as_vector.length() * MazeData.TILE_SIZE
+				as_vector.length() * MazeOptions.TILE_SIZE
 				+ mesh_instance.mesh.size.x
 			)
 			var collision: CollisionShape3D = wall.get_node("WallCollision")
@@ -105,7 +106,7 @@ func build_walls() -> void:
 func new_maze(
 	dimensions: Vector2i, new_walls: Array[Vector2i], start_end: Array[Vector2i]
 ) -> void:  #
-	var modified := Vector2(dimensions) * MazeData.TILE_SIZE
+	var modified := Vector2(dimensions) * MazeOptions.TILE_SIZE
 
 	var floor_mesh: PlaneMesh = floor_mesh_instance.mesh
 	floor_mesh.size = modified
@@ -123,14 +124,14 @@ func new_maze(
 	build_walls()
 
 	var start_pos := (
-		Vector2(start_end[0]) * MazeData.TILE_SIZE
-		+ Vector2.ONE * MazeData.TILE_SIZE / 2
+		Vector2(start_end[0]) * MazeOptions.TILE_SIZE
+		+ Vector2.ONE * MazeOptions.TILE_SIZE / 2
 	)
 	start_goal.position.x = start_pos.x
 	start_goal.position.z = start_pos.y
 	var end_pos := (
-		Vector2(start_end[1]) * MazeData.TILE_SIZE
-		+ Vector2.ONE * MazeData.TILE_SIZE / 2
+		Vector2(start_end[1]) * MazeOptions.TILE_SIZE
+		+ Vector2.ONE * MazeOptions.TILE_SIZE / 2
 	)
 	end_goal.position.x = end_pos.x
 	end_goal.position.z = end_pos.y

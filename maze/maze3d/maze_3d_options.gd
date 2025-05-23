@@ -25,7 +25,7 @@ extends Control
 @onready var wall_reset: Button = %WallReset
 
 ## Options actively in use
-@onready var applied_options := MazeData.maze_3d_options
+@onready var applied_options := MazeOptions.maze_3d_options
 
 ## Modified but unsaved options
 @onready var unapplied_options := Maze3DOptions.new().set_to(applied_options)

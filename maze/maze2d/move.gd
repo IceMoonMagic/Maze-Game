@@ -1,7 +1,7 @@
 extends Line2D
 
 signal maze_end
-@export var base_speed := MazeData.TILE_SIZE * 2  # 2 Cells / Second
+@export var base_speed := MazeOptions.TILE_SIZE * 2  # 2 Cells / Second
 var speed: float
 var path: Array[Vector2]
 var end_goal: Vector2
@@ -20,11 +20,11 @@ func _ready() -> void:
 	# Resize & Reposition cursor
 	for i in range(len(self.points)):
 		self.set_point_position(
-			i, (self.points[i] + Vector2.ONE) * MazeData.TILE_SIZE / 4
+			i, (self.points[i] + Vector2.ONE) * MazeOptions.TILE_SIZE / 4
 		)
 
 	# Offset to center of cells
-	var lines_offset := Vector2.ONE * MazeData.TILE_SIZE / 2
+	var lines_offset := Vector2.ONE * MazeOptions.TILE_SIZE / 2
 	explored_line.position = lines_offset
 	final_line.position = lines_offset
 
@@ -109,7 +109,7 @@ func move(delta: float) -> void:
 
 func add_path(direction: Vector2) -> void:
 	var reference: Vector2 = position if path.is_empty() else path[-1]
-	reference /= MazeData.TILE_SIZE
+	reference /= MazeOptions.TILE_SIZE
 	var target := reference + direction
 	if not get_parent().maze.can_travel_in(reference, direction):
 		return
@@ -118,7 +118,8 @@ func add_path(direction: Vector2) -> void:
 		reference, target
 	)
 	var branch_f := branch_i.map(
-		func(val: Vector2i) -> Vector2: return Vector2(val) * MazeData.TILE_SIZE
+		func(val: Vector2i) -> Vector2:
+			return Vector2(val) * MazeOptions.TILE_SIZE
 	)
 	path.append_array(branch_f)
 
@@ -163,25 +164,25 @@ func calc_speed() -> void:
 
 
 func update_line_options() -> void:
-	self.visible = MazeData.cursor_options.enabled
-	self.default_color = MazeData.cursor_options.color
-	self.width = MazeData.cursor_options.thickness
-	final_line.visible = MazeData.main_trail_options.enabled
-	final_line.default_color = MazeData.main_trail_options.color
-	final_line.width = MazeData.main_trail_options.thickness
-	explored_line.visible = MazeData.explored_trail_options.enabled
+	self.visible = MazeOptions.cursor_options.enabled
+	self.default_color = MazeOptions.cursor_options.color
+	self.width = MazeOptions.cursor_options.thickness
+	final_line.visible = MazeOptions.main_trail_options.enabled
+	final_line.default_color = MazeOptions.main_trail_options.color
+	final_line.width = MazeOptions.main_trail_options.thickness
+	explored_line.visible = MazeOptions.explored_trail_options.enabled
 	# Blend the transparency to avoid issues with stacked transparent layers
-	explored_line.default_color = MazeData.background_options.color.blend(
-		MazeData.explored_trail_options.color
+	explored_line.default_color = MazeOptions.background_options.color.blend(
+		MazeOptions.explored_trail_options.color
 	)
-	explored_line.width = MazeData.explored_trail_options.thickness
+	explored_line.width = MazeOptions.explored_trail_options.thickness
 
 
 func reset_to(start: Vector2i, end: Vector2i) -> void:
 	_clear_clone()
 	path.clear()
-	position = start * MazeData.TILE_SIZE
-	end_goal = end * MazeData.TILE_SIZE
+	position = start * MazeOptions.TILE_SIZE
+	end_goal = end * MazeOptions.TILE_SIZE
 	explored_line.clear_points()
 	explored_line.add_point(position)
 	explored_line.add_point(position)
@@ -201,10 +202,11 @@ func replay_path(play_path: Array[Vector2]) -> void:
 	_clone._is_clone = true
 	add_sibling(_clone)
 	_clone.reset_to(
-		play_path[0] / MazeData.TILE_SIZE, play_path[-1] / MazeData.TILE_SIZE
+		play_path[0] / MazeOptions.TILE_SIZE,
+		play_path[-1] / MazeOptions.TILE_SIZE
 	)
 	play_path[-1] = (
-		floor(play_path[-1] / MazeData.TILE_SIZE) * MazeData.TILE_SIZE
+		floor(play_path[-1] / MazeOptions.TILE_SIZE) * MazeOptions.TILE_SIZE
 	)
 	_clone.path = play_path
 	_clone.calc_speed()

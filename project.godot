@@ -20,7 +20,7 @@ run/main_scene.2D_only="uid://chqg0jvps3ygm"
 [autoload]
 
 Globals="*res://globals.gd"
-MazeData="*res://options/maze_data.gd"
+MazeOptions="*res://options/maze_options.gd"
 
 [debug]
 

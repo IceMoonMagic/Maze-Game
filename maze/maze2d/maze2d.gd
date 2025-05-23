@@ -7,8 +7,8 @@ var maze := Maze.new()
 
 
 func new_maze() -> void:
-	maze.choose_cell_weights = MazeData.generation_options.weights
-	maze.dimensions = MazeData.generation_options.dimensions
+	maze.choose_cell_weights = MazeOptions.generation_options.weights
+	maze.dimensions = MazeOptions.generation_options.dimensions
 	if (
 		get_viewport_rect().size.aspect() < 1
 		and (
