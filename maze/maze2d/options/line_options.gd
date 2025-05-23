@@ -1,36 +1,31 @@
-@tool
 class_name LineOptionControl
 extends Control
 
 @export var header: String = "Header":
 	set(val):
 		header = val
-		if Engine.is_editor_hint():
-			$Label.text = header
-@export var default_enabled := true:
-	set(enabled):
-		default_enabled = enabled
-		if Engine.is_editor_hint():
+		$Label.text = header
+@export var default_options := LineOptionData.new():
+	set(val):
+		if (
+			is_instance_valid(default_options)
+			and default_options.changed.is_connected(
+				set_to.bind(default_options)
+			)
+		):
+			default_options.changed.disconnect(set_to.bind(default_options))
+		default_options = val
+		if (
+			is_instance_valid(default_options)
+			and not default_options.changed.is_connected(
+				set_to.bind(default_options)
+			)
+		):
+			default_options.changed.connect(set_to.bind(default_options))
 			if not is_node_ready():
 				await ready
-			default_options.enabled = enabled
-			enabled_button.button_pressed = enabled
-@export var default_color := Color.BLACK:
-	set(color):
-		default_color = color
-		if Engine.is_editor_hint():
-			if not is_node_ready():
-				await ready
-			default_options.color = color
-			color_picker.color = color
-@export var default_thickness := 1.0:
-	set(thickness):
-		default_thickness = thickness
-		if Engine.is_editor_hint():
-			if not is_node_ready():
-				await ready
-			default_thickness = thickness
-			thickness_slider.value = thickness
+			set_to(default_options)
+
 @onready var enabled_button: CheckButton = $Enabled/ToggleButton
 @onready var enabled_reset_button: Button = $Enabled/ResetButton
 @onready var color_picker: ColorPickerButton = $Color/ColorPicker
@@ -38,29 +33,14 @@ extends Control
 @onready var thickness_slider: HSlider = $Thickness/Slider
 @onready var thickness_reset_button: Button = $Thickness/ResetButton
 
-## Default options set in the inspector
-## DO NOT MODIFY
-@onready var default_options := MazeData.LineOptionData.new(
-	default_enabled, default_color, default_thickness
-)
-
 ## Options actively in use
-@onready var applied_options := MazeData.LineOptionData.new(
-	default_enabled, default_color, default_thickness
-)
+@onready var applied_options := LineOptionData.new().set_to(default_options)
 
 ## Modified but unsaved options
-@onready var unapplied_options := MazeData.LineOptionData.new(
-	default_enabled, default_color, default_thickness
-)
+@onready var unapplied_options := LineOptionData.new().set_to(default_options)
 
 
-func _ready() -> void:
-	$Label.text = header
-	set_to(default_options)
-
-
-func set_to(option_data: MazeData.LineOptionData) -> void:
+func set_to(option_data: LineOptionData) -> void:
 	enabled_button.button_pressed = option_data.enabled
 	_on_enabled_button_pressed()
 	color_picker.color = option_data.color

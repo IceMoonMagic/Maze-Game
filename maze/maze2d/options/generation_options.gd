@@ -3,6 +3,25 @@ extends Control
 
 const PRESETS = [8, 16, 32]
 
+@export var default_options := GenerationOptionData.new():
+	set(val):
+		if (
+			is_instance_valid(default_options)
+			and default_options.changed.is_connected(
+				set_to.bind(default_options)
+			)
+		):
+			default_options.changed.disconnect(set_to.bind(default_options))
+		default_options = val
+		if (
+			is_instance_valid(default_options)
+			and not default_options.changed.is_connected(set_to)
+		):
+			default_options.changed.connect(set_to.bind(default_options))
+			if not is_node_ready():
+				await ready
+			set_to(default_options)
+
 @onready
 var breadth_spin_box: SpinBox = $VBoxContainer/WeightsContainer/BreadthContainer/BreadthSpinBox
 @onready
@@ -22,34 +41,15 @@ var auto_mode_slider: HSlider = $HBoxContainer/DimensionContainer/AutoModeSlider
 var auto_mode_label: Label = $HBoxContainer/DimensionContainer/AutoModeLabel
 @onready var auto_mode: int = floor(auto_mode_slider.value)
 
-## Default options set in the inspector
-## DO NOT MODIFY
-@onready var default_options := MazeData.GenerationOptionData.new(
-	breadth_spin_box.value,
-	depth_spin_box.value,
-	random_spin_box.value,
-	Vector2i(floor(width_spin_box.value), floor(height_spin_box.value))
-)
-
 ## Options actively in use
-@onready var applied_options := MazeData.GenerationOptionData.new(
-	breadth_spin_box.value,
-	depth_spin_box.value,
-	random_spin_box.value,
-	Vector2i(floor(width_spin_box.value), floor(height_spin_box.value))
-)
-# ToDo: Save options to file
+@onready var applied_options := MazeData.generation_options
 
 ## Modified but unsaved options
-@onready var unapplied_options := MazeData.GenerationOptionData.new(
-	breadth_spin_box.value,
-	depth_spin_box.value,
-	random_spin_box.value,
-	Vector2i(floor(width_spin_box.value), floor(height_spin_box.value))
-)
+@onready
+var unapplied_options := GenerationOptionData.new().set_to(applied_options)
 
 
-func set_to(option_set: MazeData.GenerationOptionData) -> void:
+func set_to(option_set: GenerationOptionData) -> void:
 	breadth_spin_box.value = option_set.breadth_weight
 	_on_breadth_spin_box_value_changed(option_set.breadth_weight)
 	depth_spin_box.value = option_set.depth_weight

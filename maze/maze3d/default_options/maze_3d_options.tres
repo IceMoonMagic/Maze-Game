@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Maze3DOptions" load_steps=2 format=3 uid="uid://c4gla7ahmwycp"]
+
+[ext_resource type="Script" uid="uid://ccfbj8dgpiku0" path="res://maze/maze3d/default_options/maze_3d_options.gd" id="1_yac67"]
+
+[resource]
+script = ExtResource("1_yac67")
+flat = false
+wall_height = 2.0

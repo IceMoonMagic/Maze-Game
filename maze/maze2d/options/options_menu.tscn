@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://bie6edph7focf"]
+[gd_scene load_steps=10 format=3 uid="uid://bie6edph7focf"]
 
 [ext_resource type="Script" uid="uid://bvd7qg4dhmk1i" path="res://maze/maze2d/options/options_menu.gd" id="1_v8vcu"]
 [ext_resource type="PackedScene" uid="uid://b2sag05lj0fwq" path="res://maze/maze2d/options/line_options.tscn" id="2_28sa0"]
 [ext_resource type="PackedScene" uid="uid://7exio4kaokks" path="res://maze/maze2d/options/generation_options.tscn" id="2_bjf27"]
+[ext_resource type="Resource" uid="uid://bm6kmkdaqbtks" path="res://maze/maze2d/options/default_options/cursor_options.tres" id="3_pjtxx"]
+[ext_resource type="Resource" uid="uid://clixfji8d37o5" path="res://maze/maze2d/options/default_options/main_trail_options.tres" id="4_aj0fu"]
+[ext_resource type="Resource" uid="uid://bofrhvpdn4neu" path="res://maze/maze2d/options/default_options/explored_trail_options.tres" id="5_yola4"]
+[ext_resource type="Resource" uid="uid://bay4624voigxq" path="res://maze/maze2d/options/default_options/wall_options.tres" id="6_nt02s"]
+[ext_resource type="Resource" uid="uid://dahsr5y1cra6s" path="res://maze/maze2d/options/default_options/goal_options.tres" id="7_73qly"]
+[ext_resource type="Resource" uid="uid://cgp6wwc2ts41k" path="res://maze/maze2d/options/default_options/background_options.tres" id="8_4fytj"]
 
 [node name="OptionsMenu" type="VBoxContainer"]
 anchors_preset = 15
@@ -41,39 +47,37 @@ theme_override_constants/separation = 16
 unique_name_in_owner = true
 layout_mode = 2
 header = "Cursor"
-default_color = Color(0.533455, 0.753292, 0.815824, 1)
+default_options = ExtResource("3_pjtxx")
 
 [node name="MainTrailOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
 header = "Main Trail"
-default_color = Color(0.368338, 0.506096, 0.674632, 1)
+default_options = ExtResource("4_aj0fu")
 
 [node name="ExploredTrailOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
 header = "Explored Trail"
-default_color = Color(0.368627, 0.505882, 0.67451, 0.501961)
+default_options = ExtResource("5_yola4")
 
 [node name="WallOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
 header = "Walls"
-default_color = Color(0.297993, 0.337072, 0.415717, 1)
-default_thickness = 3.5
+default_options = ExtResource("6_nt02s")
 
 [node name="GoalOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
 header = "Goals"
-default_color = Color(0.63946, 0.744991, 0.549096, 1)
-default_thickness = 0.5
+default_options = ExtResource("7_73qly")
 
 [node name="BackgroundOptions" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer" instance=ExtResource("2_28sa0")]
 unique_name_in_owner = true
 layout_mode = 2
 header = "Background"
-default_color = Color(0.180255, 0.203708, 0.251087, 1)
+default_options = ExtResource("8_4fytj")
 
 [node name="Label" parent="OptionsTabs/Appearance/ScrollContainer/VBoxContainer/BackgroundOptions" index="0"]
 text = "Background"

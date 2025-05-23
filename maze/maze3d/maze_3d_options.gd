@@ -1,43 +1,39 @@
 extends Control
 
+@export var default_options := Maze3DOptions.new():
+	set(val):
+		if (
+			is_instance_valid(default_options)
+			and default_options.changed.is_connected(
+				set_to.bind(default_options)
+			)
+		):
+			default_options.changed.disconnect(set_to.bind(default_options))
+		default_options = val
+		if (
+			is_instance_valid(default_options)
+			and not default_options.changed.is_connected(set_to)
+		):
+			default_options.changed.connect(set_to.bind(default_options))
+			if not is_node_ready():
+				await ready
+			set_to(default_options)
+
 @onready var flat_check: CheckButton = %FlatCheck
 @onready var flat_reset: Button = %FlatReset
 @onready var wall_spin_box: SpinBox = %WallSpinBox
 @onready var wall_reset: Button = %WallReset
 
-## Default options set in the inspector
-## DO NOT MODIFY
-@onready var default_options := (
-	MazeData
-	. Maze3DOptions
-	. new(
-		flat_check.button_pressed,
-		wall_spin_box.value,
-	)
-)
-
 ## Options actively in use
-@onready var applied_options := (
-	MazeData
-	. Maze3DOptions
-	. new(
-		flat_check.button_pressed,
-		wall_spin_box.value,
-	)
-)
+@onready var applied_options := MazeData.maze_3d_options
 
 ## Modified but unsaved options
-@onready var unapplied_options := (
-	MazeData
-	. Maze3DOptions
-	. new(
-		flat_check.button_pressed,
-		wall_spin_box.value,
-	)
-)
+@onready var unapplied_options := Maze3DOptions.new().set_to(applied_options)
 
 
-func set_to(option_data: MazeData.Maze3DOptions) -> void:
+func set_to(option_data: Maze3DOptions) -> void:
+	if not is_node_ready():
+		await ready
 	unapplied_options.set_to(option_data)
 	flat_check.button_pressed = unapplied_options.flat
 	_on_flat_check_pressed()

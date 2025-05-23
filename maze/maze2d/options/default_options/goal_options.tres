@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="LineOptionData" load_steps=2 format=3 uid="uid://dahsr5y1cra6s"]
+
+[ext_resource type="Script" uid="uid://cg6fr3uou4ae3" path="res://maze/maze2d/options/default_options/line_option_data.gd" id="1_4pu6f"]
+
+[resource]
+script = ExtResource("1_4pu6f")
+enabled = true
+color = Color(0.639216, 0.745098, 0.54902, 1)
+thickness = 0.5

@@ -15,13 +15,13 @@ signal leave_options_menu
 
 
 func _ready() -> void:
-	MazeData.cursor_options = cursor_options.applied_options
-	MazeData.main_trail_options = main_trail_options.applied_options
-	MazeData.explored_trail_options = explored_trail_options.applied_options
-	MazeData.wall_options = wall_options.applied_options
-	MazeData.goal_options = goal_options.applied_options
-	MazeData.background_options = background_options.applied_options
-	MazeData.generation_options = generation_options.applied_options
+	cursor_options.applied_options = MazeData.cursor_options
+	main_trail_options.applied_options = MazeData.main_trail_options
+	explored_trail_options.applied_options = MazeData.explored_trail_options
+	wall_options.applied_options = MazeData.wall_options
+	goal_options.applied_options = MazeData.goal_options
+	background_options.applied_options = MazeData.background_options
+	generation_options.applied_options = MazeData.generation_options
 	MazeData.load_config_file()
 	cursor_options.set_to(MazeData.cursor_options)
 	main_trail_options.set_to(MazeData.main_trail_options)

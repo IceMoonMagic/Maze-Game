@@ -2,99 +2,40 @@ extends Node
 
 const TILE_SIZE := 7
 
-
-class GenerationOptionData:
-	var breadth_weight: float
-	var depth_weight: float
-	var random_weight: float
-	var weights: Array[float]:
-		get:
-			return [breadth_weight, depth_weight, random_weight]
-		set(new_weights):
-			breadth_weight = new_weights[0]
-			depth_weight = new_weights[1]
-			random_weight = new_weights[2]
-	var dimensions: Vector2i
-
-	func _init(
-		breadth: float, depth: float, random: float, p_dimensions: Vector2i
-	) -> void:
-		breadth_weight = breadth
-		depth_weight = depth
-		random_weight = random
-		dimensions = p_dimensions
-
-	func is_valid() -> bool:
-		return (
-			breadth_weight + depth_weight + random_weight != 0
-			and dimensions != Vector2i.ZERO
-		)
-
-	func equals(other: GenerationOptionData) -> bool:
-		return (
-			self.breadth_weight == other.breadth_weight
-			and self.depth_weight == other.depth_weight
-			and self.random_weight == other.random_weight
-			and self.dimensions == other.dimensions
-		)
-
-	func set_to(other: GenerationOptionData) -> void:
-		self.breadth_weight = other.breadth_weight
-		self.depth_weight = other.depth_weight
-		self.random_weight = other.random_weight
-		self.dimensions = other.dimensions
-
-
-class LineOptionData:
-	var enabled: bool
-	var color: Color
-	var thickness: float
-
-	func _init(p_enabled: bool, p_color: Color, p_thickness: float) -> void:
-		self.enabled = p_enabled
-		self.color = p_color
-		self.thickness = p_thickness
-
-	func equals(other: LineOptionData) -> bool:
-		return (
-			self.enabled == other.enabled
-			and self.color == other.color
-			and self.thickness == other.thickness
-		)
-
-	func set_to(other: LineOptionData) -> void:
-		self.enabled = other.enabled
-		self.color = other.color
-		self.thickness = other.thickness
-
-
-class Maze3DOptions:
-	var flat: bool
-	var wall_height: float
-
-	func _init(
-		p_flat: bool,
-		p_wall_height: float,
-	) -> void:
-		flat = p_flat
-		wall_height = p_wall_height
-
-	func equals(other: Maze3DOptions) -> bool:
-		return self.flat == other.flat and self.wall_height == other.wall_height
-
-	func set_to(other: Maze3DOptions) -> void:
-		self.flat = other.flat
-		self.wall_height = other.wall_height
-
-
-var cursor_options: LineOptionData
-var main_trail_options: LineOptionData
-var explored_trail_options: LineOptionData
-var wall_options: LineOptionData
-var goal_options: LineOptionData
-var background_options: LineOptionData
-var generation_options: GenerationOptionData
-var maze_3d_options: Maze3DOptions
+var cursor_options: LineOptionData = (
+	preload("res://maze/maze2d/options/default_options/cursor_options.tres")
+	. duplicate()
+)
+var main_trail_options: LineOptionData = (
+	preload("res://maze/maze2d/options/default_options/main_trail_options.tres")
+	. duplicate()
+)
+var explored_trail_options: LineOptionData = (
+	preload(
+		"res://maze/maze2d/options/default_options/explored_trail_options.tres"
+	)
+	. duplicate()
+)
+var wall_options: LineOptionData = (
+	preload("res://maze/maze2d/options/default_options/wall_options.tres")
+	. duplicate()
+)
+var goal_options: LineOptionData = (
+	preload("res://maze/maze2d/options/default_options/goal_options.tres")
+	. duplicate()
+)
+var background_options: LineOptionData = (
+	preload("res://maze/maze2d/options/default_options/background_options.tres")
+	. duplicate()
+)
+var generation_options: GenerationOptionData = (
+	preload("res://maze/maze2d/options/default_options/generation_options.tres")
+	. duplicate()
+)
+var maze_3d_options: Maze3DOptions = (
+	preload("res://maze/maze3d/default_options/maze_3d_options.tres")
+	. duplicate()
+)
 
 var config_file := ConfigFile.new()
 var config_json := JSON.new()
@@ -169,13 +110,9 @@ func load_config_file() -> Error:
 		and config_file.has_section_key("Appearance", "maze3d.flat")
 		and config_file.has_section_key("Appearance", "maze3d.wall_height")
 	):
-		maze_3d_options = (
-			Maze3DOptions
-			. new(
-				config_file.get_value("Appearance", "maze3d.flat"),
-				config_file.get_value("Appearance", "maze3d.wall_height"),
-			)
-		)
+		maze_3d_options = Maze3DOptions.new()
+		config_file.get_value("Appearance", "maze3d.flat")
+		config_file.get_value("Appearance", "maze3d.wall_height")
 	elif maze_3d_options != null:
 		maze_3d_options.flat = config_file.get_value(
 			"Appearance", "maze3d.flat", maze_3d_options.flat
