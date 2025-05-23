@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://4dwtvngjl60f"]
+[gd_scene load_steps=25 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" uid="uid://rpkdpm2k07vs" path="res://maze/maze3d/maze3d.gd" id="1_ia1mb"]
 [ext_resource type="Script" uid="uid://c7b250l5k4dcb" path="res://maze/maze3d/geometry.gd" id="2_gnxxn"]
@@ -45,6 +45,9 @@ uv1_world_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_x27as"]
 material = SubResource("StandardMaterial3D_yo2cf")
+size = Vector3(2, 2, 9)
+
+[sub_resource type="BoxOccluder3D" id="BoxOccluder3D_xsfx6"]
 size = Vector3(2, 2, 9)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tgre5"]
@@ -112,6 +115,9 @@ shape = SubResource("BoxShape3D_v6qvt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("BoxMesh_x27as")
 skeleton = NodePath("../..")
+
+[node name="WallOccluder" type="OccluderInstance3D" parent="Geometry/Walls/BaseWall/WallMeshInstance"]
+occluder = SubResource("BoxOccluder3D_xsfx6")
 
 [node name="EndGoal" type="Area3D" parent="Geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77247, 1.13497, 1.58071)

@@ -12,6 +12,8 @@ var walls: Array[Vector2i] = []
 @onready var base_wall: StaticBody3D = $Walls/BaseWall
 @onready
 var wall_mesh_instance: MeshInstance3D = $Walls/BaseWall/WallMeshInstance
+@onready
+var wall_occluder: OccluderInstance3D = $Walls/BaseWall/WallMeshInstance/WallOccluder
 @onready var end_goal: Area3D = $EndGoal
 @onready var end_goal_mesh_instance: MeshInstance3D = $EndGoal/MeshInstance3D
 @onready var start_goal: Area3D = end_goal.duplicate(12)
@@ -63,6 +65,7 @@ func build_walls() -> void:
 			child.queue_free()
 
 	wall_mesh_instance.mesh.size.y = MazeOptions.maze_3d_options.wall_height
+	wall_occluder.occluder.size.y = MazeOptions.maze_3d_options.wall_height
 	wall_mesh_instance.position.y = MazeOptions.maze_3d_options.wall_height / 2
 	var wall_material: BaseMaterial3D = (
 		wall_mesh_instance.mesh.surface_get_material(0)
