@@ -1,9 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdb0n8h36owpy"]
+[gd_scene load_steps=7 format=3 uid="uid://cdb0n8h36owpy"]
 
-[ext_resource type="Script" uid="uid://3gx0fbeysd5a" path="res://maze/maze3d/options_menu.gd" id="1_7ci45"]
-[ext_resource type="PackedScene" uid="uid://bie6edph7focf" path="res://maze/maze2d/options/options_menu.tscn" id="2_8vgr0"]
-[ext_resource type="PackedScene" uid="uid://7exio4kaokks" path="res://maze/maze2d/options/generation_options.tscn" id="3_adg1m"]
-[ext_resource type="Script" uid="uid://cc0epevke0msi" path="res://maze/maze3d/maze_3d_options.gd" id="3_v0oak"]
+[ext_resource type="Script" uid="uid://3gx0fbeysd5a" path="res://options/options_menu_3d.gd" id="1_7ci45"]
+[ext_resource type="PackedScene" uid="uid://bie6edph7focf" path="res://options/options_menu.tscn" id="2_8vgr0"]
+[ext_resource type="PackedScene" uid="uid://7exio4kaokks" path="res://options/components/generation_options.tscn" id="3_adg1m"]
+[ext_resource type="Script" uid="uid://cc0epevke0msi" path="res://options/components/maze_3d_options.gd" id="3_v0oak"]
+[ext_resource type="Script" uid="uid://ccfbj8dgpiku0" path="res://options/default_options/maze_3d_options.gd" id="4_180vk"]
+
+[sub_resource type="Resource" id="Resource_kmvb2"]
+script = ExtResource("4_180vk")
+flat = false
+wall_height = 2.0
 
 [node name="OptionsMenu" type="VBoxContainer"]
 anchors_preset = 15
@@ -44,6 +50,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_constants/separation = 16
 script = ExtResource("3_v0oak")
+default_options = SubResource("Resource_kmvb2")
 
 [node name="FlatContainer" type="HBoxContainer" parent="OptionsTabs/Appearance/ScrollContainer/3DMazeOptions"]
 layout_mode = 2

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="LineOptionData" load_steps=2 format=3 uid="uid://bm6kmkdaqbtks"]
 
-[ext_resource type="Script" uid="uid://cg6fr3uou4ae3" path="res://maze/maze2d/options/default_options/line_option_data.gd" id="1_cwoqr"]
+[ext_resource type="Script" uid="uid://cg6fr3uou4ae3" path="res://options/default_options/line_option_data.gd" id="1_cwoqr"]
 
 [resource]
 script = ExtResource("1_cwoqr")

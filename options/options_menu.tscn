@@ -1,14 +1,14 @@
 [gd_scene load_steps=10 format=3 uid="uid://bie6edph7focf"]
 
-[ext_resource type="Script" uid="uid://bvd7qg4dhmk1i" path="res://maze/maze2d/options/options_menu.gd" id="1_v8vcu"]
-[ext_resource type="PackedScene" uid="uid://b2sag05lj0fwq" path="res://maze/maze2d/options/line_options.tscn" id="2_28sa0"]
-[ext_resource type="PackedScene" uid="uid://7exio4kaokks" path="res://maze/maze2d/options/generation_options.tscn" id="2_bjf27"]
-[ext_resource type="Resource" uid="uid://bm6kmkdaqbtks" path="res://maze/maze2d/options/default_options/cursor_options.tres" id="3_pjtxx"]
-[ext_resource type="Resource" uid="uid://clixfji8d37o5" path="res://maze/maze2d/options/default_options/main_trail_options.tres" id="4_aj0fu"]
-[ext_resource type="Resource" uid="uid://bofrhvpdn4neu" path="res://maze/maze2d/options/default_options/explored_trail_options.tres" id="5_yola4"]
-[ext_resource type="Resource" uid="uid://bay4624voigxq" path="res://maze/maze2d/options/default_options/wall_options.tres" id="6_nt02s"]
-[ext_resource type="Resource" uid="uid://dahsr5y1cra6s" path="res://maze/maze2d/options/default_options/goal_options.tres" id="7_73qly"]
-[ext_resource type="Resource" uid="uid://cgp6wwc2ts41k" path="res://maze/maze2d/options/default_options/background_options.tres" id="8_4fytj"]
+[ext_resource type="Script" uid="uid://bvd7qg4dhmk1i" path="res://options/options_menu.gd" id="1_v8vcu"]
+[ext_resource type="PackedScene" uid="uid://b2sag05lj0fwq" path="res://options/components/line_options.tscn" id="2_28sa0"]
+[ext_resource type="PackedScene" uid="uid://7exio4kaokks" path="res://options/components/generation_options.tscn" id="2_bjf27"]
+[ext_resource type="Resource" uid="uid://bm6kmkdaqbtks" path="res://options/default_options/cursor_options.tres" id="3_pjtxx"]
+[ext_resource type="Resource" uid="uid://clixfji8d37o5" path="res://options/default_options/main_trail_options.tres" id="4_aj0fu"]
+[ext_resource type="Resource" uid="uid://bofrhvpdn4neu" path="res://options/default_options/explored_trail_options.tres" id="5_yola4"]
+[ext_resource type="Resource" uid="uid://bay4624voigxq" path="res://options/default_options/wall_options.tres" id="6_nt02s"]
+[ext_resource type="Resource" uid="uid://dahsr5y1cra6s" path="res://options/default_options/goal_options.tres" id="7_73qly"]
+[ext_resource type="Resource" uid="uid://cgp6wwc2ts41k" path="res://options/default_options/background_options.tres" id="8_4fytj"]
 
 [node name="OptionsMenu" type="VBoxContainer"]
 anchors_preset = 15

@@ -3,38 +3,29 @@ extends Node
 const TILE_SIZE := 7
 
 var cursor_options: LineOptionData = (
-	preload("res://maze/maze2d/options/default_options/cursor_options.tres")
-	. duplicate()
+	preload("res://options/default_options/cursor_options.tres").duplicate()
 )
 var main_trail_options: LineOptionData = (
-	preload("res://maze/maze2d/options/default_options/main_trail_options.tres")
-	. duplicate()
+	preload("res://options/default_options/main_trail_options.tres").duplicate()
 )
 var explored_trail_options: LineOptionData = (
-	preload(
-		"res://maze/maze2d/options/default_options/explored_trail_options.tres"
-	)
+	preload("res://options/default_options/explored_trail_options.tres")
 	. duplicate()
 )
 var wall_options: LineOptionData = (
-	preload("res://maze/maze2d/options/default_options/wall_options.tres")
-	. duplicate()
+	preload("res://options/default_options/wall_options.tres").duplicate()
 )
 var goal_options: LineOptionData = (
-	preload("res://maze/maze2d/options/default_options/goal_options.tres")
-	. duplicate()
+	preload("res://options/default_options/goal_options.tres").duplicate()
 )
 var background_options: LineOptionData = (
-	preload("res://maze/maze2d/options/default_options/background_options.tres")
-	. duplicate()
+	preload("res://options/default_options/background_options.tres").duplicate()
 )
 var generation_options: GenerationOptionData = (
-	preload("res://maze/maze2d/options/default_options/generation_options.tres")
-	. duplicate()
+	preload("res://options/default_options/generation_options.tres").duplicate()
 )
 var maze_3d_options: Maze3DOptions = (
-	preload("res://maze/maze3d/default_options/maze_3d_options.tres")
-	. duplicate()
+	preload("res://options/default_options/maze_3d_options.tres").duplicate()
 )
 
 var config_file := ConfigFile.new()

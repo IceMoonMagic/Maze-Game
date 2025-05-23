@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="GenerationOptionData" load_steps=2 format=3 uid="uid://ecwe2vr7e26y"]
 
-[ext_resource type="Script" uid="uid://c45a1dofbanga" path="res://maze/maze2d/options/default_options/generation_option_data.gd" id="1_hxohy"]
+[ext_resource type="Script" uid="uid://c45a1dofbanga" path="res://options/default_options/generation_option_data.gd" id="1_hxohy"]
 
 [resource]
 script = ExtResource("1_hxohy")
