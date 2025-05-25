@@ -1,6 +1,6 @@
+@icon("uid://bq0gmimspb2tm")
 class_name Line3D
 extends GeometryInstance3D
-
 @export var color := Color.WHITE
 @export var points: PackedVector3Array = []
 @export var width := 0.5:
