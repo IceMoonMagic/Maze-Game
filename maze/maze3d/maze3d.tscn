@@ -157,7 +157,7 @@ current = true
 [node name="PlayerCollision" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_hpoqb")
 
-[node name="Line3D" type="GeometryInstance3D" parent="Player"]
+[node name="TraveledPath" type="GeometryInstance3D" parent="Player"]
 _import_path = NodePath("")
 unique_name_in_owner = false
 process_mode = 0
