@@ -60,6 +60,7 @@ func get_point_position(index: int) -> Vector3:
 
 
 func remove_point(index: int) -> void:
+	index = posmod(index, len(points))
 	points.remove_at(index)
 	if len(_segments) > index:
 		_segments.pop_at(index).queue_free()
@@ -67,10 +68,9 @@ func remove_point(index: int) -> void:
 	elif len(_segments) == index:
 		_segments.pop_back().queue_free()
 
-	#if len(points) > index:
-
 
 func set_point_position(index: int, position: Vector3) -> void:
+	index = posmod(index, len(points))
 	points[index] = position
 	if index != 0:
 		_place_segment(_segments[index - 1], points[index - 1], position)
@@ -105,6 +105,20 @@ func _create_segment(start: Vector3, end: Vector3) -> MeshInstance3D:
 
 	_place_segment(mesh_instance, start, end)
 
+	var transfer := false
+	for property: Dictionary in get_property_list():
+		var prop_name: String = property.get("name")
+		var usage: int = property.get("usage", PROPERTY_USAGE_NONE)
+		if usage & PROPERTY_USAGE_CATEGORY:
+			transfer = prop_name in ["VisualInstance3D", "GeometryInstance3D"]
+		elif (
+			transfer
+			and usage & PROPERTY_USAGE_DEFAULT == PROPERTY_USAGE_DEFAULT
+		):
+			if prop_name == "script":
+				continue
+			mesh_instance.set(prop_name, self.get(prop_name))
+
 	return mesh_instance
 
 
@@ -113,7 +127,8 @@ func _place_segment(
 ) -> void:
 	var difference := end - start
 	if difference.is_zero_approx():
-		difference = Vector3.RIGHT
+		segment.hide()
+		return
 	segment.position = start + (difference / 2)
 	segment.quaternion = Quaternion(Vector3.UP, difference.normalized())
 	segment.mesh.height = max(difference.length() + width, 2 * width)

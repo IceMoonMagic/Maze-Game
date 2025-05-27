@@ -5,6 +5,8 @@ const JUMP_VELOCITY = 4.5
 # Input of 1 can do a 360 in 60 physics frames (1 sec)
 const TURN_SPEED = deg_to_rad(360.0 / 60.0)
 
+var _last_point := Vector3.ZERO
+
 
 func _input(event: InputEvent) -> void:
 	if event is not InputEventMouseMotion:
@@ -55,3 +57,53 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+	_modify_line()
+
+
+func reset_to(where: Vector3) -> void:
+	global_position = where
+	$Line3D.clear_points()
+	$Line3D.add_point(where)  # Start in start goal
+	$Line3D.add_point(Vector3(where.x, 0, where.z))  # Move to ground
+	$Line3D.add_point(where)  # "Attach" to player
+	_last_point = $Line3D.points[-2]
+
+
+func _modify_line() -> void:
+	var tile: Vector2 = (
+		(
+			(
+				Vector2(position.x, position.z)
+				+ Vector2.ONE * MazeOptions.TILE_SIZE / 2
+			)
+			. snappedf(MazeOptions.TILE_SIZE)
+		)
+		- (MazeOptions.TILE_SIZE * Vector2.ONE / 2)
+	)
+	var tile_point := Vector3(tile.x, 0, tile.y)
+
+	$Line3D.set_point_position(-1, Vector3(position.x, 0, position.z))
+
+	# Same Tile
+	if tile_point == _last_point:
+		pass
+
+	# Tile inline w/ prev, move prev node here
+	elif $Line3D.points[-2].direction_to(_last_point).is_equal_approx(
+		_last_point.direction_to(tile_point)
+	):
+		#$Line3D.set_point_position(-2, tile_point)
+		_last_point = tile_point
+
+	# Tile between prev1 / prev2, remove prev1
+	elif $Line3D.points[-2].direction_to(_last_point).is_equal_approx(
+		-_last_point.direction_to(tile_point)
+	):
+		$Line3D.remove_point(-2)
+		_last_point = tile_point
+
+	# Tile out of line
+	else:
+		$Line3D.add_point(_last_point, -2)
+		_last_point = tile_point

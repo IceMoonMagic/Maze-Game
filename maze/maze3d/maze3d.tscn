@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://4dwtvngjl60f"]
+[gd_scene load_steps=28 format=3 uid="uid://4dwtvngjl60f"]
 
 [ext_resource type="Script" uid="uid://rpkdpm2k07vs" path="res://maze/maze3d/maze3d.gd" id="1_ia1mb"]
 [ext_resource type="Script" uid="uid://c7b250l5k4dcb" path="res://maze/maze3d/geometry.gd" id="2_gnxxn"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://cbk0l23omkynd" path="res://maze/maze3d/assets/asteroid_belt.png" id="4_864sv"]
 [ext_resource type="Texture2D" uid="uid://cu31ancannkyw" path="res://maze/maze3d/assets/stones_angular.normal.png" id="4_jejre"]
 [ext_resource type="Texture2D" uid="uid://bpkgx3bydct3q" path="res://maze/maze3d/assets/rocky2.normal.png" id="7_rs0iy"]
+[ext_resource type="Script" uid="uid://0eghenokh1p" path="res://common/line_3d/line_3d.gd" id="9_jejre"]
+[ext_resource type="Texture2D" uid="uid://crtmhmge48hbh" path="res://assets/misc_weave.png" id="10_vxdcw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]
 size = Vector3(7, 1, 7)
@@ -80,6 +82,12 @@ sky_rotation = Vector3(-0.401426, 4.8398, 0)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hpoqb"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jejre"]
+no_depth_test = true
+shading_mode = 0
+albedo_texture = ExtResource("10_vxdcw")
+uv1_triplanar = true
+
 [node name="Maze3D" type="Node3D"]
 process_mode = 1
 script = ExtResource("1_ia1mb")
@@ -118,6 +126,7 @@ skeleton = NodePath("../..")
 
 [node name="WallOccluder" type="OccluderInstance3D" parent="Geometry/Walls/BaseWall/WallMeshInstance"]
 occluder = SubResource("BoxOccluder3D_xsfx6")
+bake_mask = 4294967293
 
 [node name="EndGoal" type="Area3D" parent="Geometry"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.77247, 1.13497, 1.58071)
@@ -131,6 +140,7 @@ mesh = SubResource("SphereMesh_sxqvd")
 
 [node name="BeaconMeshInstance" type="MeshInstance3D" parent="Geometry/EndGoal"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 63.5, 0)
+ignore_occlusion_culling = true
 mesh = SubResource("CapsuleMesh_bug1e")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Geometry"]
@@ -146,5 +156,44 @@ current = true
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="Player"]
 shape = SubResource("CapsuleShape3D_hpoqb")
+
+[node name="Line3D" type="GeometryInstance3D" parent="Player"]
+_import_path = NodePath("")
+unique_name_in_owner = false
+process_mode = 0
+process_priority = 0
+process_physics_priority = 0
+process_thread_group = 0
+physics_interpolation_mode = 0
+auto_translate_mode = 0
+editor_description = ""
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+rotation_edit_mode = 0
+rotation_order = 2
+top_level = true
+visible = true
+visibility_parent = NodePath("")
+layers = 1
+sorting_offset = 0.0
+sorting_use_aabb_center = true
+material_override = null
+material_overlay = null
+transparency = 0.0
+cast_shadow = 0
+extra_cull_margin = 0.0
+custom_aabb = AABB(0, 0, 0, 0, 0, 0)
+lod_bias = 1.0
+ignore_occlusion_culling = true
+gi_mode = 1
+gi_lightmap_texel_scale = 1.0
+visibility_range_begin = 0.0
+visibility_range_begin_margin = 0.0
+visibility_range_end = 0.0
+visibility_range_end_margin = 0.0
+visibility_range_fade_mode = 0
+script = ExtResource("9_jejre")
+width = 0.1
+material = SubResource("StandardMaterial3D_jejre")
+metadata/_custom_type_script = "uid://0eghenokh1p"
 
 [connection signal="body_entered" from="Geometry/EndGoal" to="." method="_on_player_maze_end"]

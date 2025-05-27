@@ -27,7 +27,7 @@ func apply() -> void:
 
 
 func restart() -> void:
-	$Player.position = $Geometry/StartGoal.position
+	$Player.reset_to($Geometry/StartGoal.position)
 
 
 func _on_player_maze_end(_arg: Variant) -> void:
