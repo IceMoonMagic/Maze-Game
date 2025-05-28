@@ -1,8 +1,11 @@
 extends Node3D
 
-var wall_texture: Texture2D = preload("res://maze/maze3d/assets/rocky2.png")
-var floor_texture: Texture2D = preload(
+const WALL_TEXTURE: Texture2D = preload("res://maze/maze3d/assets/rocky2.png")
+const FLOOR_TEXTURE: Texture2D = preload(
 	"res://maze/maze3d/assets/stones_angular.png"
+)
+const TILE_LIGHTS: PackedScene = preload(
+	"res://maze/maze3d/components/travel_indicator.tscn"
 )
 
 var walls: Array[Vector2i] = []
@@ -53,7 +56,7 @@ func update_colors() -> void:
 		)
 	else:
 		floor_material.albedo_color = Color.WHITE
-		floor_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, floor_texture)
+		floor_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, FLOOR_TEXTURE)
 		floor_material.normal_enabled = true
 		world_environment.environment.background_mode = Environment.BG_SKY
 
@@ -77,7 +80,7 @@ func build_walls() -> void:
 		wall_material.normal_enabled = false
 	else:
 		wall_material.albedo_color = Color.FOREST_GREEN
-		wall_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, wall_texture)
+		wall_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, WALL_TEXTURE)
 		wall_material.normal_enabled = true
 
 	for i: int in range(0, len(walls), 2):
@@ -110,11 +113,11 @@ func build_walls() -> void:
 		wall_geometry.add_child(wall)
 
 
-func new_maze(
-	dimensions: Vector2i, new_walls: Array[Vector2i], start_end: Array[Vector2i]
-) -> void:  #
-	var modified := Vector2(dimensions) * MazeOptions.TILE_SIZE
+func new_maze(maze: Maze) -> void:
+	var dimensions := maze.dimensions
+	var new_walls := maze.walls
 
+	var modified := Vector2(dimensions) * MazeOptions.TILE_SIZE
 	var floor_mesh: PlaneMesh = floor_mesh_instance.mesh
 	floor_mesh.size = modified
 	floor_mesh.center_offset.x = modified.x / 2
@@ -131,14 +134,51 @@ func new_maze(
 	build_walls()
 
 	var start_pos := (
-		Vector2(start_end[0]) * MazeOptions.TILE_SIZE
+		Vector2(maze.start) * MazeOptions.TILE_SIZE
 		+ Vector2.ONE * MazeOptions.TILE_SIZE / 2
 	)
 	start_goal.position.x = start_pos.x
 	start_goal.position.z = start_pos.y
 	var end_pos := (
-		Vector2(start_end[1]) * MazeOptions.TILE_SIZE
+		Vector2(maze.end) * MazeOptions.TILE_SIZE
 		+ Vector2.ONE * MazeOptions.TILE_SIZE / 2
 	)
 	end_goal.position.x = end_pos.x
 	end_goal.position.z = end_pos.y
+
+	var parent: Node3D = $TravelIndicators
+	for indicator: Node in parent.get_children():
+		indicator.queue_free()
+	for x in range(dimensions.x):
+		for y in range(dimensions.y):
+			var cell := Vector2i(x, y)
+			var lights: TravelIndicator = TILE_LIGHTS.instantiate()
+			lights.light_locations = (
+				(
+					lights.Locations.FORWARD
+					* int(!maze.can_travel_in(cell, Vector2i.UP))
+				)
+				+ (
+					lights.Locations.BACKWARD
+					* int(!maze.can_travel_in(cell, Vector2i.DOWN))
+				)
+				+ (
+					lights.Locations.LEFT
+					* int(!maze.can_travel_in(cell, Vector2i.LEFT))
+				)
+				+ (
+					lights.Locations.RIGHT
+					* int(!maze.can_travel_in(cell, Vector2i.RIGHT))
+				)
+			)
+			lights.position = (
+				Vector3(x, 0, y) * MazeOptions.TILE_SIZE
+				+ Vector3(1, 0, 1) * MazeOptions.TILE_SIZE / 2
+			)
+			parent.add_child(lights)
+
+
+func reset_indicators() -> void:
+	for indicator: Node3D in $TravelIndicators.get_children():
+		if indicator is TravelIndicator:
+			indicator.active = false

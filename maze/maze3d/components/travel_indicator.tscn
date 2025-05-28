@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0gav7x6b7mqq"]
+
+[ext_resource type="Script" uid="uid://b7mob8tnss6jr" path="res://maze/maze3d/components/travel_indicator.gd" id="1_srqrl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ql4g0"]
+size = Vector3(7, 7, 7)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1vuiy"]
+resource_local_to_scene = true
+transparency = 4
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_u5g8p"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_1vuiy")
+radius = 0.25
+height = 0.5
+
+[node name="TravelIndicator" type="Area3D"]
+monitorable = false
+script = ExtResource("1_srqrl")
+
+[node name="TriggerShape" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+shape = SubResource("BoxShape3D_ql4g0")
+
+[node name="BaseIndicator" type="MeshInstance3D" parent="."]
+visible = false
+cast_shadow = 0
+mesh = SubResource("SphereMesh_u5g8p")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

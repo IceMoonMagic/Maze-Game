@@ -146,6 +146,8 @@ mesh = SubResource("CapsuleMesh_bug1e")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Geometry"]
 environment = SubResource("Environment_745lo")
 
+[node name="TravelIndicators" type="Node3D" parent="Geometry"]
+
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("3_8gkcs")

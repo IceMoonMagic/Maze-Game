@@ -3,6 +3,8 @@ extends Node3D
 
 signal show_menu
 var maze := Maze.new()
+@onready var geometry: Node3D = $Geometry
+@onready var player: CharacterBody3D = $Player
 
 
 func new_maze() -> void:
@@ -20,14 +22,16 @@ func new_maze() -> void:
 
 
 func apply() -> void:
-	assert(maze.grid is Array[Array])
-	# `Invalid type` if done inline, for some reason
-	var start_end: Array[Vector2i] = [maze.start, maze.end]
-	$Geometry.new_maze(maze.dimensions, maze.walls, start_end)
+	geometry.new_maze(maze)
 
 
 func restart() -> void:
-	$Player.reset_to($Geometry/StartGoal.position)
+	player.reset_to(geometry.get_node("StartGoal").position)
+	# The cell the player was in before registers the body_entered,
+	# so gotta wait for that to process then undo it.
+	await get_tree().physics_frame
+	await get_tree().physics_frame
+	geometry.reset_indicators()
 
 
 func _on_player_maze_end(_arg: Variant) -> void:
