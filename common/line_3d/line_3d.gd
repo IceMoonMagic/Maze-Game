@@ -14,6 +14,8 @@ extends GeometryInstance3D
 @export var material: BaseMaterial3D
 var _segments: Array[MeshInstance3D] = []
 
+@warning_ignore("shadowed_variable_base_class")
+
 
 func add_point(position: Vector3, index := -1) -> void:
 	index = posmod(index, len(points) + 1)
@@ -67,6 +69,9 @@ func remove_point(index: int) -> void:
 		set_point_position(index, points[index])
 	elif len(_segments) == index:
 		_segments.pop_back().queue_free()
+
+
+@warning_ignore("shadowed_variable_base_class")
 
 
 func set_point_position(index: int, position: Vector3) -> void:
