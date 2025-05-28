@@ -3,8 +3,8 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crtmhmge48hbh"
-path.s3tc="res://.godot/imported/misc_weave.png-f515bc8ec38529028855b3690678bd74.s3tc.ctex"
-path.etc2="res://.godot/imported/misc_weave.png-f515bc8ec38529028855b3690678bd74.etc2.ctex"
+path.s3tc="res://.godot/imported/misc_weave.png-39ff00765ef50f22e9bdfcef4a6929d3.s3tc.ctex"
+path.etc2="res://.godot/imported/misc_weave.png-39ff00765ef50f22e9bdfcef4a6929d3.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/misc_weave.png"
-dest_files=["res://.godot/imported/misc_weave.png-f515bc8ec38529028855b3690678bd74.s3tc.ctex", "res://.godot/imported/misc_weave.png-f515bc8ec38529028855b3690678bd74.etc2.ctex"]
+source_file="res://maze/maze3d/assets/misc_weave.png"
+dest_files=["res://.godot/imported/misc_weave.png-39ff00765ef50f22e9bdfcef4a6929d3.s3tc.ctex", "res://.godot/imported/misc_weave.png-39ff00765ef50f22e9bdfcef4a6929d3.etc2.ctex"]
 
 [params]
 

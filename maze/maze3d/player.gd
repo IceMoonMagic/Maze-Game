@@ -4,9 +4,15 @@ const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 # Input of 1 can do a 360 in 60 physics frames (1 sec)
 const TURN_SPEED = deg_to_rad(360.0 / 60.0)
+const TRAIL_TEXTURE = preload("res://maze/maze3d/assets/misc_weave.png")
 
 var _last_point := Vector3.ZERO
 @onready var traveled_path: Line3D = $TraveledPath
+
+
+func _ready() -> void:
+	Globals.options_applied.connect(_on_options_applied)
+	_on_options_applied()
 
 
 func _input(event: InputEvent) -> void:
@@ -111,3 +117,15 @@ func _modify_line() -> void:
 	else:
 		traveled_path.add_point(_last_point, -2)
 		_last_point = tile_point
+
+
+func _on_options_applied() -> void:
+	traveled_path.visible = MazeOptions.main_trail_options.enabled
+	if MazeOptions.maze_3d_options.flat:
+		traveled_path.material.albedo_texture = null
+		traveled_path.material.albedo_color = (
+			MazeOptions.main_trail_options.color
+		)
+	else:
+		traveled_path.material.albedo_texture = TRAIL_TEXTURE
+		traveled_path.material.albedo_color = Color.WHITE

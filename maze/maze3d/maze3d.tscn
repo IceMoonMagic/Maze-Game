@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cu31ancannkyw" path="res://maze/maze3d/assets/stones_angular.normal.png" id="4_jejre"]
 [ext_resource type="Texture2D" uid="uid://bpkgx3bydct3q" path="res://maze/maze3d/assets/rocky2.normal.png" id="7_rs0iy"]
 [ext_resource type="Script" uid="uid://0eghenokh1p" path="res://common/line_3d/line_3d.gd" id="9_jejre"]
-[ext_resource type="Texture2D" uid="uid://crtmhmge48hbh" path="res://assets/misc_weave.png" id="10_vxdcw"]
+[ext_resource type="Texture2D" uid="uid://crtmhmge48hbh" path="res://maze/maze3d/assets/misc_weave.png" id="10_vxdcw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_rn46y"]
 size = Vector3(7, 1, 7)
@@ -83,9 +83,9 @@ sky_rotation = Vector3(-0.401426, 4.8398, 0)
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hpoqb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jejre"]
-no_depth_test = true
-shading_mode = 0
 albedo_texture = ExtResource("10_vxdcw")
+rim_enabled = true
+rim = 0.01
 uv1_triplanar = true
 
 [node name="Maze3D" type="Node3D"]
@@ -185,7 +185,7 @@ cast_shadow = 0
 extra_cull_margin = 0.0
 custom_aabb = AABB(0, 0, 0, 0, 0, 0)
 lod_bias = 1.0
-ignore_occlusion_culling = true
+ignore_occlusion_culling = false
 gi_mode = 1
 gi_lightmap_texel_scale = 1.0
 visibility_range_begin = 0.0
