@@ -18,6 +18,7 @@
         (mkExportPreset "Windows Desktop 2D" ".exe")
       ];
 
+      renameToIndexHTML = true;
       builderDir = ".builder";
       supportedSystems = [ "x86_64-linux" ];
 
@@ -87,11 +88,19 @@
               runHook postBuild
             '';
 
-            installPhase = ''
-              runHook preInstall
-              cp "${builderDir}/dist/" -r -T "$out/"
-              runHook postInstall
-            '';
+            installPhase =
+              let
+                # needed because "cannot coerce a Boolean to a string"
+                mvToIndex = if renameToIndexHTML then "true" else "false";
+              in
+              ''
+                runHook preInstall
+                cp "${builderDir}/dist/" -r -T "$out/"
+                if [ -e "$out/${gameName}.html" -a $(${mvToIndex}) ]; then
+                  mv "$out/${gameName}.html" "$out/index.html"
+                fi
+                runHook postInstall
+              '';
           }
         );
       mkAggregation =
