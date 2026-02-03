@@ -27,6 +27,8 @@
         (mkInstallableExtra "x86_64-linux" (builtins.elemAt exportPresets 1) "2d")
       ];
 
+      packageAll = false;
+
       forEachSystem = nixpkgs.lib.genAttrs supportedSystems;
       getPkgs = system: nixpkgs.legacyPackages.${system};
       mkExportPreset = name: ext: {
@@ -154,12 +156,19 @@
           pkgs = getPkgs system;
         in
         {
-          # "${gameName}-pack" = mkAggregation "-pack" (mkExports allPacks) pkgs;
-          # "${gameName}-debug" = mkAggregation "-debug" (mkExports allDebugs) pkgs;
           "${gameName}-release" = mkAggregation "-release" (mkExports allReleases) pkgs;
           default = self.packages.${system}."${gameName}-release";
         }
-        # // builtins.listToAttrs (mkExports (allPacks ++ allDebugs ++ allReleases) (getPkgs system))
+        // (
+          if packageAll then
+            {
+              "${gameName}-pack" = mkAggregation "-pack" (mkExports allPacks) pkgs;
+              "${gameName}-debug" = mkAggregation "-debug" (mkExports allDebugs) pkgs;
+            }
+            // builtins.listToAttrs (mkExports (allPacks ++ allDebugs ++ allReleases) (getPkgs system))
+          else
+            { }
+        )
         // builtins.listToAttrs (
           builtins.map (i: {
             name = "${gameName}${i.name}";
