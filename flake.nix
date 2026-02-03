@@ -22,11 +22,24 @@
       builderDir = ".builder";
       supportedSystems = [ "x86_64-linux" ];
 
+      installables = [
+        (mkInstallable "x86_64-linux" (builtins.elemAt exportPresets 0) "")
+        (mkInstallableExtra "x86_64-linux" (builtins.elemAt exportPresets 1) "2d")
+      ];
+
       forEachSystem = nixpkgs.lib.genAttrs supportedSystems;
       getPkgs = system: nixpkgs.legacyPackages.${system};
       mkExportPreset = name: ext: {
         presetName = name;
         outputExtension = ext;
+      };
+      mkInstallable = system: preset: name: {
+        inherit system preset name;
+        defaultApp = true;
+      };
+      mkInstallableExtra = system: preset: name: {
+        inherit system preset name;
+        defaultApp = false;
       };
 
       allPacks = builtins.map (
@@ -109,7 +122,7 @@
           exports = mkExport pkgs;
         in
         pkgs.stdenv.mkDerivation {
-          pname = "${gameName}-name";
+          pname = "${gameName}${name}";
           version = gameVersion;
           src = pkgs.emptyDirectory;
           buildInputs = builtins.map (e: e.value) exports;
@@ -117,6 +130,16 @@
             [ "mkdir -p $out" ] ++ (builtins.map (e: "ln -s \"${e.value}\" -T \"$out/${e.name}\"") exports)
           );
         };
+      mkInstall =
+        name: preset: pkgs:
+        pkgs.writers.writeBashBin "${gameName}${name}" {
+          makeWrapperArgs = [
+            "--prefix"
+            "PATH"
+            ":"
+            "${nixpkgs.lib.makeBinPath [ pkgs.steam-run-free ]}"
+          ];
+        } "steam-run \"${(mkDerivation preset pkgs)}/${gameName}${preset.outputExtension}\"";
     in
     {
       formatter = forEachSystem (system: (getPkgs system).nixfmt-tree);
@@ -131,12 +154,35 @@
           pkgs = getPkgs system;
         in
         {
-          "${gameName}-pack" = mkAggregation "pack" (mkExports allPacks) pkgs;
-          "${gameName}-debug" = mkAggregation "debug" (mkExports allDebugs) pkgs;
-          "${gameName}-release" = mkAggregation "release" (mkExports allReleases) pkgs;
+          # "${gameName}-pack" = mkAggregation "-pack" (mkExports allPacks) pkgs;
+          # "${gameName}-debug" = mkAggregation "-debug" (mkExports allDebugs) pkgs;
+          "${gameName}-release" = mkAggregation "-release" (mkExports allReleases) pkgs;
           default = self.packages.${system}."${gameName}-release";
         }
-        // builtins.listToAttrs (mkExports (allPacks ++ allDebugs ++ allReleases) (getPkgs system))
+        # // builtins.listToAttrs (mkExports (allPacks ++ allDebugs ++ allReleases) (getPkgs system))
+        // builtins.listToAttrs (
+          builtins.map (i: {
+            name = "${gameName}${i.name}";
+            value = mkInstall i.name (i.preset // { exportMode = "release"; }) pkgs;
+          }) (builtins.filter (i: i.system == system) installables)
+        )
+      );
+      apps = forEachSystem (
+        system:
+        builtins.listToAttrs (
+          builtins.map (i: {
+            # Only bother setting default, as names fallback to the package anyways
+            name = "default";
+            value = {
+              type = "app";
+              program =
+                let
+                  pname = "${gameName}${i.name}";
+                in
+                "${self.packages.${system}.${pname}}/bin/${pname}";
+            };
+          }) (builtins.filter (i: i.system == system && i.defaultApp) installables)
+        )
       );
     };
 }
