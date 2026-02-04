@@ -147,7 +147,10 @@
       formatter = forEachSystem (system: (getPkgs system).nixfmt-tree);
       devShells = forEachSystem (system: {
         default = (getPkgs system).mkShell {
-          buildInputs = [ (godotPackages (getPkgs system)).godot ];
+          buildInputs = [
+            (godotPackages (getPkgs system)).godot
+            (getPkgs system).gdtoolkit_4
+          ];
         };
       });
       packages = forEachSystem (

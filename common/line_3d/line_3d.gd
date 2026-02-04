@@ -15,8 +15,6 @@ extends GeometryInstance3D
 var _segments: Array[MeshInstance3D] = []
 
 @warning_ignore("shadowed_variable_base_class")
-
-
 func add_point(position: Vector3, index := -1) -> void:
 	index = posmod(index, len(points) + 1)
 	points.insert(index, position)
@@ -72,8 +70,6 @@ func remove_point(index: int) -> void:
 
 
 @warning_ignore("shadowed_variable_base_class")
-
-
 func set_point_position(index: int, position: Vector3) -> void:
 	index = posmod(index, len(points))
 	points[index] = position
