@@ -1,0 +1,3 @@
+[submodule "3rd-party/gdformat-on-save"]
+	path = 3rd-party/gdformat-on-save
+	url = https://github.com/ryan-haskell/gdformat-on-save.git

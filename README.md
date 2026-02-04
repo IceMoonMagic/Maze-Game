@@ -27,7 +27,6 @@ Zoom In - Mouse Wheel Up / RT
 
 Zoom Out - Mouse Wheel Down / LT
 
-
 ## First Person Maze
 Same generation as the top down, but exploring in first person.
 
@@ -38,7 +37,6 @@ Turning on "Simple Aesthetic" makes it look like the top down mazes.
 ### Controls
 Same as Top Down, but touch isn't supported.
 
-
 ## Licenses
 - All the source code in this repo is under the MIT License.
 - Assets under 3rd-Party have credit / licenses in their respective sub-dirs
@@ -47,7 +45,19 @@ Same as Top Down, but touch isn't supported.
 	- [PGComai's Asset](https://pgcomai.itch.io/jam-assets-for-chill-vibes-art-jam-4):
 	No License Stated - Assume All Rights Reserved except for usage in the
 	[Chill Vibes Game Jam](https://itch.io/jam/chill-vibes-game-jam-4).
+	- [gdformat-on-save](https://github.com/ryan-haskell/gdformat-on-save): MIT
 
+## Cloning
+This repo utilizes submodules. To clone this repo including sumodules, you can use `git clone --recursive <git path>`. If already cloned, you can use `git submodule update --init --recursvie`.
+
+Since may try adding metadata files (e.g. `.import` or `.gd.uid`),
+I have added a .gitignore file ignore said metadata files and said .gitignore. 
+This is just to avoid git noting a change in the submodule that I don't use but can't prevent.
+
+This repo also uses a lot of symlinks (mainly to help track others' licensed works). 
+Most filesystems support them, but some (notably the FAT based filesystems, often used on flashdrives) don't. 
+Additionally, ensure that `core.symlinks` is true in the git config (OSX seems to default to false). 
+You may need to re-checkout to fix the symlinks after fixing the setting.
 
 ## Final Notes
 This was basically just and excuse to learn Godot.
