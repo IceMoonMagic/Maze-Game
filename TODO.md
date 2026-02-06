@@ -1,0 +1,3 @@
+- [ ] Set Project Settings `occlusion_culling/use_occlusion_culling=true`
+	- Occlusion culling seems to be crashing the game sometimes
+	- See https://github.com/godotengine/godot/issues/106318
