@@ -12,21 +12,21 @@ func _ready() -> void:
 
 
 func _draw() -> void:
-	if not MazeOptions.wall_options.enabled or len(raw_points) == 0:
+	if not MazeOptions.config.wall_options.enabled or len(raw_points) == 0:
 		return
 	var points: Array[Vector2] = []
 	for i in range(0, len(raw_points), 2):
 		points.append_array(adjust_points(raw_points[i], raw_points[i + 1]))
 	draw_multiline(
 		points,
-		MazeOptions.wall_options.color,
-		MazeOptions.wall_options.thickness
+		MazeOptions.config.wall_options.color,
+		MazeOptions.config.wall_options.thickness
 	)
 
 
 func adjust_points(start: Vector2i, end: Vector2i) -> Array[Vector2]:
 	"""Scales points to TILE_SIZE and offsets to manually make caps"""
-	var offset := MazeOptions.wall_options.thickness / 2
+	var offset := MazeOptions.config.wall_options.thickness / 2
 	if Vector2(start).angle_to_point(end) == 0:  # If horizontal line
 		return [
 			Vector2(start) * MazeOptions.TILE_SIZE + Vector2.LEFT * offset,
@@ -42,9 +42,9 @@ func adjust_points(start: Vector2i, end: Vector2i) -> Array[Vector2]:
 func update_line_options() -> void:
 	queue_redraw()
 	for goal: Line2D in [start_marker, end_marker]:
-		goal.visible = MazeOptions.goal_options.enabled
-		goal.default_color = MazeOptions.goal_options.color
-		goal.width = MazeOptions.goal_options.thickness
+		goal.visible = MazeOptions.config.goal_options.enabled
+		goal.default_color = MazeOptions.config.goal_options.color
+		goal.width = MazeOptions.config.goal_options.thickness
 
 
 func new_maze(walls: Array[Vector2i], start_end: Array[Vector2i]) -> void:

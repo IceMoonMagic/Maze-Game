@@ -35,14 +35,14 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if not active or not MazeOptions.explored_trail_options.enabled:
+	if not active or not MazeOptions.config.explored_trail_options.enabled:
 		delta *= -1
 	_fade_amount = clampf((_fade_amount * fade_time + delta) / fade_time, 0, 1)
 	_material.albedo_color = default_color.lerp(activated_color, _fade_amount)
 
 
 func _update_colors() -> void:
-	default_color = MazeOptions.explored_trail_options.color
+	default_color = MazeOptions.config.explored_trail_options.color
 	default_color.a = 0
 	activated_color = default_color
 	activated_color.a = 1

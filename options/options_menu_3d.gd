@@ -16,14 +16,11 @@ func _ready() -> void:
 		"OptionsTabs"
 	)
 	_2d_options_tabs.tabs_visible = false
-	# MazeOptions.load_config_file()  # Called by 2DOptionsMenu
-	generation_options.applied_options = MazeOptions.generation_options
-	generation_options.set_to(MazeOptions.generation_options)
+	generation_options.applied_options = (MazeOptions.config.generation_options)
+	generation_options.set_to(MazeOptions.config.generation_options)
 
-	if MazeOptions.maze_3d_options == null:
-		MazeOptions.maze_3d_options = _3d_maze_options.applied_options
-	_3d_maze_options.applied_options = MazeOptions.maze_3d_options  # Ensures they are the same object
-	_3d_maze_options.set_to(MazeOptions.maze_3d_options)
+	_3d_maze_options.applied_options = MazeOptions.config.maze_3d_options
+	_3d_maze_options.set_to(MazeOptions.config.maze_3d_options)
 
 
 func _on_timer_timeout() -> void:

@@ -37,18 +37,20 @@ func _ready() -> void:
 
 func update_colors() -> void:
 	end_goal_mesh_instance.mesh.surface_get_material(0).albedo_color = (
-		MazeOptions.goal_options.color
+		MazeOptions.config.goal_options.color
 	)
 	end_goal.get_node("BeaconMeshInstance").mesh.surface_get_material(0).albedo_color = (
-		MazeOptions.goal_options.color
+		MazeOptions.config.goal_options.color
 	)
 	end_goal.get_node("BeaconMeshInstance").mesh.surface_get_material(0).albedo_color.a8 = 128
 
 	var floor_material: BaseMaterial3D = (
 		floor_mesh_instance.mesh.surface_get_material(0)
 	)
-	if MazeOptions.maze_3d_options.flat:
-		floor_material.albedo_color = MazeOptions.background_options.color
+	if MazeOptions.config.maze_3d_options.flat:
+		floor_material.albedo_color = (
+			MazeOptions.config.background_options.color
+		)
 		floor_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, null)
 		floor_material.normal_enabled = false
 		world_environment.environment.background_mode = (
@@ -67,15 +69,21 @@ func build_walls() -> void:
 			#print("Freeing ", child.name)
 			child.queue_free()
 
-	wall_mesh_instance.mesh.size.y = MazeOptions.maze_3d_options.wall_height
-	wall_occluder.occluder.size.y = MazeOptions.maze_3d_options.wall_height
-	wall_mesh_instance.position.y = MazeOptions.maze_3d_options.wall_height / 2
+	wall_mesh_instance.mesh.size.y = (
+		MazeOptions.config.maze_3d_options.wall_height
+	)
+	wall_occluder.occluder.size.y = (
+		MazeOptions.config.maze_3d_options.wall_height
+	)
+	wall_mesh_instance.position.y = (
+		MazeOptions.config.maze_3d_options.wall_height / 2
+	)
 	var wall_material: BaseMaterial3D = (
 		wall_mesh_instance.mesh.surface_get_material(0)
 	)
 
-	if MazeOptions.maze_3d_options.flat:
-		wall_material.albedo_color = MazeOptions.wall_options.color
+	if MazeOptions.config.maze_3d_options.flat:
+		wall_material.albedo_color = MazeOptions.config.wall_options.color
 		wall_material.set_texture(BaseMaterial3D.TEXTURE_ALBEDO, null)
 		wall_material.normal_enabled = false
 	else:

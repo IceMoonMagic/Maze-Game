@@ -120,11 +120,11 @@ func _modify_line() -> void:
 
 
 func _on_options_applied() -> void:
-	traveled_path.visible = MazeOptions.main_trail_options.enabled
-	if MazeOptions.maze_3d_options.flat:
+	traveled_path.visible = MazeOptions.config.main_trail_options.enabled
+	if MazeOptions.config.maze_3d_options.flat:
 		traveled_path.material.albedo_texture = null
 		traveled_path.material.albedo_color = (
-			MazeOptions.main_trail_options.color
+			MazeOptions.config.main_trail_options.color
 		)
 	else:
 		traveled_path.material.albedo_texture = TRAIL_TEXTURE

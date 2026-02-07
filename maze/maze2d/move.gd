@@ -164,18 +164,22 @@ func calc_speed() -> void:
 
 
 func update_line_options() -> void:
-	self.visible = MazeOptions.cursor_options.enabled
-	self.default_color = MazeOptions.cursor_options.color
-	self.width = MazeOptions.cursor_options.thickness
-	final_line.visible = MazeOptions.main_trail_options.enabled
-	final_line.default_color = MazeOptions.main_trail_options.color
-	final_line.width = MazeOptions.main_trail_options.thickness
-	explored_line.visible = MazeOptions.explored_trail_options.enabled
+	self.visible = MazeOptions.config.cursor_options.enabled
+	self.default_color = MazeOptions.config.cursor_options.color
+	self.width = MazeOptions.config.cursor_options.thickness
+	final_line.visible = MazeOptions.config.main_trail_options.enabled
+	final_line.default_color = MazeOptions.config.main_trail_options.color
+	final_line.width = MazeOptions.config.main_trail_options.thickness
+	explored_line.visible = MazeOptions.config.explored_trail_options.enabled
 	# Blend the transparency to avoid issues with stacked transparent layers
-	explored_line.default_color = MazeOptions.background_options.color.blend(
-		MazeOptions.explored_trail_options.color
+	explored_line.default_color = (
+		MazeOptions
+		. config
+		. background_options
+		. color
+		. blend(MazeOptions.config.explored_trail_options.color)
 	)
-	explored_line.width = MazeOptions.explored_trail_options.thickness
+	explored_line.width = MazeOptions.config.explored_trail_options.thickness
 
 
 func reset_to(start: Vector2i, end: Vector2i) -> void:

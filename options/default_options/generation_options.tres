@@ -7,4 +7,4 @@ script = ExtResource("1_hxohy")
 breadth_weight = 0.0
 depth_weight = 1.0
 random_weight = 1.0
-dimensions = Vector2i(0, 0)
+dimensions = Vector2i(0, 8)

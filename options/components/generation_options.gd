@@ -42,7 +42,7 @@ var auto_mode_label: Label = $HBoxContainer/DimensionContainer/AutoModeLabel
 @onready var auto_mode: int = floor(auto_mode_slider.value)
 
 ## Options actively in use
-@onready var applied_options := MazeOptions.generation_options
+@onready var applied_options := MazeOptions.config.generation_options
 
 ## Modified but unsaved options
 @onready

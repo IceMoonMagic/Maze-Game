@@ -15,21 +15,22 @@ signal leave_options_menu
 
 
 func _ready() -> void:
-	cursor_options.applied_options = MazeOptions.cursor_options
-	main_trail_options.applied_options = MazeOptions.main_trail_options
-	explored_trail_options.applied_options = MazeOptions.explored_trail_options
-	wall_options.applied_options = MazeOptions.wall_options
-	goal_options.applied_options = MazeOptions.goal_options
-	background_options.applied_options = MazeOptions.background_options
-	generation_options.applied_options = MazeOptions.generation_options
-	MazeOptions.load_config_file()
-	cursor_options.set_to(MazeOptions.cursor_options)
-	main_trail_options.set_to(MazeOptions.main_trail_options)
-	explored_trail_options.set_to(MazeOptions.explored_trail_options)
-	wall_options.set_to(MazeOptions.wall_options)
-	goal_options.set_to(MazeOptions.goal_options)
-	background_options.set_to(MazeOptions.background_options)
-	generation_options.set_to(MazeOptions.generation_options)
+	cursor_options.applied_options = MazeOptions.config.cursor_options
+	main_trail_options.applied_options = (MazeOptions.config.main_trail_options)
+	explored_trail_options.applied_options = (
+		MazeOptions.config.explored_trail_options
+	)
+	wall_options.applied_options = MazeOptions.config.wall_options
+	goal_options.applied_options = MazeOptions.config.goal_options
+	background_options.applied_options = (MazeOptions.config.background_options)
+	generation_options.applied_options = (MazeOptions.config.generation_options)
+	cursor_options.set_to(MazeOptions.config.cursor_options)
+	main_trail_options.set_to(MazeOptions.config.main_trail_options)
+	explored_trail_options.set_to(MazeOptions.config.explored_trail_options)
+	wall_options.set_to(MazeOptions.config.wall_options)
+	goal_options.set_to(MazeOptions.config.goal_options)
+	background_options.set_to(MazeOptions.config.background_options)
+	generation_options.set_to(MazeOptions.config.generation_options)
 
 
 func _on_timer_timeout() -> void:

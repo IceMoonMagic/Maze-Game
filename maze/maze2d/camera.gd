@@ -77,8 +77,14 @@ func reset() -> void:
 	position = maze_dimensions / 2
 	var view_size := get_viewport_rect().size
 	var new_size := minf(
-		view_size.x / (maze_dimensions.x + MazeOptions.wall_options.thickness),
-		view_size.y / (maze_dimensions.y + MazeOptions.wall_options.thickness)
+		(
+			view_size.x
+			/ (maze_dimensions.x + MazeOptions.config.wall_options.thickness)
+		),
+		(
+			view_size.y
+			/ (maze_dimensions.y + MazeOptions.config.wall_options.thickness)
+		)
 	)
 	min_zoom = new_size
 	zoom = Vector2.ONE * new_size
@@ -90,7 +96,7 @@ func _set_limits() -> void:
 	var view_size: Vector2 = get_viewport_rect().size / zoom
 	var target_size := Vector2(maze_dimensions)
 	# Pad so external walls don't get cropped by limits when zoomed in
-	target_size += Vector2.ONE * MazeOptions.wall_options.thickness
+	target_size += Vector2.ONE * MazeOptions.config.wall_options.thickness
 	# How much to push the limits out to center maze
 	var margins: Vector2 = (view_size - target_size).max(Vector2.ZERO)
 	# Reduce both axes by smaller axis (such that smaller becomes zero)
