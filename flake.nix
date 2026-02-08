@@ -13,9 +13,6 @@
         (mkExportPreset "Linux" "")
         (mkExportPreset "Linux 2D" "")
         (mkExportPreset "Web" ".html")
-        (mkExportPreset "Web 2D" ".html")
-        (mkExportPreset "Windows Desktop" ".exe")
-        (mkExportPreset "Windows Desktop 2D" ".exe")
       ];
 
       renameToIndexHTML = true;
@@ -24,7 +21,6 @@
 
       installables = [
         (mkInstallable "x86_64-linux" (builtins.elemAt exportPresets 0) "")
-        (mkInstallableExtra "x86_64-linux" (builtins.elemAt exportPresets 1) "2d")
       ];
 
       packageAll = false;
@@ -39,10 +35,10 @@
         inherit system preset name;
         defaultApp = true;
       };
-      mkInstallableExtra = system: preset: name: {
-        inherit system preset name;
-        defaultApp = false;
-      };
+      # mkInstallableExtra = system: preset: name: {
+      #   inherit system preset name;
+      #   defaultApp = false;
+      # };
 
       allPacks = builtins.map (
         preset:

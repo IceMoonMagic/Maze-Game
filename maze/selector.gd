@@ -1,26 +1,8 @@
 extends Control
 
-signal exit
-
 var active_scene: Node = null
-var exit_mode: Globals.ExitMode
+var exit_to := ""
 @onready var selector_menu: Control = %SelectorMenu
-
-
-func _init() -> void:
-	exit_mode = Globals.ExitMode.QUIT_TREE
-
-
-func load_scene(path: String) -> void:
-	_on_child_exit()
-	selector_menu.visible = false
-
-	var scene := load(path)
-	active_scene = scene.instantiate()
-	if "exit_mode" in active_scene and active_scene.has_signal("exit"):
-		active_scene.exit_mode = Globals.ExitMode.SIGNAL_EXIT
-		active_scene.connect("exit", _on_child_exit)
-	add_child(active_scene)
 
 
 func _on_child_exit() -> void:
@@ -33,11 +15,11 @@ func _on_child_exit() -> void:
 
 
 func _on_maze_2d_button_pressed() -> void:
-	load_scene("res://maze/maze2d/main2d.tscn")
+	get_tree().change_scene_to_file("res://maze/maze2d/main2d.tscn")
 
 
 func _on_maze_3d_button_pressed() -> void:
-	load_scene("res://maze/maze3d/main3d.tscn")
+	get_tree().change_scene_to_file("res://maze/maze3d/main3d.tscn")
 
 
 func _on_credit_button_pressed() -> void:
@@ -45,8 +27,4 @@ func _on_credit_button_pressed() -> void:
 
 
 func _on_exit_button_pressed() -> void:
-	match exit_mode:
-		Globals.ExitMode.SIGNAL_EXIT:
-			exit.emit()
-		Globals.ExitMode.QUIT_TREE:
-			get_tree().quit()
+	get_tree().quit()

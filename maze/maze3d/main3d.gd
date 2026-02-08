@@ -1,15 +1,8 @@
 extends CanvasItem
 
-signal exit
-
 var has_maze: bool = false
-var exit_mode: Globals.ExitMode
 @onready var menu: MazeMenu = %Menu
 @onready var maze: Maze3D = %Maze3D
-
-
-func _init(p_exit_mode: Globals.ExitMode = Globals.ExitMode.QUIT_TREE) -> void:
-	exit_mode = p_exit_mode
 
 
 func _ready() -> void:
@@ -71,11 +64,7 @@ func _on_options_updated() -> void:
 
 
 func _on_quit() -> void:
-	match exit_mode:
-		Globals.ExitMode.SIGNAL_EXIT:
-			exit.emit()
-		Globals.ExitMode.QUIT_TREE:
-			get_tree().quit()
+	get_tree().change_scene_to_file("res://maze/selector.tscn")
 
 
 func _on_show_menu() -> void:
