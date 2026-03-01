@@ -87,12 +87,7 @@ func follow_branch(
 			result.append(curr_cell)
 		var valid_neighbors: Array[Vector2i] = []
 		var is_straight: bool = true
-		for neighbor: Vector2i in [
-			curr_cell + Vector2i(-1, 0),
-			curr_cell + Vector2i(1, 0),
-			curr_cell + Vector2i(0, -1),
-			curr_cell + Vector2i(0, 1),
-		]:
+		for neighbor: Vector2i in _neighbors(curr_cell):
 			if neighbor != last_cell and can_travel_to(curr_cell, neighbor):
 				valid_neighbors.push_back(neighbor)
 				if (
@@ -102,7 +97,7 @@ func follow_branch(
 					is_straight = false
 		if ignore_straights and not is_straight:
 			result.append(curr_cell)
-		if len(valid_neighbors) != 1:
+		if len(valid_neighbors) != 1 or curr_cell == start or curr_cell == end:
 			if len(result) == 0 or result[-1] != curr_cell:
 				result.append(curr_cell)
 			return result
@@ -112,7 +107,10 @@ func follow_branch(
 
 
 func new_maze(
-	_new_dimensions: Vector2i = Vector2i.ZERO, rng_seed: int = 0
+	_new_dimensions := Vector2i.ONE,
+	rng_seed := 0,
+	direction := Vector2i.DOWN,
+	p_start := -Vector2i.ONE
 ) -> void:
 	if rng_seed == 0:
 		rng.randomize()
@@ -120,43 +118,63 @@ func new_maze(
 		rng.seed = rng_seed
 
 	_generate()
-	var start_end := furthest_pair()
-	start = start_end[0]
-	end = start_end[1]
+	if p_start == -Vector2i.ONE:
+		start = furthest_point(_new_dimensions - Vector2i.ONE, -direction)
+	else:
+		start = p_start
+	end = furthest_point(start, direction)
 	walls.clear()
 
 
-func furthest_pair() -> Array[Vector2i]:
-	var furthest1 := furthest_point(Vector2i(0, 0))
-	return [furthest1, furthest_point(furthest1)]
+func furthest_point(from: Vector2i, along_edge := Vector2i.ZERO) -> Vector2i:
+	var distances := distance_matrix(from)
+	var furthest := from
+	for y in range(len(grid)):
+		for x in range(len(grid[y])):
+			var cell := Vector2i(x, y)
+			if (
+				distances[y][x] > distances[furthest.y][furthest.x]
+				#and(edge == Vector2i.ZERO
+				#or (edge == Vector2i.UP and cell.y == 0)
+				#or (edge == Vector2i.DOWN and cell.y == dimensions.y - 1)
+				#or (edge == Vector2i.LEFT and cell.x == 0)
+				#or (edge == Vector2i.RIGHT and cell.y == dimensions.x - 1))
+				and (
+					along_edge * cell
+					== (along_edge * (dimensions - Vector2i.ONE)).maxi(0)
+				)
+			):
+				furthest = cell
+	return furthest
 
 
-func furthest_point(from: Vector2i) -> Vector2i:
-	var distances: Array[Array] = []  # int
+func distance_matrix(from: Vector2i) -> Array[Array]:
+	var distances: Array[Array] = []  # int | INF
 	for i in range(len(grid)):
 		distances.append([])
 		distances[i].resize(len(grid[i]))
 		distances[i].fill(INF)
 	var cells: Array[Vector2i] = [from]
-	var furthest: Vector2i = cells[0]
-	distances[furthest.y][furthest.x] = 0
+	distances[from.y][from.x] = 0
 	while not cells.is_empty():
 		var cell: Vector2i = cells.pop_back()
-		if distances[cell.y][cell.x] > distances[furthest.y][furthest.x]:
-			furthest = cell
-		for next: Vector2i in [
-			cell + Vector2i(-1, 0),
-			cell + Vector2i(1, 0),
-			cell + Vector2i(0, -1),
-			cell + Vector2i(0, 1),
-		]:
+		for next: Vector2i in _neighbors(cell):
 			if (
 				can_travel_to(cell, next)
 				and distances[next.y][next.x] > distances[cell.y][cell.x] + 1
 			):
 				distances[next.y][next.x] = distances[cell.y][cell.x] + 1
 				cells.push_back(next)
-	return furthest
+	return distances
+
+
+func _neighbors(cell: Vector2i) -> Array[Vector2i]:
+	return [
+		cell + Vector2i.LEFT,
+		cell + Vector2i.RIGHT,
+		cell + Vector2i.UP,
+		cell + Vector2i.DOWN,
+	]
 
 
 func _choose_cell(
@@ -187,12 +205,7 @@ func _generate() -> void:
 
 	# Get vector's neightbors in a random order
 	var rand_neighbors := func(cell: Vector2i) -> Array[Vector2i]:
-		var neighbors: Array[Vector2i] = [
-			cell + Vector2i(-1, 0),
-			cell + Vector2i(1, 0),
-			cell + Vector2i(0, -1),
-			cell + Vector2i(0, 1),
-		]
+		var neighbors := _neighbors(cell)
 		var t: Vector2i
 
 		for m in range(3, 0 - 1, -1):
