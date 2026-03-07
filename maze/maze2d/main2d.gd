@@ -74,6 +74,11 @@ func _on_menu_replay_path(mode: Maze2D.ReplayMode) -> void:
 	%Maze2D.replay_path(mode)
 
 
+func _on_menu_solve_maze() -> void:
+	show_maze()
+	%Maze2D.solve_maze()
+
+
 func _on_hold_to_pause_timeout() -> void:
 	if not has_maze:
 		pass

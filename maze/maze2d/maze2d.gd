@@ -58,3 +58,6 @@ func replay_path(mode: ReplayMode) -> void:
 		ReplayMode.FINAL_PATH:
 			path = $Player/FinalLine.points
 	$Player.replay_path(path)
+
+func solve_maze() -> void:
+	$Player.solve_maze(maze)

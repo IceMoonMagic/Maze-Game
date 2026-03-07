@@ -38,6 +38,7 @@ one_shot = true
 [connection signal="replay_path" from="CanvasLayer/Menu" to="." method="_on_menu_replay_path"]
 [connection signal="restart_maze" from="CanvasLayer/Menu" to="." method="_on_restart_maze"]
 [connection signal="resume_maze" from="CanvasLayer/Menu" to="." method="_on_resume_maze"]
+[connection signal="solve_maze" from="CanvasLayer/Menu" to="." method="_on_menu_solve_maze"]
 [connection signal="leave_options_menu" from="CanvasLayer/Menu/OptionsMenu" to="CanvasLayer/Menu" method="_on_leave_options_menu"]
 [connection signal="show_menu" from="Maze2D" to="." method="_on_show_menu"]
 [connection signal="timeout" from="HoldToPause" to="." method="_on_hold_to_pause_timeout"]

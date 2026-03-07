@@ -168,6 +168,22 @@ func distance_matrix(from: Vector2i) -> Array[Array]:
 	return distances
 
 
+func route_to_end(from := start) -> Array[Vector2i]:
+	var distances := distance_matrix(end)
+	var result: Array[Vector2i] = []
+	while from != end:
+		var curr_dist: int = distances[from.y][from.x]
+		for neighbor in _neighbors(from):
+			if (
+				can_travel_to(from, neighbor)
+				and distances[neighbor.y][neighbor.x] < curr_dist
+			):
+				result.append_array(follow_branch(from, neighbor))
+				break
+		from = result[-1]
+	return result
+
+
 func _neighbors(cell: Vector2i) -> Array[Vector2i]:
 	return [
 		cell + Vector2i.LEFT,

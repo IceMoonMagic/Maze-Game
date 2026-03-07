@@ -54,6 +54,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 text = "Replay Final"
 
+[node name="SolveButton" type="Button" parent="MarginContainer/MainMenu"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "Auto Solve"
+
 [node name="NewMazeButton" type="Button" parent="MarginContainer/MainMenu"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -73,6 +79,7 @@ text = "Exit"
 [connection signal="pressed" from="MarginContainer/MainMenu/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/ReplayButtonContainer/ReplayExploredButton" to="." method="_on_replay_explored_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/ReplayButtonContainer/ReplayFinalButton" to="." method="_on_replay_final_button_pressed"]
+[connection signal="pressed" from="MarginContainer/MainMenu/SolveButton" to="." method="_on_solve_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/NewMazeButton" to="." method="_on_new_maze_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="MarginContainer/MainMenu/ExitButton" to="." method="_on_exit_button_pressed"]

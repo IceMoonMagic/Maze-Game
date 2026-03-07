@@ -107,6 +107,28 @@ func move(delta: float) -> void:
 		return
 
 
+func add_route(route: Array[Vector2i]) -> void:
+	var adjusted := route.map(
+		func(val: Vector2i) -> Vector2:
+			return Vector2(val) * MazeOptions.TILE_SIZE
+	)
+	path.append_array(adjusted)
+	prune_path()
+	calc_speed()
+
+
+func solve_maze(maze: Maze) -> void:
+	accept_input = false
+	var solve_from: Vector2i
+	if path.is_empty():
+		solve_from = Vector2i(position / MazeOptions.TILE_SIZE)
+	else:
+		solve_from = Vector2i(path[-1] / MazeOptions.TILE_SIZE)
+	var route := maze.route_to_end(solve_from)
+	add_route(route)
+	speed = min(speed, base_speed ** 2)
+
+
 func add_path(direction: Vector2) -> void:
 	var reference: Vector2 = position if path.is_empty() else path[-1]
 	reference /= MazeOptions.TILE_SIZE
@@ -114,17 +136,10 @@ func add_path(direction: Vector2) -> void:
 	if not get_parent().maze.can_travel_in(reference, direction):
 		return
 
-	var branch_i: Array[Vector2i] = get_parent().maze.follow_branch(
+	var branch: Array[Vector2i] = get_parent().maze.follow_branch(
 		reference, target
 	)
-	var branch_f := branch_i.map(
-		func(val: Vector2i) -> Vector2:
-			return Vector2(val) * MazeOptions.TILE_SIZE
-	)
-	path.append_array(branch_f)
-
-	prune_path()
-	calc_speed()
+	add_route(branch)
 
 
 func prune_path() -> void:
